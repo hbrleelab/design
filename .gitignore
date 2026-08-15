@@ -1,0 +1,18 @@
+# macOS / Windows
+.DS_Store
+._*
+Thumbs.db
+desktop.ini
+
+# Office 임시 잠금 파일
+~$*.pptx
+~$*.docx
+~$*.xlsx
+
+# 빌드 산출물
+dist/
+*.zip
+
+# 에디터
+.vscode/
+.idea/

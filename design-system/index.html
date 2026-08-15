@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HBRLRG Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+body{margin:0;background:#FFFFFF;font-family:'Pretendard','Archivo',-apple-system,'Apple SD Gothic Neo',sans-serif;-webkit-font-smoothing:antialiased;}
+a{color:#0EA79A;text-decoration:none;} a:hover{color:#14243F;}
+</style>
+</head>
+<body>
+<div style="max-width:1120px;margin:0 auto;padding:72px 48px 120px;color:#2B2F36;">
+
+  <header style="display:flex;flex-direction:column;gap:20px;padding-bottom:32px;border-bottom:1.2px solid #14243F;position:relative;">
+    <div style="position:absolute;left:0;bottom:-1.5px;width:56px;height:3px;background:#0EA79A;"></div>
+    <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:22px;">
+      <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#14243F"></rect></svg>
+      <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#14243F;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+    </span>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <h1 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:44px;line-height:1.1;letter-spacing:-0.02em;color:#14243F;">Document Design System</h1>
+      <p style="margin:0;max-width:56ch;font-size:16px;line-height:1.65;color:#6B7280;text-wrap:pretty;">레터헤드 문서와 기본 문서 두 템플릿의 규격서. 공통 기반(컬러·서체·간격)과 템플릿별 조판 규칙을 정리했습니다.</p>
+    </div>
+  </header>
+
+  <section style="margin-top:64px;">
+    <div style="display:flex;align-items:baseline;gap:14px;">
+      <span style="font-family:'Archivo',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">01</span>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:26px;letter-spacing:-0.01em;color:#14243F;">Foundations</h2>
+    </div>
+    <p style="margin:10px 0 0 34px;font-size:14px;line-height:1.6;color:#6B7280;">두 템플릿이 공유하는 값. 이 값 외의 색·서체는 사용하지 않습니다.</p>
+
+    <h3 style="margin:36px 0 0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.02em;color:#14243F;">Color</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:16px;margin-top:14px;">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="height:88px;border-radius:4px;background:#14243F;"></div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:13px;font-weight:600;color:#14243F;">Navy</div>
+          <div style="font-family:'Archivo',sans-serif;font-size:12px;color:#6B7280;">#14243F</div>
+          <div style="font-size:12px;line-height:1.5;color:#6B7280;">이름·제목·구분선·로고 본체</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="height:88px;border-radius:4px;background:#0EA79A;"></div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:13px;font-weight:600;color:#14243F;">Teal</div>
+          <div style="font-family:'Archivo',sans-serif;font-size:12px;color:#6B7280;">#0EA79A</div>
+          <div style="font-size:12px;line-height:1.5;color:#6B7280;">강조 1점. 구분선 캡·불릿·RG</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="height:88px;border-radius:4px;background:#2B2F36;"></div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:13px;font-weight:600;color:#14243F;">Ink</div>
+          <div style="font-family:'Archivo',sans-serif;font-size:12px;color:#6B7280;">#2B2F36</div>
+          <div style="font-size:12px;line-height:1.5;color:#6B7280;">본문 텍스트</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="height:88px;border-radius:4px;background:#6B7280;"></div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:13px;font-weight:600;color:#14243F;">Muted</div>
+          <div style="font-family:'Archivo',sans-serif;font-size:12px;color:#6B7280;">#6B7280</div>
+          <div style="font-size:12px;line-height:1.5;color:#6B7280;">연락처·캡션·메타</div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="height:88px;border-radius:4px;background:#F6F7F9;border:1px solid #E4E7EC;"></div>
+        <div style="display:flex;flex-direction:column;gap:3px;">
+          <div style="font-size:13px;font-weight:600;color:#14243F;">Surface</div>
+          <div style="font-family:'Archivo',sans-serif;font-size:12px;color:#6B7280;">#F6F7F9 / #E4E7EC</div>
+          <div style="font-size:12px;line-height:1.5;color:#6B7280;">표 헤더 배경 · 표 괘선</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin:44px 0 0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.02em;color:#14243F;">Typeface</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:14px;">
+      <div style="padding:24px;border:1px solid #E4E7EC;border-radius:4px;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-family:'Archivo',sans-serif;font-size:38px;line-height:1;letter-spacing:-0.02em;color:#14243F;">Archivo</div>
+        <div style="font-family:'Archivo',sans-serif;font-size:15px;color:#6B7280;">300 · 400 · 500 · 600</div>
+        <div style="font-size:13px;line-height:1.6;color:#2B2F36;">로고 워드마크, 영문 이름, 제목, 날짜·수치, 표 라벨, 푸터. 라틴 문자와 숫자 전용.</div>
+      </div>
+      <div style="padding:24px;border:1px solid #E4E7EC;border-radius:4px;display:flex;flex-direction:column;gap:12px;">
+        <div style="font-size:38px;line-height:1;letter-spacing:-0.02em;color:#14243F;font-weight:500;">Pretendard</div>
+        <div style="font-size:15px;color:#6B7280;">400 · 500 · 600</div>
+        <div style="font-size:13px;line-height:1.6;color:#2B2F36;">한글 본문 전체. Archivo가 지정된 곳에서도 한글은 자동으로 Pretendard로 대체됩니다.</div>
+      </div>
+    </div>
+
+    <h3 style="margin:44px 0 0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.02em;color:#14243F;">Type scale</h3>
+    <table style="width:100%;border-collapse:collapse;margin-top:14px;font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">ROLE</th>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">SIZE</th>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">WEIGHT</th>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">LINE</th>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">COLOR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">레터헤드 이름</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">24 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">300</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">1.05</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Navy</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">문서 제목 (H1)</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">20 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">600</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">1.25</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Navy</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">섹션 제목 (H2)</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">14 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">500</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">기본</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Navy</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">본문</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">11 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">400</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">1.7</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Ink</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">수신·서명 블록</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">11 pt / 10 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">400 / 600</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">1.55</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Ink / Navy</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">소속</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">9.5 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">400</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">1.5</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Navy</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">표 본문</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">10 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">400</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">기본</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Ink</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">연락처 · 표 캡션</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">8.5 pt / 9 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">400</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">1.5</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Muted</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">표 헤더 라벨</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">8.5 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">500</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">+0.06em</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">Muted</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;">푸터</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">7.5 pt</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">400</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;">+0.07em</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#6B7280;">#9AA1AB</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin:44px 0 0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.02em;color:#14243F;">Rule (구분선)</h3>
+    <p style="margin:8px 0 0;max-width:60ch;font-size:13px;line-height:1.65;color:#6B7280;">두 템플릿의 공통 시각 장치. 폭 전체를 지나는 1.2px 네이비 선 위에, 좌측 정렬된 46&thinsp;×&thinsp;3px 청록 캡을 얹습니다. 캡은 문서당 한 번만 등장합니다.</p>
+    <div style="position:relative;height:3px;margin-top:20px;max-width:520px;">
+      <div style="position:absolute;left:0;right:0;top:1px;height:1.2px;background:#14243F;"></div>
+      <div style="position:absolute;left:0;top:0;width:46px;height:3px;background:#0EA79A;"></div>
+    </div>
+
+    <h3 style="margin:44px 0 0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.02em;color:#14243F;">Page</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:14px 36px;margin-top:14px;font-size:13px;line-height:1.7;">
+      <div style="display:flex;gap:10px;white-space:nowrap;"><span style="color:#6B7280;">용지</span><span style="font-family:'Archivo',sans-serif;color:#14243F;">A4 세로</span></div>
+      <div style="display:flex;gap:10px;white-space:nowrap;"><span style="color:#6B7280;">여백</span><span style="font-family:'Archivo',sans-serif;color:#14243F;">18 mm 사방</span></div>
+      <div style="display:flex;gap:10px;white-space:nowrap;"><span style="color:#6B7280;">단</span><span style="font-family:'Archivo',sans-serif;color:#14243F;">1단</span></div>
+      <div style="display:flex;gap:10px;white-space:nowrap;"><span style="color:#6B7280;">간격 단위</span><span style="font-family:'Archivo',sans-serif;color:#14243F;">pt (5·6·8·10·16·18·20·22·26)</span></div>
+    </div>
+  </section>
+
+  <section style="margin-top:80px;padding-top:48px;border-top:1px solid #E4E7EC;">
+    <div style="display:flex;align-items:baseline;gap:14px;">
+      <span style="font-family:'Archivo',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">02</span>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:26px;letter-spacing:-0.01em;color:#14243F;">Letterhead Document</h2>
+    </div>
+    <p style="margin:10px 0 0 34px;max-width:60ch;font-size:14px;line-height:1.6;color:#6B7280;text-wrap:pretty;">외부 발신용 공식 서신. 추천서, 초청장, 공문, 저널 커버레터. UNIST 엠블럼과 개인 서명 블록이 필수입니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px;">
+      <div style="padding:28px;background:#F6F7F9;border-radius:4px;">
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#6B7280;">HEADER ANATOMY</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:18px;">
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">엠블럼</strong> <span style="color:#6B7280;">88&thinsp;×&thinsp;88px, 좌측 고정. 축소·변형·단색화 금지</span></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">간격</strong> <span style="color:#6B7280;">엠블럼과 텍스트 블록 사이 24px</span></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">정렬</strong> <span style="color:#6B7280;">이름·소속·연락처 모두 우측 정렬</span></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">순서</strong> <span style="color:#6B7280;">이름 → 소속 → 연락처 → (겸직)</span></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">구분선</strong> <span style="color:#6B7280;">헤더 아래 16px, 청록 캡 포함</span></div></div>
+        </div>
+      </div>
+      <div style="padding:28px;border:1px solid #E4E7EC;border-radius:4px;">
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#6B7280;">BODY SEQUENCE</div>
+        <div style="display:flex;flex-direction:column;gap:0;margin-top:18px;">
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">1</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">날짜</span> <span style="color:#6B7280;">— 구분선 아래 26pt</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">2</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">수신처</span> <span style="color:#6B7280;">— 위 16pt</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">3</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">인사말</span> <span style="color:#6B7280;">— 위 18pt</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">4</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">본문 단락</span> <span style="color:#6B7280;">— 단락 간 10pt, 들여쓰기 없음</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">5</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">맺음말</span> <span style="color:#6B7280;">— 위 18pt</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">6</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">서명 블록</span> <span style="color:#6B7280;">— 서명 여백 34pt 확보</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;padding:28px;border:1px solid #E4E7EC;border-radius:4px;">
+      <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#6B7280;">AFFILIATION — 정확한 표기</div>
+      <div style="display:grid;grid-template-columns:80px 1fr;gap:12px 20px;margin-top:18px;font-size:13px;line-height:1.6;">
+        <div style="color:#6B7280;">영문</div>
+        <div style="color:#14243F;">Professor, Graduate School of Semiconductor Materials &amp; Devices Engineering,<br>Ulsan National Institute of Science and Technology (UNIST)</div>
+        <div style="color:#6B7280;">국문</div>
+        <div style="color:#14243F;">울산과학기술원(UNIST) 반도체소재부품대학원 교수</div>
+      </div>
+      <p style="margin:18px 0 0;font-size:12.5px;line-height:1.6;color:#6B7280;">약칭·어순 변경 금지. 영문에서 <span style="font-family:'Archivo',sans-serif;color:#2B2F36;">&amp;</span>는 <span style="font-family:'Archivo',sans-serif;color:#2B2F36;">and</span>로 풀어 쓰지 않습니다.</p>
+    </div>
+
+    <div style="margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <div>
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#0EA79A;">DO</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;font-size:13px;line-height:1.6;color:#2B2F36;">
+          <div>본문은 3단락 이내로 유지</div>
+          <div>날짜는 문서 언어에 맞춰 표기</div>
+          <div>겸직 직함은 필요할 때만 켜기</div>
+          <div>1장 초과 시 2장부터 헤더 생략</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#6B7280;">DON'T</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;font-size:13px;line-height:1.6;color:#6B7280;">
+          <div>헤더에 HBRLRG 로고와 엠블럼 동시 사용</div>
+          <div>표·차트 삽입 (기본 문서 사용)</div>
+          <div>청록을 본문 텍스트 색으로 사용</div>
+          <div>여백 축소로 본문 늘리기</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:80px;padding-top:48px;border-top:1px solid #E4E7EC;">
+    <div style="display:flex;align-items:baseline;gap:14px;">
+      <span style="font-family:'Archivo',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">03</span>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:26px;letter-spacing:-0.01em;color:#14243F;">Plain Document</h2>
+    </div>
+    <p style="margin:10px 0 0 34px;max-width:60ch;font-size:14px;line-height:1.6;color:#6B7280;text-wrap:pretty;">내부 기술 문서. 실험 보고, 공정 조건서, 회의록, 매뉴얼. 서신이 아니므로 엠블럼 대신 HBRLRG 워드마크를 씁니다.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px;">
+      <div style="padding:28px;background:#F6F7F9;border-radius:4px;">
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#6B7280;">HEADER ANATOMY</div>
+        <div style="display:flex;flex-direction:column;gap:14px;margin-top:18px;">
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">워드마크</strong> <span style="color:#6B7280;">좌측, 높이 17px 기준</span></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">연락 정보</strong> <span style="color:#6B7280;">우측 8.5pt, 웹 · 이메일 순</span></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">구분선</strong> <span style="color:#6B7280;">헤더 아래 12px</span></div></div>
+          <div style="display:flex;gap:12px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:6px;"></span><div style="font-size:13px;line-height:1.6;text-wrap:pretty;"><strong style="color:#14243F;font-weight:600;">푸터</strong> <span style="color:#6B7280;">7.5pt 대문자, 페이지마다 반복</span></div></div>
+        </div>
+      </div>
+      <div style="padding:28px;border:1px solid #E4E7EC;border-radius:4px;">
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#6B7280;">BODY SEQUENCE</div>
+        <div style="display:flex;flex-direction:column;gap:0;margin-top:18px;">
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">1</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">제목 (H1)</span> <span style="color:#6B7280;">— 구분선 아래 24pt</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">2</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">메타 줄</span> <span style="color:#6B7280;">— 작성자 · 날짜 · 버전</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">3</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">섹션 (H2)</span> <span style="color:#6B7280;">— 위 20–22pt, 번호 필수</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;border-bottom:1px solid #F0F1F4;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">4</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">본문 / 표 / 불릿</span> <span style="color:#6B7280;">— 제목 아래 6–8pt</span></div></div>
+          <div style="display:flex;gap:14px;align-items:baseline;padding:9px 0;"><span style="font-family:'Archivo',sans-serif;font-size:11px;color:#0EA79A;width:16px;flex:0 0 auto;">5</span><div style="font-size:13px;line-height:1.5;"><span style="color:#14243F;">표 캡션</span> <span style="color:#6B7280;">— 표 아래 5pt, 9pt Muted</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin:40px 0 0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.02em;color:#14243F;">Table</h3>
+    <p style="margin:8px 0 0;max-width:60ch;font-size:13px;line-height:1.65;color:#6B7280;">수직 괘선 없음. 헤더는 Surface 배경 + 대문자 라벨, 행은 하단 괘선만. 셀 패딩 5&thinsp;×&thinsp;8pt.</p>
+    <table style="width:100%;border-collapse:collapse;margin-top:16px;font-size:13px;max-width:620px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:7px 11px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">PARAMETER</th>
+          <th style="text-align:left;padding:7px 11px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">CONDITION</th>
+          <th style="text-align:left;padding:7px 11px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">NOTE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:7px 11px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">증착 온도</td><td style="padding:7px 11px;border-bottom:1px solid #E4E7EC;color:#2B2F36;font-family:'Archivo',sans-serif;">250 °C</td><td style="padding:7px 11px;border-bottom:1px solid #E4E7EC;color:#6B7280;font-family:'Archivo',sans-serif;">±2 °C</td></tr>
+        <tr><td style="padding:7px 11px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">전구체</td><td style="padding:7px 11px;border-bottom:1px solid #E4E7EC;color:#2B2F36;font-family:'Archivo',sans-serif;">TMA</td><td style="padding:7px 11px;border-bottom:1px solid #E4E7EC;color:#6B7280;">실온 유지</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:7px;font-size:12px;color:#6B7280;">표 n. 캡션은 표 아래, 문장부호 없이</div>
+
+    <h3 style="margin:40px 0 0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:15px;letter-spacing:0.02em;color:#14243F;">Bullet</h3>
+    <p style="margin:8px 0 0;max-width:60ch;font-size:13px;line-height:1.65;color:#6B7280;">기호 대신 6&thinsp;×&thinsp;6px 청록 사각(radius 2px). 항목 간 5pt, 텍스트와 8pt 간격.</p>
+    <div style="display:flex;gap:9px;margin-top:16px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:7px;"></span><p style="margin:0;font-size:13px;line-height:1.6;color:#2B2F36;">증착 온도 200–300 °C 구간에서 안정적인 ALD window 확인</p></div>
+    <div style="display:flex;gap:9px;margin-top:6px;"><span style="flex:0 0 auto;width:6px;height:6px;border-radius:2px;background:#0EA79A;margin-top:7px;"></span><p style="margin:0;font-size:13px;line-height:1.6;color:#2B2F36;">1,000 사이클 기준 두께 재현성 ±0.8% 달성</p></div>
+
+    <div style="margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <div>
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#0EA79A;">DO</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;font-size:13px;line-height:1.6;color:#2B2F36;">
+          <div>섹션마다 번호 부여 (1. 2. 3.)</div>
+          <div>수치·단위는 Archivo로 조판</div>
+          <div>표는 3–5열 이내로 유지</div>
+          <div>여러 장 문서는 푸터 유지</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:'Archivo',sans-serif;font-size:11px;font-weight:500;letter-spacing:0.1em;color:#6B7280;">DON'T</div>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px;font-size:13px;line-height:1.6;color:#6B7280;">
+          <div>UNIST 엠블럼 삽입 (레터헤드 전용)</div>
+          <div>표에 수직 괘선·줄무늬 배경 추가</div>
+          <div>H2를 두 단계 이상 세분화</div>
+          <div>본문에 Navy 사용 (제목 전용)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-top:80px;padding-top:48px;border-top:1px solid #E4E7EC;">
+    <div style="display:flex;align-items:baseline;gap:14px;">
+      <span style="font-family:'Archivo',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">04</span>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:26px;letter-spacing:-0.01em;color:#14243F;">Choosing a template</h2>
+    </div>
+    <table style="width:100%;border-collapse:collapse;margin-top:24px;font-size:13px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;"></th>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">LETTERHEAD</th>
+          <th style="text-align:left;padding:9px 12px;background:#F6F7F9;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;font-weight:500;font-size:11px;letter-spacing:0.08em;color:#6B7280;">PLAIN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">수신자</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">외부 개인·기관</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">그룹 내부·협력사</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">머리글 표식</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">UNIST 엠블럼 + 개인 정보</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">HBRLRG 워드마크 + 연락처</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">서명</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">필수</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">불필요</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">표·데이터</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">사용하지 않음</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">권장</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">푸터</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">없음</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">전 페이지 반복</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">분량</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">1장 권장</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#2B2F36;">제한 없음</td></tr>
+        <tr><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;color:#6B7280;">파일</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#2B2F36;">letterhead-kr / -en</td><td style="padding:9px 12px;border-bottom:1px solid #E4E7EC;font-family:'Archivo',sans-serif;color:#2B2F36;">plain-kr / -en</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer style="margin-top:80px;padding-top:24px;border-top:1px solid #E4E7EC;display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;">
+    <div style="font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:0.07em;color:#9AA1AB;">HBRL RESEARCH GROUP · GRADUATE SCHOOL OF SEMICONDUCTOR MATERIALS &amp; DEVICES ENGINEERING, UNIST</div>
+    <div style="font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:0.04em;color:#9AA1AB;">v1.0 · 2026.07</div>
+  </footer>
+</div>
+</body>
+</html>

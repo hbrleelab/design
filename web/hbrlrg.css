@@ -1,0 +1,1018 @@
+/* ==========================================================================
+   HBRLRG Design System — hbrlrg.css
+   HBRL Research Group (nanomaterial.kr)
+
+   Shared with the group's document templates (A4 letterhead / plain report)
+   and the 1920×1080 slide template. Same palette, same typefaces, same
+   88×5px teal rule cap, same square-cornered geometry.
+
+   Load order:
+     1. fonts (Archivo via Google Fonts, Pretendard via jsDelivr)
+     2. this file
+     3. any page-specific overrides
+
+   Mobile-first: base rules are the 390px layout, then two breakpoints up.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Fonts
+   -------------------------------------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&display=swap");
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+/* --------------------------------------------------------------------------
+   2. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Brand ---------------------------------------------------------------- */
+  --hb-navy: #14243f;         /* primary. headings, rules, dark sections     */
+  --hb-teal: #0ea79a;         /* single accent. rule caps, bullets, CTA      */
+  --hb-teal-bright: #12c0b1;  /* teal button hover only                      */
+  --hb-teal-deep: #0b6f66;    /* on-teal caps and rules                      */
+
+  /* Text ----------------------------------------------------------------- */
+  --hb-ink: #2b2f36;          /* body copy on light                          */
+  --hb-muted: #6b7280;        /* captions, meta, secondary on light          */
+  --hb-faint: #9aa1ab;        /* doc/slide footers — shared token, unused here */
+  --hb-on-navy: #ffffff;
+  --hb-on-navy-muted: #93a2bc; /* AA at 6.01:1 — smallest allowed on navy    */
+  --hb-on-navy-rule: #2c4066;  /* hairlines inside navy sections             */
+  --hb-on-teal-muted: #d6f2ef; /* decorative accents on teal — never body copy */
+
+  /* Surfaces ------------------------------------------------------------- */
+  --hb-white: #ffffff;
+  --hb-surface: #f6f7f9;      /* alternating band, table header, image wells */
+  --hb-border: #e4e7ec;       /* standard hairline                           */
+  --hb-border-soft: #f0f1f4;  /* nested list dividers                        */
+
+  /* Type ----------------------------------------------------------------- */
+  --hb-font: "Archivo", "Pretendard", -apple-system, BlinkMacSystemFont,
+             "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+  --hb-font-kr: "Pretendard", "Archivo", -apple-system, "Apple SD Gothic Neo",
+                sans-serif;
+
+  --hb-w-light: 300;   /* big numerals, wordmark, list indices */
+  --hb-w-regular: 400;
+  --hb-w-medium: 500;  /* eyebrows, table labels */
+  --hb-w-semibold: 600; /* all headings */
+
+  /* Fluid type scale — mobile value → desktop value */
+  --hb-fs-display: clamp(2.375rem, 1.6rem + 3.2vw, 4.75rem);  /*  38 → 76 */
+  --hb-fs-h2:      clamp(2rem,     1.55rem + 1.9vw, 3.25rem); /*  32 → 52 */
+  --hb-fs-h3:      clamp(1.4375rem, 1.28rem + 0.65vw, 1.875rem); /* 23 → 30 */
+  --hb-fs-h4:      clamp(1.0625rem, 1rem + 0.26vw, 1.1875rem); /* 17 → 19 */
+  --hb-fs-lead:    clamp(1.0625rem, 0.95rem + 0.5vw, 1.4375rem); /* 17 → 23 */
+  --hb-fs-body:    clamp(1rem, 0.97rem + 0.13vw, 1.125rem);   /*  16 → 18 */
+  --hb-fs-sm:      0.9375rem;  /* 15 */
+  --hb-fs-xs:      0.875rem;   /* 14 — smallest on light backgrounds */
+  --hb-fs-eyebrow: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem); /* 13 → 14 */
+  --hb-fs-metric:  clamp(2.375rem, 1.4rem + 4vw, 3.5rem);     /*  38 → 56 */
+
+  --hb-lh-tight: 1.08;
+  --hb-lh-heading: 1.14;
+  --hb-lh-body: 1.6;
+  --hb-lh-relaxed: 1.7;
+
+  --hb-ls-display: -0.025em;
+  --hb-ls-heading: -0.02em;
+  --hb-ls-eyebrow: 0.16em;
+  --hb-ls-label: 0.1em;
+
+  /* Space — 4px base ----------------------------------------------------- */
+  --hb-1: 0.25rem;  --hb-2: 0.5rem;   --hb-3: 0.75rem;  --hb-4: 1rem;
+  --hb-5: 1.25rem;  --hb-6: 1.5rem;   --hb-8: 2rem;     --hb-10: 2.5rem;
+  --hb-7: 1.75rem;  --hb-12: 3rem;    --hb-14: 3.5rem;  --hb-16: 4rem;
+  --hb-20: 5rem;
+  --hb-26: 6.5rem;
+
+  /* Layout --------------------------------------------------------------- */
+  --hb-max: 1440px;
+  --hb-gutter: var(--hb-5);        /* 20px  — mobile   */
+  --hb-section-y: var(--hb-14);    /* 56px  — mobile   */
+  --hb-header-h: 56px;
+
+  /* Rule cap — the system's signature mark ------------------------------- */
+  --hb-cap-w: 64px;
+  --hb-cap-h: 4px;
+
+  /* Other ---------------------------------------------------------------- */
+  --hb-radius: 0;                  /* deliberate: square corners everywhere */
+  --hb-radius-dot: 2px;            /* the one exception: bullet squares      */
+  --hb-tap: 44px;                  /* minimum interactive height             */
+  --hb-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --hb-dur: 160ms;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --hb-gutter: var(--hb-8);      /* 32px */
+    --hb-section-y: var(--hb-20);  /* 80px */
+    --hb-header-h: 68px;
+    --hb-cap-w: 76px;
+    --hb-cap-h: 5px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --hb-gutter: var(--hb-14);     /* 56px */
+    --hb-section-y: var(--hb-26);  /* 104px */
+    --hb-header-h: 76px;
+    --hb-cap-w: 88px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3. Reset / base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--hb-white);
+  color: var(--hb-ink);
+  font-family: var(--hb-font);
+  font-size: var(--hb-fs-body);
+  line-height: var(--hb-lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Korean copy: Archivo has no Hangul, so it falls through to Pretendard
+   automatically. Apply .hb-kr only when you want Pretendard metrics to
+   drive the whole block (mixed Korean paragraphs, Korean headings). */
+.hb-kr { font-family: var(--hb-font-kr); }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-weight: var(--hb-w-semibold);
+  color: var(--hb-navy);
+  letter-spacing: var(--hb-ls-heading);
+  line-height: var(--hb-lh-heading);
+  text-wrap: pretty;
+}
+
+h1 { font-size: var(--hb-fs-display); letter-spacing: var(--hb-ls-display); line-height: var(--hb-lh-tight); }
+h2 { font-size: var(--hb-fs-h2); }
+h3 { font-size: var(--hb-fs-h3); }
+h4 { font-size: var(--hb-fs-h4); }
+
+p { margin: 0; text-wrap: pretty; }
+
+img, svg { display: block; max-width: 100%; }
+
+a {
+  color: var(--hb-navy);
+  text-decoration: none;
+  transition: color var(--hb-dur) var(--hb-ease),
+              background-color var(--hb-dur) var(--hb-ease),
+              border-color var(--hb-dur) var(--hb-ease);
+}
+a:hover { color: var(--hb-teal); }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--hb-teal);
+  outline-offset: 3px;
+}
+
+table { border-collapse: collapse; width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   4. Layout primitives
+   -------------------------------------------------------------------------- */
+.hb-page { max-width: var(--hb-max); margin-inline: auto; }
+
+.hb-section { padding: var(--hb-section-y) var(--hb-gutter); }
+
+/* Only three section backgrounds exist. Do not introduce a fourth. */
+.hb-section--surface { background: var(--hb-surface); }
+.hb-section--navy    { background: var(--hb-navy); color: var(--hb-on-navy); }
+.hb-section--teal    { background: var(--hb-teal); color: var(--hb-on-navy); }
+
+/* Any dark context inverts headings. Keep .hb-hero and .hb-bleed in this
+   list — they set their own navy background without the section modifier. */
+.hb-section--navy h1, .hb-section--navy h2,
+.hb-section--navy h3, .hb-section--navy h4,
+.hb-section--teal h1, .hb-section--teal h2,
+.hb-section--teal h3, .hb-section--teal h4,
+.hb-hero h1, .hb-hero h2, .hb-hero h3, .hb-hero h4,
+.hb-bleed h1, .hb-bleed h2, .hb-bleed h3, .hb-bleed h4 { color: var(--hb-on-navy); }
+
+.hb-stack { display: flex; flex-direction: column; }
+.hb-stack--2 { gap: var(--hb-2); }
+.hb-stack--3 { gap: var(--hb-3); }
+.hb-stack--4 { gap: var(--hb-4); }
+.hb-stack--6 { gap: var(--hb-6); }
+
+/* --------------------------------------------------------------------------
+   5. The rule cap — signature element
+      A hairline spanning the measure with a teal cap at its left end.
+      Appears once per section header; never twice in one band.
+   -------------------------------------------------------------------------- */
+.hb-cap {
+  width: var(--hb-cap-w);
+  height: var(--hb-cap-h);
+  background: var(--hb-teal);
+  flex: 0 0 auto;
+}
+.hb-section--teal .hb-cap { background: var(--hb-teal-deep); }
+
+.hb-rule {
+  position: relative;
+  height: var(--hb-cap-h);
+}
+.hb-rule::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: calc((var(--hb-cap-h) - 2px) / 2);
+  height: 2px;
+  background: var(--hb-navy);
+}
+.hb-rule::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 0;
+  width: var(--hb-cap-w);
+  height: var(--hb-cap-h);
+  background: var(--hb-teal);
+}
+/* Softer variant for sub-sections inside a page */
+.hb-rule--soft::before { background: var(--hb-border); }
+
+/* --------------------------------------------------------------------------
+   6. Section header
+   -------------------------------------------------------------------------- */
+.hb-eyebrow {
+  font-size: var(--hb-fs-eyebrow);
+  font-weight: var(--hb-w-medium);
+  letter-spacing: var(--hb-ls-eyebrow);
+  color: var(--hb-navy);
+  text-transform: uppercase;
+}
+/* Teal eyebrows are reserved for dark backgrounds, where contrast is fine.
+   On white, 13px teal measures 2.99:1 — use navy. */
+.hb-section--navy .hb-eyebrow,
+.hb-hero .hb-eyebrow,
+.hb-bleed .hb-eyebrow { color: var(--hb-teal); }
+.hb-section--teal .hb-eyebrow { color: var(--hb-teal-deep); }
+
+.hb-section-head { display: flex; flex-direction: column; gap: var(--hb-4); }
+.hb-section-head > h2 { margin-top: var(--hb-2); }
+
+.hb-lead {
+  font-size: var(--hb-fs-lead);
+  line-height: 1.55;
+  color: var(--hb-muted);
+  max-width: 62ch;
+}
+.hb-section--navy .hb-lead,
+.hb-hero .hb-lead,
+.hb-bleed .hb-lead { color: var(--hb-on-navy-muted); }
+.hb-section--teal .hb-lead { color: var(--hb-on-navy); }
+
+.hb-display {
+  font-size: var(--hb-fs-display);
+  line-height: var(--hb-lh-tight);
+  letter-spacing: var(--hb-ls-display);
+  max-width: 22ch;
+}
+
+/* --------------------------------------------------------------------------
+   7. Buttons
+   -------------------------------------------------------------------------- */
+.hb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding-inline: var(--hb-6);
+  border: 0;
+  border-radius: var(--hb-radius);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: var(--hb-w-medium);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hb-btn--primary  { background: var(--hb-teal); color: var(--hb-white); }
+.hb-btn--primary:hover  { background: var(--hb-teal-bright); color: var(--hb-white); }
+
+.hb-btn--navy     { background: var(--hb-navy); color: var(--hb-white); }
+.hb-btn--navy:hover     { background: var(--hb-teal); color: var(--hb-white); }
+
+.hb-btn--outline  { background: transparent; border: 1px solid var(--hb-navy); color: var(--hb-navy); }
+.hb-btn--outline:hover  { border-color: var(--hb-teal); color: var(--hb-teal); }
+
+/* On navy sections */
+.hb-section--navy .hb-btn--outline { border-color: var(--hb-on-navy-rule); color: var(--hb-white); }
+.hb-section--navy .hb-btn--outline:hover { border-color: var(--hb-teal); color: var(--hb-teal); }
+
+/* On teal sections */
+.hb-btn--invert { background: var(--hb-white); color: var(--hb-navy); font-weight: var(--hb-w-semibold); }
+.hb-btn--invert:hover { background: var(--hb-navy); color: var(--hb-white); }
+
+.hb-btn--block { width: 100%; }
+@media (min-width: 768px) {
+  .hb-btn--block { width: auto; }
+}
+
+/* Text link with a teal underline — "All 120+ papers" */
+.hb-link-more {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hb-tap);
+  font-size: 1rem;
+  font-weight: var(--hb-w-medium);
+  color: var(--hb-navy);
+  border-bottom: 2px solid var(--hb-teal);
+}
+.hb-link-more:hover { color: var(--hb-teal); }
+
+/* --------------------------------------------------------------------------
+   8. Header / nav
+   -------------------------------------------------------------------------- */
+.hb-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgb(255 255 255 / 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--hb-border);
+}
+.hb-header__inner {
+  max-width: var(--hb-max);
+  margin-inline: auto;
+  min-height: var(--hb-header-h);
+  padding-inline: var(--hb-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--hb-10);
+}
+
+/* Wordmark: four bars (top one teal) + "HBRL" navy / "RG" teal.
+   Markup lives in the HTML — see HANDOFF.md §Wordmark. */
+.hb-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15em;
+  min-height: var(--hb-tap);
+  font-size: 1.1875rem;                 /* 19px mobile */
+  flex: 0 0 auto;
+}
+.hb-wordmark__bars { height: 0.7em; width: auto; flex: 0 0 auto; }
+.hb-wordmark__text {
+  font-family: var(--hb-font);
+  font-weight: var(--hb-w-light);
+  font-size: 1em;
+  line-height: 1;
+  letter-spacing: -0.033em;
+  white-space: nowrap;
+  color: var(--hb-navy);
+}
+.hb-wordmark__text b { font-weight: inherit; color: var(--hb-teal); } /* "RG" */
+.hb-wordmark:hover .hb-wordmark__text { color: var(--hb-navy); }
+
+/* Set the colour on the ANCHOR: the three lower bars are fill="currentColor"
+   and inherit from it, so styling the inner span alone leaves them navy. */
+.hb-section--navy .hb-wordmark,
+.hb-hero .hb-wordmark,
+.hb-footer .hb-wordmark { color: var(--hb-white); }
+.hb-section--navy .hb-wordmark__text,
+.hb-hero .hb-wordmark__text,
+.hb-footer .hb-wordmark__text { color: var(--hb-white); }
+
+@media (min-width: 1200px) {
+  .hb-wordmark { font-size: 1.4375rem; }  /* 23px */
+}
+
+.hb-nav { display: none; }
+.hb-nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--hb-tap);
+  font-size: var(--hb-fs-sm);
+  color: var(--hb-ink);
+  border-bottom: 2px solid transparent;
+}
+.hb-nav__link:hover,
+.hb-nav__link[aria-current="page"] {
+  color: var(--hb-navy);
+  border-bottom-color: var(--hb-teal);
+}
+
+.hb-burger {
+  width: var(--hb-tap);
+  height: var(--hb-tap);
+  margin-right: -10px;
+  background: none;
+  border: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 6px;
+  cursor: pointer;
+}
+.hb-burger span { display: block; width: 24px; height: 2px; background: var(--hb-navy); }
+.hb-burger span:last-child { width: 16px; background: var(--hb-teal); }
+
+@media (min-width: 900px) {
+  .hb-nav { display: flex; align-items: center; gap: var(--hb-10); }
+  .hb-burger { display: none; }
+}
+
+/* --------------------------------------------------------------------------
+   9. Hero
+      Mobile: image band on top, text below, overlapping upward.
+      Desktop: text left, image bleeding off the right edge.
+   -------------------------------------------------------------------------- */
+.hb-hero { background: var(--hb-navy); color: var(--hb-on-navy); position: relative; overflow: hidden; }
+
+.hb-hero__media { position: relative; height: 260px; }
+.hb-hero__media > img { width: 100%; height: 100%; object-fit: cover; }
+.hb-hero__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgb(20 36 63 / 0.32) 0%, rgb(20 36 63 / 0.86) 68%, var(--hb-navy) 100%);
+  pointer-events: none;
+}
+
+.hb-hero__body {
+  position: relative;
+  margin-top: -16px;
+  padding: 0 var(--hb-gutter) var(--hb-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-5);
+}
+
+/* Affiliation strip: emblem + school name, above or below the fold rule */
+.hb-affil {
+  display: flex;
+  align-items: center;
+  gap: var(--hb-4);
+  padding-top: var(--hb-6);
+  border-top: 1px solid var(--hb-on-navy-rule);
+}
+.hb-affil img { width: 48px; height: 48px; flex: 0 0 auto; }
+.hb-affil__text {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--hb-on-navy-muted);   /* not --hb-*-rule: 13px needs 6:1 */
+}
+
+@media (min-width: 900px) {
+  .hb-hero { display: grid; grid-template-columns: minmax(0, 1fr) 39.3%; }
+  .hb-hero__media {
+    grid-column: 2;
+    grid-row: 1;
+    height: 100%;
+    min-height: 560px;
+  }
+  .hb-hero__media::after {
+    background: linear-gradient(to right,
+      var(--hb-navy) 0%, rgb(20 36 63 / 0.72) 34%, rgb(20 36 63 / 0.28) 100%);
+  }
+  .hb-hero__body {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0;
+    padding: var(--hb-section-y) var(--hb-8) var(--hb-10) var(--hb-gutter);
+    justify-content: center;
+    gap: var(--hb-8);
+    z-index: 1;
+  }
+  .hb-affil img { width: 54px; height: 54px; }
+  .hb-affil__text { font-size: var(--hb-fs-xs); }
+}
+
+.hb-hero__actions { display: flex; flex-direction: column; gap: var(--hb-3); }
+@media (min-width: 768px) {
+  .hb-hero__actions { flex-direction: row; gap: var(--hb-4); }
+}
+
+/* --------------------------------------------------------------------------
+   10. Metrics strip
+   -------------------------------------------------------------------------- */
+.hb-metrics {
+  padding: var(--hb-8) var(--hb-gutter);
+  border-bottom: 1px solid var(--hb-border);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--hb-6) var(--hb-5);
+}
+@media (min-width: 900px) {
+  .hb-metrics {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--hb-10);
+    padding-block: var(--hb-14);
+  }
+}
+
+.hb-metric { display: flex; flex-direction: column; gap: var(--hb-2); min-width: 0; }
+.hb-metric__cap { width: 40px; height: 3px; background: var(--hb-teal); }
+.hb-metric__value {
+  font-weight: var(--hb-w-light);
+  font-size: var(--hb-fs-metric);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--hb-navy);
+  font-variant-numeric: tabular-nums;
+}
+.hb-metric__value sup,
+.hb-metric__unit { font-size: 0.5em; font-weight: var(--hb-w-regular); }
+.hb-metric__label { font-size: var(--hb-fs-xs); color: var(--hb-muted); }
+
+@media (min-width: 900px) {
+  .hb-metric__cap { width: 52px; height: 4px; }
+  .hb-metric__label { font-size: var(--hb-fs-sm); }
+}
+
+/* --------------------------------------------------------------------------
+   11. Numbered list — research areas
+       Mobile: divider-separated rows. Desktop: 2-up hairline grid.
+   -------------------------------------------------------------------------- */
+.hb-numlist { display: flex; flex-direction: column; margin-top: var(--hb-8); }
+
+.hb-numlist__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-3);
+  padding-block: var(--hb-6);
+  border-top: 1px solid var(--hb-border);
+  color: inherit;
+}
+.hb-numlist__item:last-child { border-bottom: 1px solid var(--hb-border); }
+
+.hb-numlist__head { display: flex; align-items: baseline; gap: var(--hb-3); }
+.hb-numlist__index {
+  font-weight: var(--hb-w-light);
+  font-size: 1.3125rem;
+  color: var(--hb-teal);
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+}
+.hb-numlist__item p { font-size: 1rem; color: var(--hb-ink); }
+
+@media (min-width: 900px) {
+  .hb-numlist {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--hb-border);
+    margin-top: var(--hb-16);
+  }
+  .hb-numlist__item {
+    background: var(--hb-white);
+    padding: var(--hb-10) var(--hb-12);
+    border: 0;
+    gap: var(--hb-4);
+  }
+  .hb-numlist__item:last-child { border-bottom: 0; }
+  .hb-numlist__item:hover { background: var(--hb-surface); }
+  .hb-numlist__index { font-size: 1.625rem; }
+  .hb-numlist__head { gap: var(--hb-4); }
+  .hb-numlist__item p { font-size: 1.0625rem; line-height: 1.65; max-width: 44ch; }
+}
+
+/* Tag chips */
+.hb-tags { display: flex; flex-wrap: wrap; gap: var(--hb-2); }
+.hb-tag {
+  padding: 5px 10px;
+  background: var(--hb-surface);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--hb-muted);
+}
+@media (min-width: 900px) {
+  .hb-tag { padding: 6px 12px; font-size: 0.8125rem; }
+}
+
+/* --------------------------------------------------------------------------
+   12. Publication list
+       Mobile: year · journal on one line, then title, then authors.
+       Desktop: 3 columns — year | title+authors | journal.
+   -------------------------------------------------------------------------- */
+.hb-pubs { display: flex; flex-direction: column; margin-top: var(--hb-8); }
+
+.hb-pubs__head { display: none; }
+
+.hb-pub {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-2);
+  padding-block: var(--hb-6);
+  border-top: 1px solid var(--hb-border);
+  color: inherit;
+}
+.hb-pub:first-of-type { border-top-color: var(--hb-navy); }
+.hb-pub:last-of-type  { border-bottom: 1px solid var(--hb-border); }
+
+.hb-pub__meta { display: flex; align-items: center; gap: var(--hb-3); }
+.hb-pub__year {
+  font-weight: var(--hb-w-light);
+  font-size: 1.125rem;
+  color: var(--hb-teal);
+  font-variant-numeric: tabular-nums;
+}
+.hb-pub__dot { width: 4px; height: 4px; border-radius: 1px; background: #d2d6dd; flex: 0 0 auto; }
+.hb-pub__journal { font-size: var(--hb-fs-xs); color: var(--hb-muted); }
+.hb-pub__title {
+  font-size: 1.125rem;
+  font-weight: var(--hb-w-medium);
+  line-height: 1.4;
+  color: var(--hb-navy);
+}
+.hb-pub__authors { font-size: var(--hb-fs-xs); line-height: 1.5; color: var(--hb-muted); }
+
+@media (min-width: 1000px) {
+  .hb-pubs { margin-top: var(--hb-12); }
+  .hb-pubs__head,
+  .hb-pub {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) 220px;
+    gap: var(--hb-8);
+    align-items: baseline;
+    padding-block: var(--hb-8);
+  }
+  .hb-pubs__head {
+    border-top: 1px solid var(--hb-navy);
+    font-size: 0.8125rem;
+    font-weight: var(--hb-w-medium);
+    letter-spacing: var(--hb-ls-label);
+    color: var(--hb-muted);
+    text-transform: uppercase;
+  }
+  .hb-pub:first-of-type { border-top-color: var(--hb-border); }
+  .hb-pub:hover { background: var(--hb-white); }
+  .hb-pub__meta { display: contents; }
+  .hb-pub__dot, .hb-pub__journal-inline { display: none; }
+  .hb-pub__year { font-size: 1.4375rem; }
+  .hb-pub__title { font-size: 1.3125rem; }
+  .hb-pub__journal { font-size: 1rem; line-height: 1.45; color: var(--hb-ink); }
+  .hb-pub__body { display: flex; flex-direction: column; gap: var(--hb-2); min-width: 0; }
+}
+
+/* --------------------------------------------------------------------------
+   13. People
+   -------------------------------------------------------------------------- */
+.hb-pi {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-5);
+  margin-top: var(--hb-8);
+  padding-bottom: var(--hb-10);
+  border-bottom: 1px solid var(--hb-border);
+}
+.hb-pi__photo { position: relative; height: 320px; background: var(--hb-surface); }
+.hb-pi__photo img { width: 100%; height: 100%; object-fit: cover; }
+.hb-pi__role { font-size: 1rem; line-height: 1.5; color: var(--hb-muted); }
+.hb-pi__bio { font-size: 1rem; line-height: var(--hb-lh-relaxed); }
+
+@media (min-width: 1000px) {
+  .hb-pi {
+    display: grid;
+    grid-template-columns: 392px minmax(0, 1fr);
+    gap: var(--hb-14);
+    margin-top: var(--hb-14);
+    padding-bottom: var(--hb-14);
+  }
+  .hb-pi__photo { height: 452px; }
+  .hb-pi__body { display: flex; flex-direction: column; gap: var(--hb-6); min-width: 0; }
+  .hb-pi__role { font-size: 1.1875rem; }
+  .hb-pi__bio { font-size: 1.125rem; max-width: 56ch; }
+}
+
+/* Editorial credential band — CM logo + role */
+.hb-credential {
+  display: flex;
+  align-items: center;
+  gap: var(--hb-4);
+  padding-block: var(--hb-5);
+  border-top: 1px solid var(--hb-border);
+  border-bottom: 1px solid var(--hb-border);
+}
+.hb-credential img { height: 44px; width: auto; flex: 0 0 auto; }
+.hb-credential__text { font-size: var(--hb-fs-xs); line-height: 1.5; }
+.hb-credential__text strong { font-weight: var(--hb-w-semibold); color: var(--hb-navy); }
+.hb-credential__text span { color: var(--hb-muted); }
+@media (min-width: 1000px) {
+  .hb-credential { gap: var(--hb-6); }
+  .hb-credential img { height: 56px; }
+  .hb-credential__text { font-size: 1.0625rem; }
+}
+
+/* Inline link list — every row is a 44px tap target */
+.hb-linklist { display: flex; flex-direction: column; font-size: 1rem; }
+.hb-linklist a {
+  display: flex;
+  align-items: center;
+  min-height: var(--hb-tap);
+  color: var(--hb-ink);
+  border-bottom: 1px solid var(--hb-border-soft);
+}
+.hb-linklist a:last-child { border-bottom: 0; }
+.hb-linklist a:hover { color: var(--hb-teal); }
+@media (min-width: 1000px) {
+  .hb-linklist { flex-direction: row; flex-wrap: wrap; gap: 0 var(--hb-8); }
+  .hb-linklist a { border-bottom: 1px solid #d2d6dd; min-height: 0; }
+  .hb-linklist a:last-child { border-bottom: 1px solid #d2d6dd; }
+  .hb-linklist a:hover { border-bottom-color: var(--hb-teal); }
+}
+
+/* Member grid */
+.hb-members {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--hb-6) var(--hb-4);
+  margin-top: var(--hb-10);
+}
+.hb-member { display: flex; flex-direction: column; gap: var(--hb-3); }
+.hb-member__photo { position: relative; height: 200px; background: var(--hb-surface); }
+.hb-member__photo img { width: 100%; height: 100%; object-fit: cover; }
+.hb-member__name { font-size: 1.0625rem; font-weight: var(--hb-w-semibold); color: var(--hb-navy); }
+.hb-member__role { font-size: 0.8125rem; line-height: 1.45; color: var(--hb-muted); }
+
+@media (min-width: 900px) {
+  .hb-members {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--hb-8);
+    margin-top: var(--hb-14);
+  }
+  .hb-member__photo { height: 236px; }
+  .hb-member__name { font-size: 1.1875rem; }
+  .hb-member__role { font-size: var(--hb-fs-sm); }
+}
+
+/* --------------------------------------------------------------------------
+   14. Facilities — full-bleed image band with a text plate
+   -------------------------------------------------------------------------- */
+.hb-bleed { position: relative; background: var(--hb-navy); color: var(--hb-on-navy); }
+.hb-bleed__media { position: absolute; inset: 0; }
+.hb-bleed__media img { width: 100%; height: 100%; object-fit: cover; }
+.hb-bleed__media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom,
+    rgb(20 36 63 / 0.62) 0%, rgb(20 36 63 / 0.94) 42%, var(--hb-navy) 100%);
+  pointer-events: none;
+}
+.hb-bleed__body {
+  position: relative;
+  padding: var(--hb-section-y) var(--hb-gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-4);
+}
+@media (min-width: 900px) {
+  .hb-bleed__media::after {
+    background: linear-gradient(to right,
+      rgb(20 36 63 / 0.95) 0%, rgb(20 36 63 / 0.86) 48%, rgb(20 36 63 / 0.42) 100%);
+  }
+  .hb-bleed__body { max-width: 780px; gap: var(--hb-6); }
+}
+
+/* --------------------------------------------------------------------------
+   15. Bullets — 9–16px teal squares, aligned to the first text line
+       The margin-top values are computed as
+         (font-size × line-height ÷ 2) − (dot ÷ 2)
+       so the square centres on the first line's x-height band.
+   -------------------------------------------------------------------------- */
+.hb-bullets { display: flex; flex-direction: column; gap: var(--hb-3); }
+
+.hb-bullet { display: flex; gap: var(--hb-3); }
+.hb-bullet::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 9px;
+  height: 9px;
+  border-radius: var(--hb-radius-dot);
+  background: var(--hb-teal);
+  margin-top: 8px;                 /* 15px × 1.6 ÷ 2 − 4.5 */
+}
+.hb-bullet p { font-size: var(--hb-fs-sm); line-height: 1.6; }
+.hb-section--navy .hb-bullet p { color: #c6d0e0; }
+
+@media (min-width: 900px) {
+  .hb-bullets { gap: var(--hb-4); }
+  .hb-bullet { gap: var(--hb-4); }
+  .hb-bullet::before { width: 10px; height: 10px; margin-top: 9px; }
+  .hb-bullet p { font-size: 1.125rem; line-height: 1.55; }
+}
+
+/* --------------------------------------------------------------------------
+   16. News
+   -------------------------------------------------------------------------- */
+.hb-news { display: flex; flex-direction: column; margin-top: var(--hb-8); }
+
+.hb-news__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-2);
+  padding-block: var(--hb-6);
+  border-top: 1px solid var(--hb-border);
+  color: inherit;
+}
+.hb-news__item:last-child { border-bottom: 1px solid var(--hb-border); }
+.hb-news__date { font-size: 0.8125rem; letter-spacing: 0.06em; color: var(--hb-muted); }
+.hb-news__title { font-size: 1.1875rem; font-weight: var(--hb-w-semibold); line-height: 1.35; color: var(--hb-navy); }
+.hb-news__excerpt { font-size: var(--hb-fs-sm); color: var(--hb-muted); }
+
+@media (min-width: 900px) {
+  .hb-news {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--hb-border);
+    margin-top: var(--hb-12);
+  }
+  .hb-news__item {
+    background: var(--hb-white);
+    padding: var(--hb-8) var(--hb-10);
+    border: 0;
+    gap: var(--hb-4);
+  }
+  .hb-news__item:last-child { border-bottom: 0; }
+  .hb-news__item:hover { background: var(--hb-surface); }
+  .hb-news__date { font-size: var(--hb-fs-xs); }
+  .hb-news__title { font-size: 1.375rem; line-height: 1.3; }
+  .hb-news__excerpt { font-size: 1rem; line-height: 1.6; }
+}
+
+/* --------------------------------------------------------------------------
+   17. Data table — no vertical rules, ever
+   -------------------------------------------------------------------------- */
+.hb-table th {
+  text-align: left;
+  padding: var(--hb-3) var(--hb-4);
+  background: var(--hb-surface);
+  border-bottom: 2px solid var(--hb-navy);
+  font-weight: var(--hb-w-medium);
+  font-size: var(--hb-fs-xs);
+  letter-spacing: var(--hb-ls-label);
+  color: var(--hb-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.hb-table td {
+  padding: var(--hb-4);
+  border-bottom: 1px solid var(--hb-border);
+  font-size: 1rem;
+  color: var(--hb-ink);
+}
+.hb-table td:last-child { color: var(--hb-muted); font-size: var(--hb-fs-sm); }
+.hb-caption { margin-top: var(--hb-3); font-size: var(--hb-fs-xs); color: var(--hb-muted); }
+
+/* Let wide tables scroll rather than break the layout on phones */
+.hb-table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.hb-table-scroll > .hb-table { min-width: 560px; }
+
+/* --------------------------------------------------------------------------
+   18. Footer
+   -------------------------------------------------------------------------- */
+.hb-footer {
+  background: var(--hb-navy);
+  color: var(--hb-on-navy);
+  padding: var(--hb-12) var(--hb-gutter) var(--hb-8);
+}
+.hb-footer__top { display: flex; flex-direction: column; gap: var(--hb-6); }
+.hb-footer__address { font-size: 0.8125rem; line-height: 1.55; color: var(--hb-on-navy-muted); }
+
+.hb-footer__cols {
+  margin-top: var(--hb-8);
+  padding-top: var(--hb-7);
+  border-top: 1px solid var(--hb-on-navy-rule);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--hb-7);
+}
+.hb-footer__colhead {
+  margin-bottom: var(--hb-2);
+  font-size: 0.75rem;
+  font-weight: var(--hb-w-medium);
+  letter-spacing: var(--hb-ls-label);
+  color: var(--hb-teal);
+  text-transform: uppercase;
+}
+.hb-footer__cols a {
+  display: flex;
+  align-items: center;
+  min-height: var(--hb-tap);
+  font-size: var(--hb-fs-sm);
+  color: var(--hb-on-navy-muted);
+}
+.hb-footer__cols a:hover { color: var(--hb-white); }
+
+.hb-footer__legal {
+  margin-top: var(--hb-8);
+  padding-top: var(--hb-5);
+  border-top: 1px solid var(--hb-on-navy-rule);
+  display: flex;
+  flex-direction: column;
+  gap: var(--hb-1);
+  font-size: 0.8125rem;
+  color: var(--hb-on-navy-muted);
+}
+
+@media (min-width: 1000px) {
+  .hb-footer { padding-block: var(--hb-16) var(--hb-10); }
+  .hb-footer__inner { max-width: var(--hb-max); margin-inline: auto; }
+  .hb-footer__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 200px 200px;
+    gap: var(--hb-14);
+    padding-bottom: var(--hb-10);
+    border-bottom: 1px solid var(--hb-on-navy-rule);
+  }
+  .hb-footer__cols {
+    display: contents;                /* columns join the parent grid */
+  }
+  .hb-footer__col { display: flex; flex-direction: column; }
+  .hb-footer__address { font-size: var(--hb-fs-sm); line-height: 1.6; }
+  .hb-footer__legal {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--hb-8);
+    margin-top: 0;
+    padding-top: var(--hb-6);
+    border-top: 0;
+    font-size: var(--hb-fs-xs);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   19. Image wells — placeholder styling until real photography lands
+   -------------------------------------------------------------------------- */
+.hb-well { position: relative; background: var(--hb-surface); overflow: hidden; }
+.hb-well > img { width: 100%; height: 100%; object-fit: cover; }
+.hb-well--empty::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--hb-4);
+  text-align: center;
+  font-size: var(--hb-fs-xs);
+  color: var(--hb-muted);
+}
+
+/* --------------------------------------------------------------------------
+   20. Utilities
+   -------------------------------------------------------------------------- */
+.hb-measure     { max-width: 62ch; }
+.hb-measure-tight { max-width: 46ch; }
+.hb-nowrap      { white-space: nowrap; }
+.hb-tnum        { font-variant-numeric: tabular-nums; }
+
+.hb-visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link for keyboard users */
+.hb-skip {
+  position: absolute;
+  left: var(--hb-gutter);
+  top: -100px;
+  z-index: 40;
+  padding: var(--hb-3) var(--hb-5);
+  background: var(--hb-navy);
+  color: var(--hb-white);
+  font-size: var(--hb-fs-sm);
+}
+.hb-skip:focus { top: var(--hb-3); color: var(--hb-white); }
+
+/* --------------------------------------------------------------------------
+   21. Print — plain, ink-saving rendering of any page
+   -------------------------------------------------------------------------- */
+@media print {
+  .hb-header, .hb-burger, .hb-nav, .hb-skip { display: none !important; }
+  .hb-section--navy, .hb-section--teal, .hb-footer, .hb-hero {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .hb-hero__media, .hb-bleed__media { display: none !important; }
+  a { color: #000 !important; }
+  .hb-numlist__item, .hb-pub, .hb-news__item { break-inside: avoid; }
+}

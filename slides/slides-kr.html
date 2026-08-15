@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HBRLRG 슬라이드 템플릿 (국문)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+body{margin:0;background:#0B1526;font-family:'Pretendard','Archivo',-apple-system,'Apple SD Gothic Neo',sans-serif;}
+a{color:#0EA79A;text-decoration:none;} a:hover{color:#14243F;}
+</style>
+<script src="../image-slot.js"></script>
+<script src="../deck-stage.js"></script>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+  <section data-label="Title" data-screen-label="01" data-speaker-notes="표지. 발표 제목과 발표자·소속·날짜만. 부제는 한 줄 이내." style="background:#14243F;display:flex;flex-direction:column;justify-content:space-between;padding:104px 120px;box-sizing:border-box;color:#FFFFFF;">
+    <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:44px;">
+      <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#FFFFFF"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#FFFFFF"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#FFFFFF"></rect></svg>
+      <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#FFFFFF;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+    </span>
+    <div style="display:flex;flex-direction:column;gap:34px;">
+      <div style="width:88px;height:5px;background:#0EA79A;"></div>
+      <h1 style="margin:0;max-width:26ch;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:112px;line-height:1.04;letter-spacing:-0.025em;text-wrap:pretty;">Atomic Layer Deposition for Semiconductor Devices</h1>
+      <p style="margin:0;max-width:52ch;font-size:36px;line-height:1.5;color:#93A2BC;text-wrap:pretty;">차세대 반도체 소재 공정을 위한 원자층증착 기술 개요</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:64px;padding-top:36px;border-top:1px solid #2C4066;">
+      <div style="display:flex;align-items:center;gap:26px;min-width:0;">
+        <img src="../assets/unist-emblem-onnavy.png" alt="UNIST" style="width:84px;height:84px;flex:0 0 auto;display:block;">
+        <div style="display:flex;flex-direction:column;gap:9px;min-width:0;">
+          <div style="font-size:30px;font-weight:600;line-height:1.15;">이한보람</div>
+          <div style="max-width:36ch;font-size:24px;line-height:1.4;color:#93A2BC;text-wrap:pretty;">울산과학기술원(UNIST) 반도체소재부품대학원 교수</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:26px;min-width:0;">
+        <div style="display:flex;flex-direction:column;gap:9px;text-align:right;min-width:0;">
+          <div style="font-size:30px;font-weight:600;line-height:1.15;">Chemistry of Materials</div>
+          <div style="font-size:24px;line-height:1.4;color:#93A2BC;">Executive Editor, ACS Publications</div>
+        </div>
+        <img src="../assets/cm-logo-onnavy.png" alt="Chemistry of Materials" style="height:56px;width:auto;flex:0 0 auto;display:block;">
+      </div>
+    </div>
+    <div style="font-size:24px;letter-spacing:0.04em;color:#6E82A3;">2026. 07. 26</div>
+  </section>
+
+  <section data-label="Agenda" data-screen-label="02" data-speaker-notes="목차. 4–6항목. 번호는 Archivo, 항목명은 본문 서체." style="background:#FFFFFF;display:flex;flex-direction:column;padding:104px 120px;box-sizing:border-box;">
+    <div style="display:flex;flex-direction:column;gap:26px;">
+      <div style="font-family:'Archivo',sans-serif;font-size:24px;font-weight:500;letter-spacing:0.16em;color:#0EA79A;">CONTENTS</div>
+      <div style="position:relative;height:5px;">
+        <div style="position:absolute;left:0;right:0;top:1.5px;height:2px;background:#14243F;"></div>
+        <div style="position:absolute;left:0;top:0;width:88px;height:5px;background:#0EA79A;"></div>
+      </div>
+    </div>
+    <div style="margin-top:72px;display:grid;grid-template-columns:1fr 1fr;gap:40px 96px;">
+      <div style="display:flex;gap:32px;align-items:baseline;padding-bottom:28px;border-bottom:1px solid #E4E7EC;"><span style="font-family:'Archivo',sans-serif;font-size:36px;font-weight:300;color:#0EA79A;flex:0 0 auto;">01</span><div style="display:flex;flex-direction:column;gap:8px;"><div style="font-size:42px;font-weight:600;color:#14243F;line-height:1.2;">연구 배경</div><div style="font-size:26px;color:#6B7280;line-height:1.5;">반도체 미세화와 박막 공정의 한계</div></div></div>
+      <div style="display:flex;gap:32px;align-items:baseline;padding-bottom:28px;border-bottom:1px solid #E4E7EC;"><span style="font-family:'Archivo',sans-serif;font-size:36px;font-weight:300;color:#0EA79A;flex:0 0 auto;">02</span><div style="display:flex;flex-direction:column;gap:8px;"><div style="font-size:42px;font-weight:600;color:#14243F;line-height:1.2;">ALD 원리</div><div style="font-size:26px;color:#6B7280;line-height:1.5;">자기제한 반응과 성장 거동</div></div></div>
+      <div style="display:flex;gap:32px;align-items:baseline;padding-bottom:28px;border-bottom:1px solid #E4E7EC;"><span style="font-family:'Archivo',sans-serif;font-size:36px;font-weight:300;color:#0EA79A;flex:0 0 auto;">03</span><div style="display:flex;flex-direction:column;gap:8px;"><div style="font-size:42px;font-weight:600;color:#14243F;line-height:1.2;">공정 최적화</div><div style="font-size:26px;color:#6B7280;line-height:1.5;">온도·전구체 조건 실험 결과</div></div></div>
+      <div style="display:flex;gap:32px;align-items:baseline;padding-bottom:28px;border-bottom:1px solid #E4E7EC;"><span style="font-family:'Archivo',sans-serif;font-size:36px;font-weight:300;color:#0EA79A;flex:0 0 auto;">04</span><div style="display:flex;flex-direction:column;gap:8px;"><div style="font-size:42px;font-weight:600;color:#14243F;line-height:1.2;">향후 계획</div><div style="font-size:26px;color:#6B7280;line-height:1.5;">소재 확장과 양산 검증</div></div></div>
+    </div>
+    <div style="margin-top:auto;padding-top:36px;display:flex;justify-content:space-between;align-items:center;gap:40px;">
+      <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:26px;flex:0 0 auto;">
+        <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#14243F"></rect></svg>
+        <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#14243F;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+      </span>
+      <div style="display:flex;align-items:center;gap:18px;font-family:'Archivo',sans-serif;font-size:24px;line-height:1;color:#9AA1AB;white-space:nowrap;">
+        <span>hbrlee.unist@gmail.com</span><span style="color:#D2D6DD;">·</span><span>https://nanomaterial.kr</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Section" data-screen-label="03" data-speaker-notes="섹션 구분. 번호와 제목만. 청록 캡으로 리듬을 만든다." style="background:#14243F;display:flex;flex-direction:column;justify-content:center;padding:104px 120px;box-sizing:border-box;color:#FFFFFF;">
+    <div style="display:flex;flex-direction:column;gap:36px;">
+      <div style="width:88px;height:5px;background:#0EA79A;"></div>
+      <div style="font-family:'Archivo',sans-serif;font-size:28px;font-weight:500;letter-spacing:0.16em;color:#0EA79A;">SECTION 02</div>
+      <h2 style="margin:0;max-width:24ch;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:104px;line-height:1.08;letter-spacing:-0.02em;text-wrap:pretty;">ALD 원리</h2>
+      <p style="margin:0;max-width:46ch;font-size:34px;line-height:1.55;color:#93A2BC;text-wrap:pretty;">자기제한 표면 반응이 만드는 원자 단위 두께 제어</p>
+    </div>
+  </section>
+
+  <section data-label="Content" data-screen-label="04" data-speaker-notes="기본 본문. 제목 + 불릿 3–5개. 불릿은 한 줄 권장." style="background:#FFFFFF;display:flex;flex-direction:column;padding:96px 120px;box-sizing:border-box;">
+    <div style="display:flex;flex-direction:column;gap:22px;">
+      <div style="font-family:'Archivo',sans-serif;font-size:24px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">02 — ALD 원리</div>
+      <h2 style="margin:0;max-width:30ch;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:72px;line-height:1.15;letter-spacing:-0.018em;color:#14243F;text-wrap:pretty;">자기제한 반응의 네 단계</h2>
+      <div style="position:relative;height:5px;margin-top:6px;">
+        <div style="position:absolute;left:0;right:0;top:1.5px;height:2px;background:#E4E7EC;"></div>
+        <div style="position:absolute;left:0;top:0;width:88px;height:5px;background:#0EA79A;"></div>
+      </div>
+    </div>
+    <div style="margin-top:56px;display:flex;flex-direction:column;gap:30px;">
+      <div style="display:flex;gap:24px;"><span style="flex:0 0 auto;width:16px;height:16px;border-radius:4px;background:#0EA79A;margin-top:14px;"></span><p style="margin:0;max-width:46ch;font-size:38px;line-height:1.5;color:#2B2F36;text-wrap:pretty;">전구체 주입 — 표면 반응기와 화학 결합, 단분자층에서 자연 종결</p></div>
+      <div style="display:flex;gap:24px;"><span style="flex:0 0 auto;width:16px;height:16px;border-radius:4px;background:#0EA79A;margin-top:14px;"></span><p style="margin:0;max-width:46ch;font-size:38px;line-height:1.5;color:#2B2F36;text-wrap:pretty;">1차 퍼지 — 미반응 전구체와 부산물 제거</p></div>
+      <div style="display:flex;gap:24px;"><span style="flex:0 0 auto;width:16px;height:16px;border-radius:4px;background:#0EA79A;margin-top:14px;"></span><p style="margin:0;max-width:46ch;font-size:38px;line-height:1.5;color:#2B2F36;text-wrap:pretty;">반응물 주입 — 표면 리간드 교환으로 목표 조성 완성</p></div>
+      <div style="display:flex;gap:24px;"><span style="flex:0 0 auto;width:16px;height:16px;border-radius:4px;background:#0EA79A;margin-top:14px;"></span><p style="margin:0;max-width:46ch;font-size:38px;line-height:1.5;color:#2B2F36;text-wrap:pretty;">2차 퍼지 — 사이클 종료, 두께는 사이클 수로 결정</p></div>
+    </div>
+    <div style="margin-top:auto;padding-top:36px;display:flex;justify-content:space-between;align-items:center;gap:40px;">
+      <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:26px;flex:0 0 auto;">
+        <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#14243F"></rect></svg>
+        <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#14243F;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+      </span>
+      <div style="display:flex;align-items:center;gap:18px;font-family:'Archivo',sans-serif;font-size:24px;line-height:1;color:#9AA1AB;white-space:nowrap;">
+        <span>hbrlee.unist@gmail.com</span><span style="color:#D2D6DD;">·</span><span>https://nanomaterial.kr</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Text + Image" data-screen-label="05" data-speaker-notes="좌 텍스트 / 우 이미지. 이미지 영역에 파일을 끌어다 놓으면 채워진다." style="background:#FFFFFF;display:grid;grid-template-columns:960px 960px;box-sizing:border-box;">
+    <div style="display:flex;flex-direction:column;justify-content:center;padding:96px 80px 96px 120px;min-width:0;box-sizing:border-box;">
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="font-family:'Archivo',sans-serif;font-size:24px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">03 — 공정 최적화</div>
+        <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:66px;line-height:1.15;letter-spacing:-0.018em;color:#14243F;text-wrap:pretty;">웨이퍼 전면 균일도</h2>
+        <div style="width:88px;height:5px;background:#0EA79A;margin-top:8px;"></div>
+      </div>
+      <p style="margin:44px 0 0;font-size:34px;line-height:1.6;color:#2B2F36;text-wrap:pretty;">250 °C 조건에서 300 mm 웨이퍼 전면 두께 편차 1.5% 이내를 확인했습니다. 고종횡비 구조에서도 단차 피복성이 유지됩니다.</p>
+      <div style="margin-top:40px;display:flex;flex-direction:column;gap:18px;">
+        <div style="display:flex;gap:20px;"><span style="flex:0 0 auto;width:14px;height:14px;border-radius:4px;background:#0EA79A;margin-top:12px;"></span><p style="margin:0;font-size:30px;line-height:1.5;color:#6B7280;">측정 지점 49점, 반복 3회</p></div>
+        <div style="display:flex;gap:20px;"><span style="flex:0 0 auto;width:14px;height:14px;border-radius:4px;background:#0EA79A;margin-top:12px;"></span><p style="margin:0;font-size:30px;line-height:1.5;color:#6B7280;">분광 타원계 두께 분석</p></div>
+      </div>
+      <div style="margin-top:auto;padding-top:36px;display:flex;justify-content:space-between;align-items:center;gap:40px;">
+        <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:26px;flex:0 0 auto;">
+          <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#14243F"></rect></svg>
+          <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#14243F;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+        </span>
+        <div style="display:flex;align-items:center;gap:18px;font-family:'Archivo',sans-serif;font-size:24px;line-height:1;color:#9AA1AB;white-space:nowrap;">
+          <span>hbrlee.unist@gmail.com</span><span style="color:#D2D6DD;">·</span><span>https://nanomaterial.kr</span>
+        </div>
+      </div>
+    </div>
+    <div style="position:relative;min-width:0;background:#F6F7F9;">
+      <div style="position:absolute;inset:0;">
+        <image-slot id="slide-05-figure" shape="rect" placeholder="측정 데이터 그래프 또는 SEM 이미지"></image-slot>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Data" data-screen-label="06" data-speaker-notes="표 슬라이드. 수직 괘선 없음. 5열 이내." style="background:#FFFFFF;display:flex;flex-direction:column;padding:96px 120px;box-sizing:border-box;">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div style="font-family:'Archivo',sans-serif;font-size:24px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">03 — 공정 최적화</div>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:66px;line-height:1.15;letter-spacing:-0.018em;color:#14243F;">표준 공정 조건</h2>
+    </div>
+    <table style="width:100%;border-collapse:collapse;margin-top:52px;">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding:22px 28px;background:#F6F7F9;border-bottom:2px solid #14243F;font-family:'Archivo',sans-serif;font-weight:500;font-size:24px;letter-spacing:0.1em;color:#6B7280;">PARAMETER</th>
+          <th style="text-align:left;padding:22px 28px;background:#F6F7F9;border-bottom:2px solid #14243F;font-family:'Archivo',sans-serif;font-weight:500;font-size:24px;letter-spacing:0.1em;color:#6B7280;">Al₂O₃</th>
+          <th style="text-align:left;padding:22px 28px;background:#F6F7F9;border-bottom:2px solid #14243F;font-family:'Archivo',sans-serif;font-weight:500;font-size:24px;letter-spacing:0.1em;color:#6B7280;">HfO₂</th>
+          <th style="text-align:left;padding:22px 28px;background:#F6F7F9;border-bottom:2px solid #14243F;font-family:'Archivo',sans-serif;font-weight:500;font-size:24px;letter-spacing:0.1em;color:#6B7280;">NOTE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;color:#2B2F36;">증착 온도</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">250 °C</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">280 °C</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:28px;color:#6B7280;">±2 °C</td></tr>
+        <tr><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;color:#2B2F36;">전구체</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">TMA</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">TEMAH</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:28px;color:#6B7280;">실온 유지</td></tr>
+        <tr><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;color:#2B2F36;">반응물</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">H₂O</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">O₃</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:28px;color:#6B7280;">—</td></tr>
+        <tr><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;color:#2B2F36;">사이클당 성장률</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">1.1 Å</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:32px;font-family:'Archivo',sans-serif;color:#2B2F36;">0.9 Å</td><td style="padding:26px 28px;border-bottom:1px solid #E4E7EC;font-size:28px;color:#6B7280;">포화 조건</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:20px;font-size:24px;color:#6B7280;">표 1. 두 소재의 표준 ALD 공정 조건 비교</div>
+    <div style="margin-top:auto;padding-top:36px;display:flex;justify-content:space-between;align-items:center;gap:40px;">
+      <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:26px;flex:0 0 auto;">
+        <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#14243F"></rect></svg>
+        <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#14243F;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+      </span>
+      <div style="display:flex;align-items:center;gap:18px;font-family:'Archivo',sans-serif;font-size:24px;line-height:1;color:#9AA1AB;white-space:nowrap;">
+        <span>hbrlee.unist@gmail.com</span><span style="color:#D2D6DD;">·</span><span>https://nanomaterial.kr</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Metrics" data-screen-label="07" data-speaker-notes="핵심 수치 3개. 숫자는 Archivo 300, 설명은 본문 서체." style="background:#F6F7F9;display:flex;flex-direction:column;justify-content:center;padding:96px 120px;box-sizing:border-box;">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div style="font-family:'Archivo',sans-serif;font-size:24px;font-weight:500;letter-spacing:0.14em;color:#0EA79A;">03 — 공정 최적화</div>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:66px;line-height:1.15;letter-spacing:-0.018em;color:#14243F;">핵심 결과</h2>
+    </div>
+    <div style="margin-top:80px;display:grid;grid-template-columns:repeat(3,1fr);gap:64px;">
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="width:88px;height:5px;background:#0EA79A;"></div>
+        <div style="font-family:'Archivo',sans-serif;font-size:132px;font-weight:300;line-height:0.95;letter-spacing:-0.03em;color:#14243F;">1.1<span style="font-size:56px;font-weight:400;">&#8202;Å</span></div>
+        <div style="font-size:30px;line-height:1.5;color:#2B2F36;">사이클당 성장률</div>
+        <div style="font-size:24px;line-height:1.5;color:#6B7280;">250 °C 포화 조건</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="width:88px;height:5px;background:#0EA79A;"></div>
+        <div style="font-family:'Archivo',sans-serif;font-size:132px;font-weight:300;line-height:0.95;letter-spacing:-0.03em;color:#14243F;">1.5<span style="font-size:56px;font-weight:400;">&#8202;%</span></div>
+        <div style="font-size:30px;line-height:1.5;color:#2B2F36;">두께 편차</div>
+        <div style="font-size:24px;line-height:1.5;color:#6B7280;">300 mm 웨이퍼 전면</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="width:88px;height:5px;background:#0EA79A;"></div>
+        <div style="font-family:'Archivo',sans-serif;font-size:132px;font-weight:300;line-height:0.95;letter-spacing:-0.03em;color:#14243F;">±0.8<span style="font-size:56px;font-weight:400;">&#8202;%</span></div>
+        <div style="font-size:30px;line-height:1.5;color:#2B2F36;">재현성</div>
+        <div style="font-size:24px;line-height:1.5;color:#6B7280;">1,000 사이클 기준</div>
+      </div>
+    </div>
+    <div style="margin-top:auto;padding-top:36px;display:flex;justify-content:space-between;align-items:center;gap:40px;">
+      <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:26px;flex:0 0 auto;">
+        <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#14243F"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#14243F"></rect></svg>
+        <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#14243F;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+      </span>
+      <div style="display:flex;align-items:center;gap:18px;font-family:'Archivo',sans-serif;font-size:24px;line-height:1;color:#9AA1AB;white-space:nowrap;">
+        <span>hbrlee.unist@gmail.com</span><span style="color:#D2D6DD;">·</span><span>https://nanomaterial.kr</span>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Full-bleed image" data-screen-label="08" data-speaker-notes="전면 이미지. 좌하단 텍스트 플레이트. 장비 사진이나 대표 이미지에 사용." style="position:relative;background:#14243F;box-sizing:border-box;">
+    <div style="position:absolute;inset:0;">
+      <image-slot id="slide-08-bleed" shape="rect" placeholder="장비 또는 실험실 전면 이미지"></image-slot>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(to top,rgba(20,36,63,0.92),rgba(20,36,63,0));pointer-events:none;"></div>
+    <div style="position:absolute;left:120px;bottom:104px;max-width:44ch;display:flex;flex-direction:column;gap:26px;pointer-events:none;">
+      <div style="width:88px;height:5px;background:#0EA79A;"></div>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:76px;line-height:1.12;letter-spacing:-0.02em;color:#FFFFFF;text-wrap:pretty;">300 mm 양산형 ALD 장비</h2>
+      <p style="margin:0;font-size:32px;line-height:1.55;color:#C6D0E0;text-wrap:pretty;">UNIST 반도체소재부품대학원 공정 클러스터</p>
+    </div>
+  </section>
+
+  <section data-label="Quote" data-screen-label="09" data-speaker-notes="한 문장 강조. 인용이나 핵심 메시지. 텍스트 외 요소 없음." style="background:#0EA79A;display:flex;flex-direction:column;justify-content:center;padding:104px 160px;box-sizing:border-box;">
+    <div style="display:flex;flex-direction:column;gap:48px;">
+      <div style="font-family:'Archivo',sans-serif;font-size:120px;font-weight:600;line-height:0.7;color:#0B6F66;">&ldquo;</div>
+      <p style="margin:0;max-width:32ch;font-family:'Archivo','Pretendard',sans-serif;font-weight:500;font-size:86px;line-height:1.2;letter-spacing:-0.02em;color:#FFFFFF;text-wrap:pretty;">두께를 시간이 아니라 사이클 수로 정의하는 순간, 공정은 재현 가능해집니다.</p>
+      <div style="display:flex;align-items:center;gap:24px;">
+        <div style="width:56px;height:4px;background:#0B6F66;"></div>
+        <div style="font-size:30px;line-height:1.5;color:#D6F2EF;">HBRL Research Group</div>
+      </div>
+    </div>
+  </section>
+
+  <section data-label="Closing" data-screen-label="10" data-speaker-notes="마무리. 감사 인사와 연락처. 질문 유도." style="background:#14243F;display:flex;flex-direction:column;justify-content:space-between;padding:104px 120px;box-sizing:border-box;color:#FFFFFF;">
+    <span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:44px;">
+      <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;"><rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"></rect><rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#FFFFFF"></rect><rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#FFFFFF"></rect><rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#FFFFFF"></rect></svg>
+      <span style="font-family:'Archivo',sans-serif;font-weight:300;font-size:1em;line-height:1;letter-spacing:-0.033em;white-space:nowrap;"><span style="color:#FFFFFF;">HBRL</span><span style="color:#0EA79A;">RG</span></span>
+    </span>
+    <div style="display:flex;flex-direction:column;gap:32px;">
+      <div style="width:88px;height:5px;background:#0EA79A;"></div>
+      <h2 style="margin:0;font-family:'Archivo','Pretendard',sans-serif;font-weight:600;font-size:96px;line-height:1.08;letter-spacing:-0.022em;">감사합니다</h2>
+      <p style="margin:0;max-width:44ch;font-size:34px;line-height:1.55;color:#93A2BC;text-wrap:pretty;">질문과 공동연구 제안을 환영합니다.</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:48px;padding-top:44px;border-top:1px solid #2C4066;">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="font-size:30px;font-weight:600;">이한보람</div>
+        <div style="font-size:26px;line-height:1.5;color:#93A2BC;">울산과학기술원(UNIST) 반도체소재부품대학원 교수</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;text-align:right;font-family:'Archivo',sans-serif;font-size:26px;line-height:1.5;color:#93A2BC;">
+        <div>hbrlee.unist@gmail.com</div>
+        <div>https://nanomaterial.kr</div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+</body>
+</html>
