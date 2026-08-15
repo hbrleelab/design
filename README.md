@@ -18,8 +18,7 @@ documents/          A4 문서 템플릿
   plain-en.html         기본 문서 (영문)
 
 slides/             16:9 슬라이드 템플릿 (1920×1080)
-  slides-kr.html        국문 · 10종 레이아웃
-  slides-en.html        영문 · 12종 레이아웃
+  slides-en.html        12종 레이아웃
 
 design-system/      디자인 규격서 (색 · 서체 · 간격 · 사용 규칙)
   index.html
@@ -50,7 +49,7 @@ A4 여백(18 mm)과 페이지 나눔은 자동입니다. `@page` 설정을 따�
 
 ### 슬라이드
 
-1. `slides/slides-kr.html` 또는 `slides-en.html` 을 브라우저로 엽니다
+1. `slides/slides-en.html` 을 브라우저로 엽니다
 2. ← → 키로 넘기고, 하단 썸네일에서 슬라이드를 고르거나 순서를 바꿉니다
 3. 필요 없는 레이아웃은 썸네일에서 우클릭 → 삭제
 4. 회색 이미지 영역에 플롯·현미경 사진을 **끌어다 놓으면** 채워집니다

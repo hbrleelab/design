@@ -26,7 +26,7 @@ hbrleelab/design
 ├── README.md              ← 저장소 첫 화면. 다운로드 링크와 사용법
 ├── DEPLOY.md              ← 이 문서
 ├── documents/             ← A4 문서 4종
-├── slides/                ← 16:9 슬라이드 2종
+├── slides/                ← 16:9 슬라이드 템플릿
 ├── design-system/         ← 디자인 규격서 (GitHub Pages 로 공개)
 ├── web/                   ← 홈페이지 스타일시트
 ├── assets/                ← 로고·엠블럼
@@ -53,7 +53,7 @@ hbrleelab/design
 가장 중요한 경로입니다. 학생은 저장소 구조를 몰라도 됩니다.
 
 - 저장소 우측 **Releases** → 최신 버전 → `hbrlrg-templates.zip` 다운로드
-- 압축을 풀면 폴더 그대로. `slides/slides-kr.html` 을 더블클릭하면 바로 열립니다
+- 압축을 풀면 폴더 그대로. `slides/slides-en.html` 을 더블클릭하면 바로 열립니다
 - 릴리스마다 "무엇이 바뀌었는지" 노트가 붙으므로, 지금 쓰는 게 최신인지 알 수 있습니다
 
 **왜 zip인가.** 슬라이드 HTML은 혼자 못 돕니다. `deck-stage.js`, `image-slot.js`,
