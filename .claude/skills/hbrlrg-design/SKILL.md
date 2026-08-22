@@ -1,6 +1,15 @@
 ---
 name: hbrlrg-design
-description: The HBRL Research Group (UNIST) visual design system — Navy/Teal colour tokens, Archivo + Pretendard type, and the lab's slide, document, and web templates. Use this whenever you are making or restyling anything that carries the lab's identity: presentation slides and PPTX decks, A4 documents and letterheads, posters, figures, the group homepage, or any request mentioning HBRL, HBRLRG, "our lab design", "연구실 디자인", or "랩 템플릿". Also use it when asked to swap fonts or colours in an existing deck to match a house style, or to embed fonts into a .pptx — the bundled scripts and pitfalls save hours of rediscovery.
+description: >-
+  The HBRL Research Group (UNIST) visual design system — Navy/Teal colour tokens,
+  Archivo + Pretendard type, and the lab's slide, document, and web templates.
+  Use this whenever you are making or restyling anything that carries the lab's
+  identity, including presentation slides and PPTX decks, A4 documents and
+  letterheads, posters, figures, and the group homepage, or for any request
+  mentioning HBRL, HBRLRG, "our lab design", "연구실 디자인", or "랩 템플릿".
+  Also use it when asked to swap fonts or colours in an existing deck to match a
+  house style, or to embed fonts into a .pptx — the bundled scripts and recorded
+  pitfalls save hours of rediscovery.
 ---
 
 # HBRLRG Design System
