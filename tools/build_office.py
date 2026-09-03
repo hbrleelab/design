@@ -360,6 +360,19 @@ def rule(doc):
     return t
 
 
+def doc_footer(doc, line, tracking_em):
+    """Section footer, so it repeats on every page rather than sitting once
+    at the end of the body."""
+    para = doc.sections[0].footer.paragraphs[0]
+    para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    r = para.add_run(line)
+    dset(r, 7.5, DocRGB(0x9A, 0xA1, 0xAB))
+    rPr = r._r.get_or_add_rPr()
+    # w:spacing is character tracking in twentieths of a point
+    rPr.append(rPr.makeelement(qn("w:spacing"),
+                               {qn("w:val"): str(round(tracking_em * 7.5 * 20))}))
+
+
 def build_docx(out, *, letterhead, korean):
     doc = docx.Document()
     sec = doc.sections[0]
@@ -433,6 +446,13 @@ def build_docx(out, *, letterhead, korean):
         p.paragraph_format.space_after = DocPt(10)
         if txt:
             dset(p.add_run(txt), size, colour, bold=bold)
+
+    if letterhead:
+        doc_footer(doc, "052-217-3218  ·  hbrlee@unist.ac.kr  ·  https://hbrl-research.group",
+                   0.05)
+    else:
+        doc_footer(doc, "HBRL RESEARCH GROUP  ·  GRADUATE SCHOOL OF SEMICONDUCTOR "
+                        "MATERIALS & DEVICES ENGINEERING, UNIST", 0.07)
 
     doc.save(out)
 
