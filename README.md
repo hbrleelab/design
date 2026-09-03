@@ -3,7 +3,8 @@
 HBRL Research Group (UNIST) 의 문서 · 슬라이드 · 웹 디자인 시스템 저장소.
 연구실 구성원이라면 누구나 여기서 최신 템플릿을 받아 쓸 수 있습니다.
 
-**최신 템플릿 받기** → [Releases](../../releases/latest) 에서 `hbrlrg-templates.zip` 다운로드
+**최신 템플릿 받기** → [Releases](../../releases/latest)
+· 전체 묶음 `hbrlrg-templates.zip` · 파워포인트 `hbrlrg-slides.pptx` · 워드 `hbrlrg-*.docx`
 **디자인 규격 보기** → https://hbrleelab.github.io/design/
 
 ---
@@ -45,6 +46,11 @@ assets/
   unist-emblem-onnavy.png                 UNIST 엠블럼 (네이비 배경)
   cm-logo-onnavy.png                      Chemistry of Materials 로고
 
+office/             파워포인트 · 워드 판 (릴리스에서 자동 생성)
+  hbrlrg-slides.pptx                      슬라이드 12종 (Archivo 임베드)
+  hbrlrg-letterhead-kr / -en.docx         레터헤드
+  hbrlrg-plain-kr / -en.docx              기본 문서
+
 deck-stage.js       슬라이드 뷰어 (탐색 · 발표자 노트 · 인쇄)
 image-slot.js       이미지 자리표시자 (드래그 앤 드롭)
 doc-page.js         A4 인쇄 레이아웃 엔진
@@ -75,6 +81,21 @@ A4 여백(18 mm)과 페이지 나눔은 자동입니다. `@page` 설정을 따�
 
 발표 데이터가 중심이므로 모든 본문 슬라이드는 상단 268 px 아래를
 **비워 두도록** 설계했습니다. 플롯을 붙일 자리입니다.
+
+### 파워포인트 · 워드로 쓰고 싶다면
+
+HTML 을 쓰기 어려운 상황(공동 편집, 학회 제출 양식 등)을 위해 같은 규격을
+`.pptx` · `.docx` 로도 만들어 둡니다. [Releases](../../releases/latest) 에서
+파일을 따로 받으면 됩니다.
+
+- `hbrlrg-slides.pptx` 는 **Archivo 를 파일 안에 심어** 두어, 폰트가 설치되지
+  않은 PC 에서도 서체가 유지됩니다. 한글은 Pretendard 로 지정돼 있으니
+  한글 슬라이드를 많이 쓴다면 [Pretendard](https://github.com/orioncactus/pretendard)
+  를 설치하세요.
+- 워드 파일은 폰트를 심을 수 없습니다. 밖으로 보내는 문서는 **PDF 로 내보내야**
+  받는 사람 PC 에서 모양이 유지됩니다.
+- 원본은 어디까지나 HTML 입니다. 규격이 바뀌면 릴리스마다 다시 만들어지므로,
+  Office 파일을 직접 고쳐 두고 재사용하지 마세요.
 
 ### 홈페이지
 
