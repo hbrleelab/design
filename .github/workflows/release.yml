@@ -3,6 +3,12 @@ name: Release templates
 on:
   push:
     tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '릴리스 버전 태그 (예: v1.1). 태그가 없으면 이 커밋에 새로 만듭니다.'
+        required: true
+        type: string
 
 jobs:
   release:
@@ -12,11 +18,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 오타로 이상한 태그가 생기는 것을 막습니다.
+      - name: Validate version
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          case "${{ inputs.version }}" in
+            v[0-9]*) ;;
+            *) echo "버전은 v + 숫자로 시작해야 합니다 (예: v1.1)"; exit 1 ;;
+          esac
+
+      - name: Resolve tag
+        id: tag
+        run: echo "name=${{ inputs.version || github.ref_name }}" >> "$GITHUB_OUTPUT"
+
       - name: Package templates
         run: zip -r hbrlrg-templates.zip documents slides assets *.js README.md
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.tag.outputs.name }}
           files: hbrlrg-templates.zip
           generate_release_notes: true
