@@ -21,14 +21,29 @@ slides/             16:9 슬라이드 템플릿 (1920×1080)
   slides-en.html        12종 레이아웃
 
 design-system/      디자인 규격서 (색 · 서체 · 간격 · 사용 규칙)
-  index.html
+  index.html                              브라우저로 보는 규격서
+  HBRLRG-design-system.md                 같은 내용의 텍스트 판
+                                          (클로드 등 AI 도구에 읽히는 용도)
 
-web/                홈페이지용 스타일시트
-  hbrlrg.css
+web/                홈페이지
+  hbrlrg.css                              스타일시트 (토큰 + 컴포넌트)
+  index.html                              참조 구현
+  HANDOFF.md                              개발자용 적용 안내서
 
-assets/             로고 · 엠블럼
-  unist-emblem-onnavy.png
-  cm-logo-onnavy.png
+assets/
+  logo/                                   HBRLRG 로고 전체 세트
+    hbrlrg-horizontal.svg / .png            가로형 (기본)
+    hbrlrg-horizontal-reverse.svg / .png    가로형 · 어두운 배경용
+    hbrlrg-horizontal-mono.svg / .png       가로형 · 단색
+    hbrlrg-horizontal-reverse-on-navy.*     네이비 배경 포함 (미리보기용)
+    hbrlrg-vertical.svg / -mono.svg         세로형
+    hbrlrg-symbol.svg / -reverse / -mono    심볼 단독
+    hbrlrg-icon.svg / -icon.png / -icon-512.png   앱 아이콘 · 프로필
+    hbrlrg-favicon-64.png                   파비콘
+    README.txt                              로고 규격 (색 · 서체 · 최소 크기)
+  unist-emblem.png                        UNIST 엠블럼 (밝은 배경)
+  unist-emblem-onnavy.png                 UNIST 엠블럼 (네이비 배경)
+  cm-logo-onnavy.png                      Chemistry of Materials 로고
 
 deck-stage.js       슬라이드 뷰어 (탐색 · 발표자 노트 · 인쇄)
 image-slot.js       이미지 자리표시자 (드래그 앤 드롭)
@@ -64,7 +79,14 @@ A4 여백(18 mm)과 페이지 나눔은 자동입니다. `@page` 설정을 따�
 ### 홈페이지
 
 `web/hbrlrg.css` 를 기존 스타일시트 **뒤에** 불러오면 됩니다. 빌드 도구 불필요.
-자세한 내용은 `web/` 안의 주석과 디자인 규격서를 참고하세요.
+`web/index.html` 을 브라우저로 열면 모든 컴포넌트의 올바른 마크업을 볼 수 있고,
+적용 절차와 주의사항은 `web/HANDOFF.md` 에 정리돼 있습니다.
+
+### AI 도구에 규격 전달
+
+`design-system/HBRLRG-design-system.md` 한 파일이면 됩니다. 색·서체·간격·로고 규칙과
+소속 표기가 모두 텍스트로 정리돼 있어, 클로드 프로젝트 지식이나 대화에 그대로 넣어
+쓸 수 있습니다. 문서 마크업까지 참고시키려면 `documents/` 의 HTML을 함께 넣으세요.
 
 ---
 
@@ -79,6 +101,10 @@ A4 여백(18 mm)과 페이지 나눔은 자동입니다. `@page` 설정을 따�
 | 표 헤더 배경 | `#F6F7F9` |
 | 로고 · 영문 제목 서체 | Archivo |
 | 한글 본문 서체 | Pretendard |
+
+로고는 가로형이 기본이며 비율 573.5 : 169.1을 유지합니다. 어두운 배경에는 반드시
+reverse 파일을 씁니다 (색을 바꾸지 말고 파일을 바꿉니다). 최소 크기는 가로형 너비
+120 px / 25 mm 입니다.
 
 강조색은 **하나뿐**입니다. 구분선 캡, 불릿, CTA에만 씁니다.
 모서리는 각지게 유지합니다(radius 0). 이 두 가지가 문서 · 슬라이드 · 웹을

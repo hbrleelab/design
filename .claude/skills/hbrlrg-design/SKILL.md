@@ -15,7 +15,7 @@ description: >-
 # HBRLRG Design System
 
 The lab's identity across slides, documents, and web. Everything here is derived
-from the canonical templates in `assets/templates/`, which are the same files
+from the canonical templates in `assets/kit/`, which are the same files
 students download from https://github.com/hbrleelab/design/releases/latest.
 
 When a task touches an existing artefact, prefer restyling it onto these tokens
@@ -73,25 +73,29 @@ Semiconductor Materials & Devices Engineering, UNIST`.
 
 ## The HBRLRG wordmark
 
-Four stacked bars plus the word. The top bar is teal; the rest take the
-foreground colour (navy on light, white on navy). `RG` is always teal.
+Ship the mark as a file — `assets/kit/assets/logo/` holds the full set, and
+`README.txt` there carries the spec (colours in RGB/CMYK, minimum sizes, and the
+note that all lettering is outlined so no font install is needed).
 
-```html
-<span style="display:inline-flex;align-items:baseline;gap:0.15em;font-size:26px;">
-  <svg viewBox="10 15 40 30.5" style="height:0.7em;width:auto;flex:0 0 auto;">
-    <rect x="10" y="15" width="40" height="3.5" rx="1.75" fill="#0EA79A"/>
-    <rect x="10" y="24" width="40" height="3.5" rx="1.75" fill="#14243F"/>
-    <rect x="10" y="33" width="40" height="3.5" rx="1.75" fill="#14243F"/>
-    <rect x="10" y="42" width="40" height="3.5" rx="1.75" fill="#14243F"/>
-  </svg>
-  <span style="font-family:'Archivo',sans-serif;font-weight:300;letter-spacing:-0.033em;">
-    <span style="color:#14243F;">HBRL</span><span style="color:#0EA79A;">RG</span>
-  </span>
-</span>
-```
+| Need | File |
+|---|---|
+| Default, light ground | `hbrlrg-horizontal.svg` / `.png` |
+| Dark ground | `hbrlrg-horizontal-reverse.svg` / `.png` |
+| Single colour | `hbrlrg-horizontal-mono.svg` |
+| Navy plate baked in | `hbrlrg-horizontal-reverse-on-navy.png` |
+| Stacked | `hbrlrg-vertical.svg`, `-mono` |
+| Symbol alone | `hbrlrg-symbol.svg`, `-reverse`, `-mono` |
+| App icon / favicon | `hbrlrg-icon.svg`, `-icon-512.png`, `hbrlrg-favicon-64.png` |
 
-Logos live in `assets/logos/`: `unist-emblem.png` (light grounds),
-`unist-emblem-onnavy.png` and `cm-logo-onnavy.png` (navy grounds).
+Two rules that are easy to get wrong: on a dark ground **swap to the reverse
+file rather than recolouring** the default one, and keep the horizontal mark at
+120 px / 25 mm wide or larger (symbol alone: 24 px / 6 mm). Aspect is
+573.5 : 169.1 — never stretch it.
+
+Prefer the `.svg` in HTML so it stays sharp when printed or projected; the PNGs
+exist for tools that cannot place SVG. UNIST and Chemistry of Materials
+emblems sit alongside at `assets/kit/assets/` — `unist-emblem.png` for light
+grounds, `unist-emblem-onnavy.png` and `cm-logo-onnavy.png` for navy.
 
 ## What to read next
 
@@ -100,6 +104,8 @@ Logos live in `assets/logos/`: `unist-emblem.png` (light grounds),
   building or restyling any deck.
 - **`references/documents.md`** — A4 letterhead and plain-document rules, print
   behaviour, and how the HTML templates are meant to be used.
+- **`references/design-system-spec.md`** — the whole system as prose: colour,
+  type, spacing, logo rules, affiliation. Hand this to another AI tool as-is.
 - **`references/pptx.md`** — restyling a real `.pptx` onto this system: the
   token map, font embedding, and the traps that cost real time (python-pptx
   silently drawing borders, PowerPoint refusing `.otf`). Read this whenever a
@@ -107,12 +113,23 @@ Logos live in `assets/logos/`: `unist-emblem.png` (light grounds),
 
 ## Bundled templates and scripts
 
-`assets/templates/` holds the canonical, working files — open them to see any
-rule in context rather than reconstructing it:
+`assets/kit/` is a working copy of the repository, laid out so the relative
+paths inside each template resolve — open any file straight from there and the
+logos, viewer, and print engine all load:
 
-`slides-en.html` (12 layouts, 1920×1080) · `letterhead-{kr,en}.html` ·
-`plain-{kr,en}.html` · `hbrlrg.css` (homepage) · `deck-stage.js` (deck viewer)
-· `image-slot.js` (drag-and-drop figure wells) · `doc-page.js` (A4 print engine)
+```
+assets/kit/
+├── slides/slides-en.html            12 layouts, 1920x1080
+├── documents/letterhead-{kr,en}.html, plain-{kr,en}.html
+├── web/hbrlrg.css, index.html       homepage stylesheet + reference markup
+├── assets/logo/                     the mark, every variant
+├── assets/unist-emblem*.png, cm-logo-onnavy.png
+└── deck-stage.js, image-slot.js, doc-page.js
+```
+
+Read a template rather than reconstructing a rule from this document — the file
+is the source of truth, and `references/design-system-spec.md` is the same
+system written out as prose for pasting into another tool.
 
 `scripts/` holds three things worth not rewriting:
 

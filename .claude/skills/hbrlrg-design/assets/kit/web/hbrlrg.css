@@ -1,6 +1,6 @@
 /* ==========================================================================
    HBRLRG Design System — hbrlrg.css
-   HBRL Research Group (nanomaterial.kr)
+   HBRL Research Group (hbrl-research.group)
 
    Shared with the group's document templates (A4 letterhead / plain report)
    and the 1920×1080 slide template. Same palette, same typefaces, same
@@ -361,40 +361,30 @@ table { border-collapse: collapse; width: 100%; }
   gap: var(--hb-10);
 }
 
-/* Wordmark: four bars (top one teal) + "HBRL" navy / "RG" teal.
-   Markup lives in the HTML — see HANDOFF.md §Wordmark. */
+/* Wordmark: the supplied logo file, never re-drawn in markup.
+   Two variants — the reverse file is required on navy and on photography.
+   Aspect ratio is fixed at 573.5 : 169.1; set height only, and swap the
+   SOURCE rather than the colour. */
 .hb-wordmark {
   display: inline-flex;
   align-items: center;
-  gap: 0.15em;
   min-height: var(--hb-tap);
-  font-size: 1.1875rem;                 /* 19px mobile */
   flex: 0 0 auto;
 }
-.hb-wordmark__bars { height: 0.7em; width: auto; flex: 0 0 auto; }
-.hb-wordmark__text {
-  font-family: var(--hb-font);
-  font-weight: var(--hb-w-light);
-  font-size: 1em;
-  line-height: 1;
-  letter-spacing: -0.033em;
-  white-space: nowrap;
-  color: var(--hb-navy);
+.hb-wordmark img {
+  height: 30px;
+  width: auto;
+  aspect-ratio: 573.5 / 169.1;   /* guards against intrinsic-size quirks */
+  display: block;
 }
-.hb-wordmark__text b { font-weight: inherit; color: var(--hb-teal); } /* "RG" */
-.hb-wordmark:hover .hb-wordmark__text { color: var(--hb-navy); }
+/*  <img src="assets/hbrlrg-horizontal.png">          on light
+    <img src="assets/hbrlrg-horizontal-reverse.png">  on navy / photography  */
 
-/* Set the colour on the ANCHOR: the three lower bars are fill="currentColor"
-   and inherit from it, so styling the inner span alone leaves them navy. */
-.hb-section--navy .hb-wordmark,
-.hb-hero .hb-wordmark,
-.hb-footer .hb-wordmark { color: var(--hb-white); }
-.hb-section--navy .hb-wordmark__text,
-.hb-hero .hb-wordmark__text,
-.hb-footer .hb-wordmark__text { color: var(--hb-white); }
+.hb-footer .hb-wordmark img { height: 34px; }
 
 @media (min-width: 1200px) {
-  .hb-wordmark { font-size: 1.4375rem; }  /* 23px */
+  .hb-wordmark img { height: 37px; }
+}
 }
 
 .hb-nav { display: none; }

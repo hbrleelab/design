@@ -2,7 +2,7 @@
 
 Two A4 templates, each in Korean and English:
 `letterhead-{kr,en}.html` for outgoing correspondence, `plain-{kr,en}.html` for
-everything else. Both live in `../assets/templates/`.
+everything else. Both live in `../assets/kit/documents/`.
 
 ## How they are meant to be used
 
@@ -30,7 +30,7 @@ for *Chemistry of Materials*, plus the phone/e-mail/URL line in muted grey. Trea
 the affiliation strings in `SKILL.md` as fixed text — they are how the group is
 cited, and shortening them on a letter is a real error rather than a style choice.
 
-The UNIST emblem on a light ground is `assets/logos/unist-emblem.png`.
+The UNIST emblem on a light ground is `assets/kit/assets/unist-emblem.png`.
 
 ## When a Word or PowerPoint file is unavoidable
 

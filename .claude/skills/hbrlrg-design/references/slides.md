@@ -10,7 +10,7 @@ So the 60 px heading below is 30 pt in PowerPoint, and the 120 px side margin is
 0.833 in. Anything specified here in px translates to any tool with those two
 divisions.
 
-`../assets/templates/slides-en.html` is the working reference — 12 layouts:
+`../assets/kit/slides/slides-en.html` is the working reference — 12 layouts:
 Title · Agenda · Section · Content · Figure (full) · Figure (two up) ·
 Figure + text · Data · Metrics · Full-bleed image · Statement · Closing.
 
