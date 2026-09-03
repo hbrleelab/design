@@ -32,7 +32,7 @@ jobs:
         run: echo "name=${{ inputs.version || github.ref_name }}" >> "$GITHUB_OUTPUT"
 
       - name: Package templates
-        run: zip -r hbrlrg-templates.zip documents slides assets *.js README.md
+        run: zip -r hbrlrg-templates.zip documents slides design-system web assets *.js README.md
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
