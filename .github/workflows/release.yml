@@ -31,12 +31,44 @@ jobs:
         id: tag
         run: echo "name=${{ inputs.version || github.ref_name }}" >> "$GITHUB_OUTPUT"
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build dependencies
+        run: pip install --quiet python-pptx python-docx Pillow fonttools
+
+      # Archivo is SIL OFL and lives in its own repository, so it is fetched at
+      # build time rather than committed here.
+      - name: Fetch Archivo
+        run: |
+          mkdir -p .fonts
+          base=https://raw.githubusercontent.com/Omnibus-Type/Archivo/master/fonts/ttf
+          for f in Regular Bold Italic BoldItalic; do
+            curl -fsSL -o ".fonts/Archivo-$f.ttf" "$base/Archivo-$f.ttf"
+          done
+
+      - name: Build Office templates
+        run: |
+          python3 tools/build_office.py office
+          python3 .claude/skills/hbrlrg-design/scripts/embed_fonts.py \
+            office/hbrlrg-slides.pptx office/embedded.pptx .fonts
+          mv office/embedded.pptx office/hbrlrg-slides.pptx
+          ls -la office/
+
       - name: Package templates
-        run: zip -r hbrlrg-templates.zip documents slides design-system web assets *.js README.md
+        run: zip -r hbrlrg-templates.zip documents slides design-system web assets office *.js README.md
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.name }}
-          files: hbrlrg-templates.zip
+          files: |
+            hbrlrg-templates.zip
+            office/hbrlrg-slides.pptx
+            office/hbrlrg-letterhead-kr.docx
+            office/hbrlrg-letterhead-en.docx
+            office/hbrlrg-plain-kr.docx
+            office/hbrlrg-plain-en.docx
           generate_release_notes: true
