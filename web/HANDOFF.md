@@ -1,7 +1,11 @@
 # Handoff: HBRLRG Homepage
 
+> This document lives in the `web/` folder of the `hbrleelab/design` repository.
+> The stylesheet is `hbrlrg.css`, the reference implementation `index.html`, and
+> the logos and emblems are in `../assets/`.
+>
 > 이 문서는 `hbrleelab/design` 저장소의 `web/` 폴더에 있습니다.
-> 스타일시트는 `hbrlrg.css`, 참조 구현은 `index.html`, 로고·엠블럼은 `../assets/`.
+> 스타일시트는 `hbrlrg.css`, 참조 구현은 `index.html`, 로고 · 엠블럼은 `../assets/`.
 
 ## Overview
 
