@@ -57,9 +57,19 @@ reflowing text around a figure after the fact.
 
 | Element | Position | Type |
 |---|---|---|
-| Wordmark | bars at `120`, text at `158` | 26 px |
-| Contact | `972` | 24 px, `#9AA1AB`, separator dot `#D2D6DD` |
-| Page number | `1728`, right-aligned | 24 px, `#9AA1AB` |
+| Logo | `120`, 42 px tall (142 px wide) | `assets/logo/hbrlrg-horizontal.png` |
+| Divider | `290`, 1 × 20 px | `#D2D6DD` (`#2C4066` on navy) |
+| Section title | `319` | 24 px, `#2B2F36`, title case |
+| Contact | right-aligned to `1800` | 24 px, `#9AA1AB`, `email  |  https://…` |
+
+The section title repeats the slide's own eyebrow without the number, in title
+case rather than uppercase — the eyebrow disappears once a listener scrolls past
+the header, and someone joining mid-talk needs to know where they are. Slides
+belonging to no section (the agenda) carry the logo alone: no divider, no title.
+
+The contact line is only the address and the URL. The group name is already in
+the logo 170 px to its left, and repeating it wastes the one line a listener
+might actually copy down.
 
 ## Cover slide
 

@@ -36,6 +36,7 @@ INK = RGBColor(0x2B, 0x2F, 0x36)
 MUTED = RGBColor(0x6B, 0x72, 0x80)
 SURFACE = RGBColor(0xF6, 0xF7, 0xF9)
 HAIRLINE = RGBColor(0xE4, 0xE7, 0xEC)
+DIVIDER = RGBColor(0xD2, 0xD6, 0xDD)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 ON_NAVY = RGBColor(0x93, 0xA2, 0xBC)
 ON_NAVY_DIM = RGBColor(0x6E, 0x82, 0xA3)
@@ -52,7 +53,9 @@ W_PX, H_PX = 1920, 1080
 MARGIN = 120
 BODY_W = W_PX - 2 * MARGIN
 
-CONTACT = "HBRL Research Group  ·  hbrlee@unist.ac.kr  ·  hbrl-research.group"
+# The group name is already in the logo beside it, so the footer carries
+# only the two things an audience member would write down.
+CONTACT = "hbrlee@unist.ac.kr    |    https://hbrl-research.group"
 NAME = "Han-Bo-Ram Lee"
 AFFIL = ("Professor, Graduate School of Semiconductor Materials "
          "& Devices Engineering, UNIST")
@@ -129,9 +132,20 @@ def header(slide, eyebrow, heading, subtitle=None):
     return 268
 
 
-def footer(slide, on_navy=False):
-    picture(slide, "logo/hbrlrg-horizontal-reverse.png" if on_navy
-            else "logo/hbrlrg-horizontal.png", MARGIN, 1004, 42)
+def footer(slide, section=None, on_navy=False):
+    """Logo, then the section the slide belongs to, then the contact line.
+
+    The section title tells a listener who joined late where they are, which the
+    eyebrow only does while the header is still on screen. Slides that belong to
+    no section (the agenda, the closing) pass section=None and get logo only.
+    """
+    logo = picture(slide, "logo/hbrlrg-horizontal-reverse.png" if on_navy
+                   else "logo/hbrlrg-horizontal.png", MARGIN, 1004, 42)
+    if section:
+        x = MARGIN + logo.width / px(1) + 28
+        rect(slide, x, 1015, 1, 20, NAVY_RULE if on_navy else DIVIDER)
+        text(slide, x + 29, 1010, 900, 30, section, 24,
+             ON_NAVY if on_navy else INK, wrap=False)
     text(slide, W_PX - MARGIN - 900, 1010, 900, 30, CONTACT, 24,
          ON_NAVY_DIM if on_navy else FOOT, align=PP_ALIGN.RIGHT, wrap=False)
 
@@ -209,7 +223,7 @@ def build_pptx(out):
         "Reactant pulse completes the ligand exchange",
         "Second purge closes the cycle — thickness follows cycle count",
     ])
-    footer(s)
+    footer(s, "ALD Fundamentals")
     s.notes_slide.notes_text_frame.text = (
         "본문. 불릿은 상단 절반만 쓰고 아래는 그림 자리로 비워 둡니다."
     )
@@ -218,7 +232,7 @@ def build_pptx(out):
     s = new()
     y = header(s, "03  ·  PROCESS OPTIMIZATION", "Wafer-scale uniformity")
     slot(s, MARGIN, y, BODY_W, 660, "Drop a plot, micrograph, or schematic")
-    footer(s)
+    footer(s, "Process Optimization")
 
     # 06 Figure, two up ----------------------------------------------------
     s = new()
@@ -229,7 +243,7 @@ def build_pptx(out):
     text(s, MARGIN, y + 620, half, 40, "Caption for the left figure", 22, MUTED)
     text(s, MARGIN + half + 40, y + 620, half, 40, "Caption for the right figure",
          22, MUTED)
-    footer(s)
+    footer(s, "Process Optimization")
 
     # 07 Figure + text -----------------------------------------------------
     s = new()
@@ -242,7 +256,7 @@ def build_pptx(out):
                  "Cycle count, not exposure time, sets the thickness"]:
         text(s, tx, y, BODY_W - 1020, 120, line, 30, INK, spacing=1.4)
         y += 130
-    footer(s)
+    footer(s, "Process Optimization")
 
     # 08 Data --------------------------------------------------------------
     s = new()
@@ -269,7 +283,7 @@ def build_pptx(out):
     text(s, MARGIN, y + 14, BODY_W, 40,
          "Table 1. Captions sit below the table, without terminal punctuation",
          22, MUTED)
-    footer(s)
+    footer(s, "Process Optimization")
 
     # 09 Metrics -----------------------------------------------------------
     s = new(SURFACE)
@@ -282,7 +296,7 @@ def build_pptx(out):
         rect(s, x, y, 88, 5, TEAL)
         text(s, x, y + 40, third, 130, fig, 108, NAVY, bold=True)
         text(s, x, y + 190, third, 60, lab, 26, MUTED, spacing=1.35)
-    footer(s)
+    footer(s, "Process Optimization")
 
     # 10 Full-bleed image --------------------------------------------------
     s = new(NAVY)

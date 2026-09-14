@@ -257,12 +257,26 @@ starts at 268 px**. Everything below that is left empty for data and plots.
 
 **Never set type below 24 px.** · **24 px 미만 글자를 쓰지 마세요.**
 
-Footer — 44 px from the bottom: HBRLRG logo left (42 px tall), `email · homepage`
-right. The cover and closing slides are the exception (the logo lockup takes that
-space).
+Footer — 44 px from the bottom. Left: the HBRLRG logo (42 px tall), a 1 × 20 px
+`#D2D6DD` divider, then the **section title** in 24 px `#2B2F36`, title case.
+Right: `hbrlee@unist.ac.kr | https://hbrl-research.group` in 24 px Faint. Nothing
+else — the group name is already in the logo, so don't repeat it in the text.
+A slide belonging to no section (the agenda) carries the logo alone. The cover
+and closing slides are the exception entirely (the logo lockup takes that space).
 
-푸터 — 하단 44 px에 좌측 HBRLRG 로고(높이 42 px), 우측 `이메일 · 홈페이지`.
-표지와 맺음 슬라이드는 예외(로고 로크업이 그 자리를 씁니다).
+푸터 — 하단 44 px. 좌측은 HBRLRG 로고(높이 42 px) → 1 × 20 px `#D2D6DD` 구분선 →
+**섹션 타이틀**(24 px, `#2B2F36`, 첫 글자만 대문자). 우측은
+`hbrlee@unist.ac.kr | https://hbrl-research.group` (24 px, Faint). 그 외에는 넣지
+않습니다 — 연구실 이름은 로고에 이미 있으므로 글자로 반복하지 마세요.
+섹션에 속하지 않는 슬라이드(목차)는 로고만 둡니다. 표지와 맺음 슬라이드는 아예
+예외입니다(로고 로크업이 그 자리를 씁니다).
+
+The section title repeats the eyebrow without its number. The eyebrow is gone
+from view the moment someone looks away from the header; the footer is what tells
+a listener who joined late where they are.
+
+섹션 타이틀은 아이브로우에서 번호를 뺀 것입니다. 아이브로우는 헤더에서 눈을 떼는
+순간 사라지므로, 늦게 들어온 청중에게 현재 위치를 알려 주는 것은 푸터입니다.
 
 The 12 layouts: cover · contents · section break · content · figure (full) ·
 figure (two up) · figure + text · table · metrics · full-bleed image · quote ·
