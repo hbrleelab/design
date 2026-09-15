@@ -41,20 +41,31 @@ jobs:
 
       # Archivo is SIL OFL and lives in its own repository, so it is fetched at
       # build time rather than committed here.
-      - name: Fetch Archivo
+      - name: Fetch fonts
         run: |
           mkdir -p .fonts
-          base=https://raw.githubusercontent.com/Omnibus-Type/Archivo/master/fonts/ttf
+          archivo=https://raw.githubusercontent.com/Omnibus-Type/Archivo/master/fonts/ttf
           for f in Regular Bold Italic BoldItalic; do
-            curl -fsSL -o ".fonts/Archivo-$f.ttf" "$base/Archivo-$f.ttf"
+            curl -fsSL -o ".fonts/Archivo-$f.ttf" "$archivo/Archivo-$f.ttf"
           done
+          pretendard=https://raw.githubusercontent.com/orioncactus/pretendard/main/packages/pretendard/dist/public/static/alternative
+          for f in Regular Bold; do
+            curl -fsSL -o ".fonts/Pretendard-$f.ttf" "$pretendard/Pretendard-$f.ttf"
+          done
+          ls -la .fonts/
 
       - name: Build Office templates
         run: |
           python3 tools/build_office.py office
-          python3 .claude/skills/hbrlrg-design/scripts/embed_fonts.py \
+          scripts=.claude/skills/hbrlrg-design/scripts
+          python3 $scripts/embed_fonts.py \
             office/hbrlrg-slides.pptx office/embedded.pptx .fonts
           mv office/embedded.pptx office/hbrlrg-slides.pptx
+          for d in letterhead-kr letterhead-en plain-kr plain-en; do
+            python3 $scripts/embed_docx_fonts.py \
+              "office/hbrlrg-$d.docx" "office/embedded.docx" .fonts
+            mv office/embedded.docx "office/hbrlrg-$d.docx"
+          done
           ls -la office/
 
       - name: Package templates

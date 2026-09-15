@@ -88,11 +88,21 @@ def embed(src, dst, families, font_dir):
     print(f"  {dst}: {len(new_rels)} font slots embedded")
 
 
+# charset 129 is Hangul; PowerPoint uses it to pick the font for East-Asian runs.
+ARCHIVO = ("Archivo", "34", "0", {
+    "regular": "Archivo-Regular.ttf",
+    "bold": "Archivo-Bold.ttf",
+    "italic": "Archivo-Italic.ttf",
+    "boldItalic": "Archivo-BoldItalic.ttf",
+})
+PRETENDARD = ("Pretendard", "34", "129", {
+    "regular": "Pretendard-Regular.ttf",
+    "bold": "Pretendard-Bold.ttf",
+})
+
+
 if __name__ == "__main__":
-    ARCHIVO = ("Archivo", "34", "0", {
-        "regular": "Archivo-Regular.ttf",
-        "bold": "Archivo-Bold.ttf",
-        "italic": "Archivo-Italic.ttf",
-        "boldItalic": "Archivo-BoldItalic.ttf",
-    })
-    embed(sys.argv[1], sys.argv[2], [ARCHIVO], sys.argv[3])
+    families = [ARCHIVO]
+    if (Path(sys.argv[3]) / "Pretendard-Regular.ttf").exists():
+        families.append(PRETENDARD)
+    embed(sys.argv[1], sys.argv[2], families, sys.argv[3])

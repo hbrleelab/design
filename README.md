@@ -52,7 +52,7 @@ assets/
 
 office/             PowerPoint and Word, built by each release
                     파워포인트 · 워드 판 (릴리스에서 자동 생성)
-  hbrlrg-slides.pptx              12 layouts, Archivo embedded · 슬라이드 12종
+  hbrlrg-slides.pptx              12 layouts, fonts embedded · 슬라이드 12종
   hbrlrg-letterhead-kr / -en.docx Letterhead · 레터헤드
   hbrlrg-plain-kr / -en.docx      Plain document · 기본 문서
 
@@ -106,18 +106,19 @@ HTML 을 쓰기 어려운 상황(공동 편집, 학회 제출 양식 등)을 위
 `.pptx` · `.docx` 로도 만들어 둡니다. [Releases](../../releases/latest) 에서
 파일을 따로 받으면 됩니다.
 
-- `hbrlrg-slides.pptx` **carries Archivo inside the file**, so the Latin type
-  survives on a machine where the font isn't installed. Korean is set in
-  Pretendard, which is *not* embedded — if you write Korean slides, install
-  [Pretendard](https://github.com/orioncactus/pretendard) once.<br>
-  `hbrlrg-slides.pptx` 는 **Archivo 를 파일 안에 심어** 두어, 폰트가 설치되지 않은
-  PC 에서도 영문 서체가 유지됩니다. 한글은 Pretendard 로 지정돼 있으나 임베드되지
-  **않았으니**, 한글 슬라이드를 쓴다면
-  [Pretendard](https://github.com/orioncactus/pretendard) 를 설치하세요.
-- Word can't embed fonts at all. Anything you send outside the group should go
-  as a **PDF**, or it will reflow on the recipient's machine.<br>
-  워드 파일은 폰트를 심을 수 없습니다. 밖으로 보내는 문서는 **PDF 로 내보내야**
-  받는 사람 PC 에서 모양이 유지됩니다.
+- **Every Office file carries its fonts inside it** — Archivo in four styles and
+  Pretendard in two. Open one on a machine with neither installed and it still
+  sets correctly, in Korean as well as English. That is why each file is around
+  2.6 MB rather than 60 KB.<br>
+  **Office 파일에는 서체가 들어 있습니다** — Archivo 4종과 Pretendard 2종. 둘 다
+  설치되지 않은 PC 에서 열어도 국문 · 영문 모두 제 서체로 나옵니다. 파일이 60 KB 가
+  아니라 2.6 MB 인 이유입니다.
+- Only Microsoft Word and PowerPoint honour embedded fonts. LibreOffice, Google
+  Docs, Pages and the browser previews ignore them, so a document read there
+  still needs the fonts installed — or send a **PDF**, which always holds.<br>
+  임베드된 서체를 읽는 것은 마이크로소프트 워드 · 파워포인트뿐입니다. LibreOffice,
+  구글 문서, Pages, 브라우저 미리보기는 무시하므로 그쪽에서 열 사람은 서체를 설치해야
+  합니다. 아니면 **PDF** 로 보내세요. PDF 는 언제나 유지됩니다.
 - HTML remains the source. The Office files are rebuilt on every release, so
   don't keep a hand-edited copy and reuse it.<br>
   원본은 어디까지나 HTML 입니다. 규격이 바뀌면 릴리스마다 다시 만들어지므로,

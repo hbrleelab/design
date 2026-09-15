@@ -105,6 +105,37 @@ Worth telling the user: embedded fonts work reliably in PowerPoint for Windows;
 Mac support depends on version, and Keynote and Google Slides ignore them
 entirely. Export a PDF when the destination is uncertain.
 
+## Embedding the fonts into a .docx
+
+Word supports this too — `python-docx` simply has no API for it, which is easy
+to mistake for "Word can't". `scripts/embed_docx_fonts.py` writes the parts by
+hand, the same job as the PowerPoint script but a different format:
+
+```bash
+python3 scripts/embed_docx_fonts.py in.docx out.docx ./fonts
+```
+
+The format is ECMA-376 §17.8. The differences that matter:
+
+- The font part is **obfuscated**, not stored raw. Take the GUID that goes in
+  `w:fontKey`, strip braces and dashes, read it as 16 bytes, **reverse** them,
+  and XOR the font file's first 32 bytes with that key applied twice. Store it
+  as `word/fonts/fontN.odttf`.
+- Content type is `application/vnd.openxmlformats-officedocument.obfuscatedFont`
+  on the `odttf` extension.
+- The declaration lives in `word/fontTable.xml`, inside the `<w:font>` element
+  for that family, and the `embed*` elements come **last** in `CT_Font` — after
+  `panose1`, `charset`, `family`, `pitch`, `sig`.
+- Relationships go in `word/_rels/fontTable.xml.rels`, which usually does not
+  exist yet and has to be created.
+- `word/settings.xml` needs `<w:embedTrueTypeFonts/>`; add
+  `<w:saveSubsetFonts w:val="false"/>` beside it so a recipient editing the text
+  does not hit missing glyphs. Both sit near the start of `CT_Settings`.
+
+Verify by de-obfuscating each part back and checking the sfnt version is
+`00010000`. A silently corrupt `.odttf` makes Word drop the font without saying
+why, which looks identical to never having embedded it.
+
 ## Checking fit without a renderer
 
 LibreOffice is often unavailable or broken, and Archivo sets wider than the

@@ -8,7 +8,7 @@ description: >-
   letterheads, posters, figures, and the group homepage, or for any request
   mentioning HBRL, HBRLRG, "our lab design", "연구실 디자인", or "랩 템플릿".
   Also use it when asked to swap fonts or colours in an existing deck to match a
-  house style, or to embed fonts into a .pptx — the bundled scripts and recorded
+  house style, or to embed fonts into a .pptx or .docx — the bundled scripts and
   pitfalls save hours of rediscovery.
 ---
 

@@ -220,8 +220,14 @@ HTML 슬라이드는 그대로 발표할 수 있고 PDF로도 나옵니다. 그�
 
 | | Font embedding · 폰트 임베드 | Sending it outside · 외부 발송 |
 | --- | --- | --- |
-| `hbrlrg-slides.pptx` | Archivo, 4 styles · Archivo 4종 | Latin type holds; Korean needs Pretendard installed<br>영문은 유지됨, 한글은 Pretendard 설치 필요 |
-| `hbrlrg-*.docx` | None — not possible via `python-docx`<br>불가 (`python-docx` 한계) | **Export to PDF** · **PDF 로 내보내기** |
+| `hbrlrg-slides.pptx` | Archivo ×4, Pretendard ×2 | Holds in PowerPoint, Korean included · 파워포인트에서 국문까지 유지 |
+| `hbrlrg-*.docx` | Archivo ×4, Pretendard ×2 | Holds in Word; **PDF** for anything else · 워드에서 유지, 그 외에는 **PDF** |
+
+Embedded fonts are read by Microsoft Office only. LibreOffice, Google Docs and
+Pages ignore them.
+
+임베드된 서체를 읽는 것은 마이크로소프트 오피스뿐입니다. LibreOffice, 구글 문서,
+Pages 는 무시합니다.
 
 Only HTML lives under `slides/` and `documents/`. Version-controlling the Office
 files would leave no usable history and only make the repository heavy. They are
@@ -279,15 +285,19 @@ they need to re-download for their own talk.
   ✅ 교체 완료. 전 파일이 `hbrlee@unist.ac.kr` 이고 옛 주소
   `hbrlee.unist@gmail.com` 은 남아 있지 않습니다. 웹 주소는
   `https://hbrl-research.group` 입니다.
-- **Fonts in Word · 워드의 폰트** — ⏳ open. `.docx` can't embed fonts, so a
-  recipient without Archivo and Pretendard sees substituted type. The current
-  answer is "export to PDF". If it becomes a real problem, the options are to
-  ship the Office files as PDF as well, or to move to a `.dotx` template that
-  assumes the fonts are installed on lab machines.<br>
-  ⏳ 미해결. `.docx` 는 폰트를 심을 수 없어 Archivo · Pretendard 가 없는 상대는
-  대체 서체로 봅니다. 현재 답은 "PDF 로 내보내기"입니다. 문제가 커지면 Office
-  파일의 PDF 판을 함께 배포하거나, 연구실 PC 에 폰트 설치를 전제한 `.dotx`
-  템플릿으로 가는 방법이 있습니다.
+- **Fonts in Office · 오피스의 폰트** — ✅ resolved. Both `.pptx` and `.docx`
+  now embed Archivo (4 styles) and Pretendard (2), written as ECMA-376 §17.8
+  obfuscated `.odttf` parts by
+  `.claude/skills/hbrlrg-design/scripts/embed_docx_fonts.py`. `python-docx` has
+  no API for this, so the parts are written by hand. Both families are SIL OFL
+  1.1 with `fsType = 0`, which permits embedding; check that before adding any
+  other family. The remaining gap is that only Microsoft Office reads them.<br>
+  ✅ 해결. `.pptx` · `.docx` 모두 Archivo 4종과 Pretendard 2종을 임베드합니다.
+  ECMA-376 §17.8 의 난독화 `.odttf` 파트로 쓰며,
+  `.claude/skills/hbrlrg-design/scripts/embed_docx_fonts.py` 가 처리합니다.
+  `python-docx` 에 API 가 없어 파트를 직접 씁니다. 두 서체 모두 SIL OFL 1.1 에
+  `fsType = 0` 이라 임베드가 허용됩니다 — 다른 서체를 추가할 때는 이것부터
+  확인하세요. 남은 한계는 마이크로소프트 오피스만 읽는다는 점입니다.
 
 Whenever a contact detail or the affiliation changes, **publish a new release**.
 A zip already downloaded still carries the old wording, so the release note has to
