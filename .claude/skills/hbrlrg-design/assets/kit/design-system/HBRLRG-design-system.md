@@ -183,12 +183,6 @@ Body order · 본문 순서
 5. Closing — 18 pt above · 맺음말 — 위 18 pt
 6. Signature block — leave 34 pt for the signature · 서명 블록 — 서명 여백 34 pt 확보
 
-Footer — `phone · email · homepage` centred at 7.5 pt Faint, the items separated
-not by a dot but by a 1 px hairline (`#E4E7EC`, 8 pt tall). Repeated on every page.
-
-푸터 — `전화 · 이메일 · 홈페이지` 를 7.5 pt Faint로 가운데 정렬하고, 항목 사이는
-점이 아니라 1 px 헤어라인(`#E4E7EC`, 높이 8 pt)으로 나눕니다. 모든 페이지에 반복.
-
 **Don't** — use the emblem and the HBRLRG wordmark together (**letterhead only**;
 for slide covers and closings see §7-1), insert tables or charts, or run past
 three body paragraphs.
@@ -203,11 +197,10 @@ Experimental reports, process condition sheets, minutes, manuals.
 실험 보고, 공정 조건서, 회의록, 매뉴얼.
 
 Header — HBRLRG logo left (27 px tall), contact information right (8.5 pt, web
-then email). The rule sits 12 px below the header. The footer repeats on every
-page at 7.5 pt uppercase.
+then email). The rule sits 12 px below the header.
 
 머리글 — 좌측 HBRLRG 로고(높이 27 px), 우측 연락 정보(8.5 pt, 웹 · 이메일 순).
-구분선은 헤더 아래 12 px. 푸터는 7.5 pt 대문자로 페이지마다 반복.
+구분선은 헤더 아래 12 px.
 
 Body order · 본문 순서
 
@@ -223,6 +216,36 @@ text.
 
 **하지 않을 것** — UNIST 엠블럼 삽입(레터헤드 전용), 표에 수직 괘선 · 줄무늬,
 H2를 두 단계 이상 세분화, 본문에 Navy 사용.
+
+---
+
+### The footer, shared by both templates · 두 템플릿 공통 푸터
+
+Both documents close on the same institutional line, centred, 7.5 pt Faint,
+uppercase, `letter-spacing: 0.07em`, repeated on every page:
+
+두 문서 모두 같은 소속 표기로 끝냅니다. 가운데 정렬, 7.5 pt Faint, 대문자,
+자간 0.07em, 모든 페이지에 반복:
+
+```
+HBRL RESEARCH GROUP · GRADUATE SCHOOL OF SEMICONDUCTOR MATERIALS & DEVICES ENGINEERING
+UNIST (ULSAN NATIONAL INSTITUTE OF SCIENCE AND TECHNOLOGY)
+```
+
+**Break the two lines yourself — never let them wrap.** Left to wrapping, the
+university's name splits mid-phrase (`… ENGINEERING, ULSAN` / `NATIONAL
+INSTITUTE OF SCIENCE AND TECHNOLOGY`), which reads as a typesetting accident.
+The second line carries the institution alone.
+
+**줄바꿈을 직접 넣으세요 — 흘려서 접히게 두지 마세요.** 그냥 두면 대학 이름이
+문구 중간에서 잘립니다(`… ENGINEERING, ULSAN` / `NATIONAL INSTITUTE OF SCIENCE
+AND TECHNOLOGY`). 조판 사고처럼 보입니다. 둘째 줄은 기관명만 담습니다.
+
+The letterhead does **not** repeat its phone, email and homepage here — they are
+already in its header, and the footer is not the place to say them twice.
+
+레터헤드는 전화 · 이메일 · 홈페이지를 여기서 반복하지 **않습니다**. 머리글에 이미
+있고, 같은 내용을 푸터에서 두 번 말할 자리가 아닙니다.
 
 ---
 

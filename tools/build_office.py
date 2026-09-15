@@ -401,17 +401,31 @@ def rule(doc):
     return t
 
 
-def doc_footer(doc, line, tracking_em):
+# Both document templates close on the same institutional line. The break is
+# deliberate rather than left to wrapping, so the university's name is never
+# split across two lines the way it is in a plain run of text.
+DOC_FOOTER = [
+    "HBRL RESEARCH GROUP  ·  GRADUATE SCHOOL OF SEMICONDUCTOR "
+    "MATERIALS & DEVICES ENGINEERING",
+    "UNIST (ULSAN NATIONAL INSTITUTE OF SCIENCE AND TECHNOLOGY)",
+]
+
+
+def doc_footer(doc, lines, tracking_em):
     """Section footer, so it repeats on every page rather than sitting once
     at the end of the body."""
-    para = doc.sections[0].footer.paragraphs[0]
-    para.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    r = para.add_run(line)
-    dset(r, 7.5, DocRGB(0x9A, 0xA1, 0xAB))
-    rPr = r._r.get_or_add_rPr()
-    # w:spacing is character tracking in twentieths of a point
-    rPr.append(rPr.makeelement(qn("w:spacing"),
-                               {qn("w:val"): str(round(tracking_em * 7.5 * 20))}))
+    footer = doc.sections[0].footer
+    for i, line in enumerate(lines):
+        para = footer.paragraphs[0] if i == 0 else footer.add_paragraph()
+        para.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        para.paragraph_format.space_after = DocPt(0)
+        para.paragraph_format.line_spacing = 1.5
+        r = para.add_run(line)
+        dset(r, 7.5, DocRGB(0x9A, 0xA1, 0xAB))
+        rPr = r._r.get_or_add_rPr()
+        # w:spacing is character tracking in twentieths of a point
+        rPr.append(rPr.makeelement(qn("w:spacing"),
+                                   {qn("w:val"): str(round(tracking_em * 7.5 * 20))}))
 
 
 def build_docx(out, *, letterhead, korean):
@@ -488,12 +502,9 @@ def build_docx(out, *, letterhead, korean):
         if txt:
             dset(p.add_run(txt), size, colour, bold=bold)
 
-    if letterhead:
-        doc_footer(doc, "052-217-3218  ·  hbrlee@unist.ac.kr  ·  https://hbrl-research.group",
-                   0.05)
-    else:
-        doc_footer(doc, "HBRL RESEARCH GROUP  ·  GRADUATE SCHOOL OF SEMICONDUCTOR "
-                        "MATERIALS & DEVICES ENGINEERING, UNIST", 0.07)
+    # The letterhead's phone, email and homepage are already in its header, so
+    # both templates can close on the institutional line without losing anything.
+    doc_footer(doc, DOC_FOOTER, 0.07)
 
     doc.save(out)
 
