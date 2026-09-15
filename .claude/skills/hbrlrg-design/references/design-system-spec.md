@@ -293,19 +293,34 @@ lockup is a left-aligned pair of columns, each one `logo + two lines of title te
 표지와 맺음 슬라이드는 푸터 대신 **로고 로크업**을 씁니다. 로크업은 좌측 정렬 2단이며,
 각 단은 `로고 + 직함 텍스트 2줄` 로 구성합니다.
 
-| Element · 요소 | Cover · 표지 | Closing · 맺음 |
-| --- | --- | --- |
-| UNIST emblem · UNIST 엠블럼 | 115 × 121 px | 79 × 84 px |
-| Chemistry of Materials logo · CM 로고 | 216 × 59 px | 158 × 43 px |
-| Logo → text gap · 로고 → 텍스트 간격 | emblem 35 px · CM 43 px | same · 동일 |
-| Text · 텍스트 | 26 px, `#93A2BC`, 2 lines, leading 1.3 | 25 px |
+The cover and the closing use the **same** lockup, at the same coordinates. An
+audience photographs the closing slide, so it has to carry both affiliations too.
 
-- The CM logo's height is always **0.49 × the emblem's height**. Match on width instead and CM looks oversized.<br>
-  CM 로고 높이는 항상 **엠블럼 높이의 0.49배**로 맞춥니다. 폭 기준으로 맞추면 CM이 커 보입니다.
-- The text is vertically centred against the logo.<br>
-  텍스트는 로고에 대해 세로 가운데 정렬합니다.
-- Above the lockup come a 1 px Navy rule (`#2C4066`) and the name (48 px / 600).<br>
-  로크업 위에는 1 px Navy-rule(`#2C4066`)과 이름(48 px / 600)이 옵니다.
+표지와 맺음은 **같은** 로크업을 같은 좌표에 씁니다. 청중이 사진으로 남기는 것은
+맺음 슬라이드이므로, 두 소속이 거기에도 있어야 합니다.
+
+| Element · 요소 | Position · 위치 | Size · 크기 |
+| --- | --- | --- |
+| Rule (`#2C4066`) · 구분선 | `120, 814` | full measure × 1 px · 폭 전체 × 1 px |
+| Name · 이름 | `120, 840` | 30 px / 600 / white, leading 1.15 |
+| UNIST emblem · UNIST 엠블럼 | `120, 892` | 84 × 84 px |
+| Affiliation · 소속 텍스트 | `228, 892` | width 543, 24 px, leading 1.35, `#93A2BC` |
+| Chemistry of Materials logo · CM 로고 | `773, 881` | 218 × 109 px |
+| Editorial title · 편집 직함 | `1019, 881` | width 501, 24 px, leading 1.35, `#93A2BC` |
+| Last line · 마지막 줄 | `120, 1013` | 24 px, `#6E82A3` — cover: venue and date · 표지: 장소 · 날짜 / closing: contact · 맺음: 연락처 |
+
+- **Set the height and let the width follow the file.** Never state both. The CM
+  artwork is **2.0 : 1** and the UNIST emblem **1.0 : 1**; an earlier version
+  hard-coded 216 × 59 for CM and stretched it by 1.8×.<br>
+  **높이만 지정하고 폭은 파일 비율을 따르게 하세요.** 둘 다 적지 마세요. CM 아트워크는
+  **2.0 : 1**, UNIST 엠블럼은 **1.0 : 1** 입니다. 이전 버전이 CM 을 216 × 59 로
+  못박아 1.8배 늘려 놓은 적이 있습니다.
+- Each text block is vertically centred against the logo beside it, not top-aligned.<br>
+  각 텍스트 블록은 옆 로고에 대해 세로 가운데 정렬합니다. 위 맞춤이 아닙니다.
+- Neither slide takes the standard footer — the lockup occupies that space. The
+  HBRLRG logo sits top-left at `120, 96`, 68 px tall.<br>
+  두 슬라이드 모두 일반 푸터를 쓰지 않습니다 — 로크업이 그 자리를 씁니다. HBRLRG
+  로고는 좌상단 `120, 96` 에 높이 68 px 로 놓입니다.
 - On the cover, the HBRLRG logo (top left, 68 px tall) sits alongside the emblem. Their roles differ — the logo is who is speaking, the emblem and CM are the credentials.<br>
   표지에서는 HBRLRG 로고(좌상단, 높이 68 px)와 엠블럼이 함께 놓입니다. 역할이 다르기 때문입니다 —
   로고는 발신 주체, 엠블럼 · CM은 소속 증빙.
@@ -323,15 +338,19 @@ Cover coordinates (on 1920 × 1080; 1 px = 0.5 pt)
 | CM logo · CM 로고 | 943 | 723 |
 | Editorial title text (598 px wide) · 편집 직함 텍스트 | 1202 | 700 |
 
-The closing slide is a reduction of the cover: the two logos side by side, with
-four lines of affiliation (25 px) beneath.
+The closing differs from the cover only in what sits above the rule: "Thank you"
+instead of the talk's title, and the contact line instead of the venue and date.
 
-맺음 슬라이드는 표지의 축소판입니다. 두 로고를 가로로 나란히 두고 그 아래 소속 4줄(25 px).
+맺음은 구분선 위 내용만 표지와 다릅니다 — 발표 제목 대신 "Thank you", 장소 · 날짜
+대신 연락처.
 
-Original ratios — do not distort. UNIST emblem **0.955 : 1**, Chemistry of
-Materials **3.70 : 1**.
+Original ratios — do not distort. UNIST emblem **1.0 : 1**
+(`unist-emblem-onnavy.png`, 1000 × 1000), Chemistry of Materials **2.0 : 1**
+(`cm-logo-onnavy.png`, 632 × 316).
 
-원본 비율 — 변형하지 마세요. UNIST 엠블럼 **0.955 : 1**, Chemistry of Materials **3.70 : 1**.
+원본 비율 — 변형하지 마세요. UNIST 엠블럼 **1.0 : 1**
+(`unist-emblem-onnavy.png`, 1000 × 1000), Chemistry of Materials **2.0 : 1**
+(`cm-logo-onnavy.png`, 632 × 316).
 
 **Don't** — put the emblem or the CM logo on a content slide (footer HBRLRG logo
 only), centre the lockup, or lay a logo on a teal or navy ground without a white

@@ -77,20 +77,29 @@ Navy `#14243F` full bleed. Positions are from the top-left:
 
 | Element | Position | Type |
 |---|---|---|
-| Eyebrow | `120, 226` | 24 px, teal, uppercase, `letter-spacing: 0.14em`. **Carries venue and date** — `INVITED TALK · APPLIED MATERIALS · AUGUST 21, 2026` |
-| Teal bar | `120, 290` | 130 × 8 px |
-| Heading | `120, 328` | Archivo 600, 68 px, `line-height: 1.02`, `letter-spacing: -0.025em`, white, `max-width: 42ch` |
-| Subtitle | `120, 434` | 50 px, `#93A2BC` |
-| Hairline | `120, 578` | 2 px, `#2C4066`, full column |
-| Name | `120, 626` | 48 px, weight 600, white |
-| UNIST emblem | `120, 692` | 116 × 120 px |
-| Affiliation | `270, 720` | 26 px `#93A2BC`, width 648 |
-| CM logo | `944, 722` | 216 × 60 px |
-| Editorial | `1202, 720` | 26 px `#93A2BC`, width 598 |
-| Wordmark | `120, 960` | 26 px, bars white, RG teal |
-| Contact line | `792, 972` | 24 px `#6E82A3` |
+| HBRLRG logo | `120, 96` | 231 × 68 px, reverse artwork |
+| Teal bar | `120, 248` | 88 × 5 px |
+| Heading | `120, 283` | Archivo 600, 108 px, `line-height: 1.02`, `letter-spacing: -0.025em`, white, `max-width: 26ch` |
+| Subtitle | `120, 560` | 36 px, `line-height: 1.4`, `#93A2BC`, `max-width: 56ch` |
+| Hairline | `120, 814` | 1 px, `#2C4066`, full column |
+| Name | `120, 840` | 30 px, weight 600, white, `line-height: 1.15` |
+| UNIST emblem | `120, 892` | 84 × 84 px |
+| Affiliation | `228, 892` | 24 px `#93A2BC`, width 543, `line-height: 1.35` |
+| CM logo | `773, 881` | 218 × 109 px |
+| Editorial | `1019, 881` | 24 px `#93A2BC`, width 501, `line-height: 1.35` |
+| Venue and date | `120, 1013` | 24 px `#6E82A3` |
 
-There is **no separate date element** — the date lives in the eyebrow.
+The **closing slide is the same lockup at the same coordinates** — everything
+from the hairline down is identical; only what sits above it changes ("Thank
+you" rather than the title, the contact line rather than the venue). Generate
+both from one function so they cannot drift; `tools/build_office.py` has
+`lockup()` for exactly this reason.
+
+Set each logo's **height only** and let the width follow the file. The CM
+artwork is 2.0 : 1 (632 × 316) and the emblem 1.0 : 1 (1000 × 1000). An earlier
+revision of this document said 216 × 60 for CM, which stretches it by 1.8×.
+
+Neither slide carries the standard footer — the lockup occupies that space.
 
 A heading longer than roughly 42 characters per line wraps; check it clears the
 subtitle at 434 rather than trusting the nominal box height. 68 px was chosen

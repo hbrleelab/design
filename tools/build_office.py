@@ -132,6 +132,33 @@ def header(slide, eyebrow, heading, subtitle=None):
     return 268
 
 
+def lockup(slide, last_line):
+    """The credential block the cover and the closing slide both carry.
+
+    Two columns: UNIST emblem + affiliation, then the Chemistry of Materials
+    logo + editorial title. Both slides use the same geometry as the HTML, so
+    they cannot drift apart; every number here is the px value from
+    slides/slides-en.html.
+
+    Each logo's width comes from the file, never from a hard-coded box — the CM
+    artwork is 2.0:1, and stating a width stretched it in an earlier version.
+    """
+    rect(slide, MARGIN, 814, BODY_W, 1, NAVY_RULE)
+    text(slide, MARGIN, 840, 900, 40, NAME, 30, WHITE, bold=True, spacing=1.15)
+
+    emblem = picture(slide, "unist-emblem-onnavy.png", MARGIN, 892, 84)
+    x = MARGIN + emblem.width / px(1) + 24
+    text(slide, x, 892, 543, 84, AFFIL, 24, ON_NAVY, spacing=1.35,
+         anchor=MSO_ANCHOR.MIDDLE)
+
+    cm = picture(slide, "cm-logo-onnavy.png", 773, 881, 109)
+    x = 773 + cm.width / px(1) + 28
+    text(slide, x, 881, 501, 109, EDITOR, 24, ON_NAVY, spacing=1.35,
+         anchor=MSO_ANCHOR.MIDDLE)
+
+    text(slide, MARGIN, 1013, 900, 40, last_line, 24, ON_NAVY_DIM, wrap=False)
+
+
 def footer(slide, section=None, on_navy=False):
     """Logo, then the section the slide belongs to, then the contact line.
 
@@ -184,13 +211,7 @@ def build_pptx(out):
     text(s, MARGIN, 283, 1560, 240, "Presentation title goes here", 108, WHITE,
          bold=True, spacing=1.02)
     text(s, MARGIN, 560, 1500, 70, "One line that unpacks the title", 36, ON_NAVY)
-    rect(s, MARGIN, 814, BODY_W, 1, NAVY_RULE)
-    text(s, MARGIN, 834, 900, 50, NAME, 30, WHITE, bold=True)
-    picture(s, "unist-emblem-onnavy.png", MARGIN, 890, 84)
-    text(s, 228, 892, 560, 110, AFFIL, 24, ON_NAVY, spacing=1.35)
-    picture(s, "cm-logo-onnavy.png", 880, 890, 84)
-    text(s, 1060, 892, 640, 110, EDITOR, 24, ON_NAVY, spacing=1.35)
-    text(s, MARGIN, 1008, 900, 40, "Venue  ·  Month 00, 2026", 24, ON_NAVY_DIM)
+    lockup(s, "Venue  ·  Month 00, 2026")
     s.notes_slide.notes_text_frame.text = (
         "표지. 제목은 26자 안팎에서 줄이 바뀝니다. 발표 장소와 날짜는 맨 아래 줄에."
     )
@@ -313,15 +334,21 @@ def build_pptx(out):
     s.notes_slide.notes_text_frame.text = "선언. 한 문장만. 강조색 위이므로 로고는 넣지 않습니다."
 
     # 12 Closing -----------------------------------------------------------
+    # The closing carries the same credential lockup as the cover: an audience
+    # photographs this slide, so both affiliations have to be on it. It takes no
+    # standard footer — the lockup occupies that space.
     s = new(NAVY)
-    rect(s, MARGIN, 300, 88, 5, TEAL)
-    text(s, MARGIN, 344, 1560, 130, "Thank you", 92, WHITE, bold=True)
-    text(s, MARGIN, 486, 1400, 70, "Questions welcome", 36, ON_NAVY)
-    rect(s, MARGIN, 700, BODY_W, 1, NAVY_RULE)
-    text(s, MARGIN, 726, 900, 50, NAME, 30, WHITE, bold=True)
-    picture(s, "unist-emblem-onnavy.png", MARGIN, 790, 84)
-    text(s, 228, 792, 560, 110, AFFIL, 24, ON_NAVY, spacing=1.35)
-    footer(s, on_navy=True)
+    picture(s, "logo/hbrlrg-horizontal-reverse.png", MARGIN, 96, 68)
+    rect(s, MARGIN, 438, 88, 5, TEAL)
+    text(s, MARGIN, 471, 1560, 110, "Thank you", 92, WHITE, bold=True,
+         spacing=1.04)
+    text(s, MARGIN, 595, 1400, 60,
+         "Questions and collaboration proposals are welcome.", 32, ON_NAVY,
+         spacing=1.45)
+    lockup(s, CONTACT)
+    s.notes_slide.notes_text_frame.text = (
+        "맺음. 표지와 같은 소속 로크업 — UNIST 와 Chemistry of Materials 둘 다."
+    )
 
     prs.save(out)
     return len(prs.slides.__iter__.__self__._sldIdLst)
