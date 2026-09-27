@@ -428,6 +428,19 @@ def doc_footer(doc, lines, tracking_em):
                                    {qn("w:val"): str(round(tracking_em * 7.5 * 20))}))
 
 
+def fix_zoom(doc):
+    """python-docx writes <w:zoom w:val="bestFit"/>, but w:percent is required.
+
+    Word opens it regardless — it has been in every python-docx document for
+    years — but leaving a known error in the file means the schema gate prints
+    noise on every run, and a gate people learn to ignore catches nothing.
+    """
+    settings = doc.settings.element
+    zoom = settings.find(qn("w:zoom"))
+    if zoom is not None and zoom.get(qn("w:percent")) is None:
+        zoom.set(qn("w:percent"), "100")
+
+
 def build_docx(out, *, letterhead, korean):
     doc = docx.Document()
     sec = doc.sections[0]
@@ -506,6 +519,7 @@ def build_docx(out, *, letterhead, korean):
     # both templates can close on the institutional line without losing anything.
     doc_footer(doc, DOC_FOOTER, 0.07)
 
+    fix_zoom(doc)
     doc.save(out)
 
 

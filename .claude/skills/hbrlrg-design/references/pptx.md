@@ -105,6 +105,27 @@ Worth telling the user: embedded fonts work reliably in PowerPoint for Windows;
 Mac support depends on version, and Keynote and Google Slides ignore them
 entirely. Export a PDF when the destination is uncertain.
 
+### charset is a SIGNED byte
+
+`CT_TextFont/@charset` is `xsd:byte`, so the range is −128…127. The Windows
+charset ids you look up are unsigned, and the East-Asian ones are all above 127:
+
+| Script | Windows id | Write in the file |
+|---|---|---|
+| Latin / ANSI | 0 | `0` |
+| Hangul | 129 | **`-127`** |
+| Shift-JIS | 128 | **`-128`** |
+| GB2312 | 134 | **`-122`** |
+| Big5 | 136 | **`-120`** |
+
+Write `charset="129"` and the presentation is schema-invalid; PowerPoint will
+not open it and offers "repair" instead. Nothing in python-pptx checks this —
+it writes whatever string you hand it. `scripts/qa_schema.py` now refuses such a
+file, and `embed_fonts.py` refuses to write one.
+
+This cost a release: v1.9 shipped `charset="129"` and an external recipient
+could not open the deck.
+
 ## Embedding the fonts into a .docx
 
 Word supports this too — `python-docx` simply has no API for it, which is easy
@@ -135,6 +156,28 @@ The format is ECMA-376 §17.8. The differences that matter:
 Verify by de-obfuscating each part back and checking the sfnt version is
 `00010000`. A silently corrupt `.odttf` makes Word drop the font without saying
 why, which looks identical to never having embedded it.
+
+`CT_Settings` is an ordered sequence, so `w:embedTrueTypeFonts` and
+`w:saveSubsetFonts` cannot simply go at the top of `word/settings.xml` — doing
+that pushes `w:zoom` out of position and the part stops validating. They belong
+after `printFormsData` and before `saveFormsData`.
+
+## Validating before you ship
+
+```bash
+python3 scripts/qa_schema.py deck.pptx doc.docx
+```
+
+Validates against the ISO/IEC 29500-4 schemas when they are available (they ship
+with the Office document skills, under
+`/mnt/skills/public/pptx/scripts/office/schemas/`), and always runs structural
+checks that need no schema: byte-range attributes, `CT_Settings` order, `r:id`
+resolution, relationship targets, content-type defaults, and whether each
+embedded font part is really a font.
+
+Run it on anything you hand to someone else. Neither python-pptx nor python-docx
+validates what it writes, and the failure mode is a repair prompt on the
+recipient's machine, not an error on yours.
 
 ## Checking fit without a renderer
 

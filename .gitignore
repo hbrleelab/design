@@ -16,3 +16,5 @@ dist/
 # 에디터
 .vscode/
 .idea/
+__pycache__/
+*.pyc

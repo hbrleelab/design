@@ -124,6 +124,35 @@ HTML 을 쓰기 어려운 상황(공동 편집, 학회 제출 양식 등)을 위
   원본은 어디까지나 HTML 입니다. 규격이 바뀌면 릴리스마다 다시 만들어지므로,
   Office 파일을 직접 고쳐 두고 재사용하지 마세요.
 
+### What has been checked · 검증 범위
+
+Each release validates every generated Office file against the official
+ISO/IEC 29500-4 schemas before publishing, and fails rather than ships if a part
+is invalid. This matters because a schema-invalid part is exactly what makes
+Office offer to "repair" a file instead of opening it — v1.9 shipped one and an
+external recipient could not open the deck.
+
+릴리스마다 생성된 Office 파일 전체를 ISO/IEC 29500-4 공식 스키마로 검증하고,
+어긋나면 배포를 중단합니다. 규격에 어긋난 파트가 바로 Office 가 파일을 열지 않고
+'복구'를 제안하게 만드는 원인이기 때문입니다 — v1.9 에서 실제로 발생해 외부
+수신자가 덱을 열지 못했습니다.
+
+| Checked · 검증한 것 | How · 방법 |
+| --- | --- |
+| Schema conformance · 스키마 적합성 | ISO/IEC 29500-4 XSD, pptx 25 parts / docx 5 parts each |
+| Relationships and parts · 관계 · 파트 | Every `r:id` resolves, every target exists |
+| Embedded fonts · 임베드 서체 | Each part is a valid sfnt; `.odttf` checked after de-obfuscation |
+| Content types · 콘텐츠 형식 | `fntdata` and `odttf` defaults declared |
+
+**Not checked · 검증하지 않은 것** — nobody opens these in Microsoft PowerPoint
+or Word as part of the build; the build machine has neither. Schema validity is
+necessary for Office to open a file, but it is not a rendering test. **Open a
+file once yourself before sending it outside the group.**
+
+**빌드 과정에서 실제 Microsoft PowerPoint · Word 로 열어 보지는 않습니다.** 빌드
+환경에 해당 프로그램이 없습니다. 스키마 적합성은 Office 가 파일을 여는 데 필요한
+조건이지만 렌더링 검사는 아닙니다. **외부로 보내기 전에 직접 한 번 열어 확인하세요.**
+
 ### Homepage · 홈페이지
 
 Load `web/hbrlrg.css` **after** your existing stylesheet. No build tooling needed.

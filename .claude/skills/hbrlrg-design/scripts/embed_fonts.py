@@ -8,7 +8,19 @@ from pathlib import Path
 REL_TYPE = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/font"
 
 
+def _check(families):
+    """xsd:byte on charset and pitchFamily — out of range means PowerPoint
+    rejects the whole presentation, not just the font."""
+    for typeface, pitch, charset, _ in families:
+        for label, value in (("pitchFamily", pitch), ("charset", charset)):
+            if not -128 <= int(value) <= 127:
+                raise SystemExit(
+                    f"{typeface}: {label}={value} 는 xsd:byte 범위를 벗어납니다 "
+                    f"(-128..127). 윈도 charset id 가 128 이상이면 256 을 빼세요.")
+
+
 def embed(src, dst, families, font_dir):
+    _check(families)
     work = Path("_embed_tmp")
     if work.exists():
         shutil.rmtree(work)
@@ -88,14 +100,17 @@ def embed(src, dst, families, font_dir):
     print(f"  {dst}: {len(new_rels)} font slots embedded")
 
 
-# charset 129 is Hangul; PowerPoint uses it to pick the font for East-Asian runs.
+# charset picks the font for East-Asian runs. The Windows charset id for Hangul
+# is 0x81 = 129, but CT_TextFont/@charset is xsd:byte — a SIGNED byte — so the
+# value written here is -127. Writing 129 produces a file PowerPoint refuses to
+# open, offering "repair" instead; see qa_schema.py, which guards against it.
 ARCHIVO = ("Archivo", "34", "0", {
     "regular": "Archivo-Regular.ttf",
     "bold": "Archivo-Bold.ttf",
     "italic": "Archivo-Italic.ttf",
     "boldItalic": "Archivo-BoldItalic.ttf",
 })
-PRETENDARD = ("Pretendard", "34", "129", {
+PRETENDARD = ("Pretendard", "34", "-127", {
     "regular": "Pretendard-Regular.ttf",
     "bold": "Pretendard-Bold.ttf",
 })

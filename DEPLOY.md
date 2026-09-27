@@ -187,7 +187,22 @@ Pages 는 push 하는 순간 자동으로 갱신되므로 규격서는 따로 �
 2. Fetches Archivo (SIL OFL) from its own repository at build time<br>Archivo(SIL OFL)를 빌드 시점에 원 저장소에서 받아 옵니다
 3. Runs `tools/build_office.py` to generate one `.pptx` and four `.docx` from the design tokens<br>`tools/build_office.py` 로 디자인 토큰에서 `.pptx` 1개와 `.docx` 4개를 생성합니다
 4. Embeds the four Archivo styles into the `.pptx`<br>`.pptx` 에 Archivo 4종을 임베드합니다
-5. Zips everything and publishes the release, attaching the zip and the five Office files<br>전체를 zip 으로 묶고 릴리스를 발행하면서 zip 과 Office 파일 5개를 첨부합니다
+5. **Validates every generated file against the ISO/IEC 29500-4 schemas and stops the release if a part is invalid**<br>**생성된 파일 전체를 ISO/IEC 29500-4 스키마로 검증하고, 어긋나면 릴리스를 중단합니다**
+6. Zips everything and publishes the release, attaching the zip and the five Office files<br>전체를 zip 으로 묶고 릴리스를 발행하면서 zip 과 Office 파일 5개를 첨부합니다
+
+Step 5 exists because v1.9 shipped a deck PowerPoint refused to open. Neither
+python-pptx nor python-docx validates what it writes, so nothing else would have
+caught it before the file reached a recipient.
+
+5번은 v1.9 가 PowerPoint 에서 열리지 않는 덱을 배포했기 때문에 생겼습니다.
+python-pptx · python-docx 는 자기가 쓴 것을 검증하지 않으므로, 이 단계가 없으면
+파일이 수신자에게 도착할 때까지 아무도 알 수 없습니다.
+
+If `docs/release-notes/<version>.md` exists, it becomes the release body with the
+generated commit list appended.
+
+`docs/release-notes/<버전>.md` 가 있으면 릴리스 본문으로 쓰이고, 자동 생성된 커밋
+목록이 뒤에 붙습니다.
 
 Archivo is fetched rather than committed because it is a third-party font under
 SIL OFL; keeping it out of the repository keeps the licence boundary clean and the

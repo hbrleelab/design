@@ -44,6 +44,34 @@ def font_key():
     return "{" + str(uuid.uuid4()).upper() + "}"
 
 
+# CT_Settings is a sequence, so a new child has to go in its declared position.
+# Dropping these two at the top of the element pushes w:zoom out of order and
+# the part stops validating, which is what makes Word offer to repair the file.
+SETTINGS_ORDER = [
+    "writeProtection", "view", "zoom", "removePersonalInformation",
+    "removeDateAndTime", "doNotDisplayPageBoundaries", "displayBackgroundShape",
+    "printPostScriptOverText", "printFractionalCharacterWidth", "printFormsData",
+    "embedTrueTypeFonts", "embedSystemFonts", "saveSubsetFonts", "saveFormsData",
+    "mirrorMargins", "alignBordersAndEdges", "bordersDoNotSurroundHeader",
+    "bordersDoNotSurroundFooter", "gutterAtTop", "hideSpellingErrors",
+    "hideGrammaticalErrors", "activeWritingStyle", "proofState",
+]
+
+
+def insert_ordered(xml, tag, element):
+    """Insert element before the first sibling that must follow it."""
+    rank = SETTINGS_ORDER.index(tag)
+    later = set(SETTINGS_ORDER[rank + 1:])
+    best = None
+    for m in re.finditer(r"<w:(\w+)[ />]", xml):
+        if m.group(1) in later:
+            best = m.start()
+            break
+    if best is None:
+        return xml.replace("</w:settings>", element + "</w:settings>", 1)
+    return xml[:best] + element + xml[best:]
+
+
 def embed(src, dst, families, font_dir):
     work = Path("_docx_embed_tmp")
     if work.exists():
@@ -119,11 +147,9 @@ def embed(src, dst, families, font_dir):
     st_path = work / "word/settings.xml"
     st = st_path.read_text(encoding="utf-8")
     if "<w:embedTrueTypeFonts/>" not in st:
-        # These two sit early in the CT_Settings sequence; anchoring on
-        # defaultTabStop would put them after elements that must follow them.
-        flags = "<w:embedTrueTypeFonts/><w:saveSubsetFonts w:val=\"false\"/>"
-        m = re.search(r"<w:settings[^>]*>", st)
-        st = st[:m.end()] + flags + st[m.end():]
+        st = insert_ordered(st, "embedTrueTypeFonts", "<w:embedTrueTypeFonts/>")
+        st = insert_ordered(st, "saveSubsetFonts",
+                            '<w:saveSubsetFonts w:val="false"/>')
         st_path.write_text(st, encoding="utf-8")
 
     # --- [Content_Types].xml ------------------------------------------------

@@ -37,7 +37,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install build dependencies
-        run: pip install --quiet python-pptx python-docx Pillow fonttools
+        run: pip install --quiet python-pptx python-docx Pillow fonttools lxml
 
       # Archivo is SIL OFL and lives in its own repository, so it is fetched at
       # build time rather than committed here.
@@ -68,13 +68,31 @@ jobs:
           done
           ls -la office/
 
+      # A schema-invalid part is what makes Office offer "repair" instead of
+      # opening the file. v1.9 shipped one and an external recipient could not
+      # open the deck, so this now blocks the release rather than warning.
+      - name: Validate against ISO/IEC 29500 schemas
+        run: |
+          python3 .claude/skills/hbrlrg-design/scripts/qa_schema.py \
+            office/hbrlrg-slides.pptx office/hbrlrg-*.docx
+
       - name: Package templates
         run: zip -r hbrlrg-templates.zip documents slides design-system web assets office *.js README.md
+
+      # A release that fixes something needs a human explanation, not just a
+      # commit list. docs/release-notes/<version>.md is used when present.
+      - name: Collect release notes
+        id: notes
+        run: |
+          f="docs/release-notes/${{ steps.tag.outputs.name }}.md"
+          if [ -f "$f" ]; then echo "path=$f" >> "$GITHUB_OUTPUT"; fi
 
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.name }}
+          body_path: ${{ steps.notes.outputs.path }}
+          append_body: true
           files: |
             hbrlrg-templates.zip
             office/hbrlrg-slides.pptx
