@@ -1,0 +1,294 @@
+/* HBRLRG mobile document template · 휴대폰용 문서 템플릿
+ *
+ * For documents that are read on a phone — sent over KakaoTalk, opened once,
+ * scrolled through. A5 portrait rather than A4, because a page that is close to
+ * the shape of the screen fills it instead of forcing a pinch-zoom.
+ *
+ * Type is NOT scaled down to suit the smaller page. Body text stays at the size
+ * the A4 templates use, so the same words occupy more pages — which is the
+ * right trade on a phone, where scrolling is free and squinting is not.
+ *
+ * Deliberately smaller than the A4 templates: no running header, no running
+ * footer, no page numbers, and no teal-capped rule. What carries the identity
+ * here is the logo on the cover, the two brand colours, and the heading face.
+ */
+
+:root {
+  /* Swap these two for a different page. A phone-shaped page (about 9:19.5)
+     is --page-w: 90mm; --page-h: 195mm. Change nothing else. */
+  --page-w: 148mm;     /* A5 portrait */
+  --page-h: 210mm;
+  --margin: 12mm;
+
+  --navy: #14243F;
+  --teal: #0EA79A;
+  --ink: #2B2F36;
+  --muted: #6B7280;
+  --surface: #F6F7F9;
+  --border: #E4E7EC;
+
+  --latin: 'Archivo', 'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
+}
+
+@page {
+  size: var(--page-w) var(--page-h);
+  margin: var(--margin);
+}
+
+html { font-size: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--latin);
+  /* Phone-reading size. Do not reduce this to fit more on a page. */
+  font-size: 11.5pt;
+  line-height: 1.65;
+  color: var(--ink);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  overflow-wrap: break-word;
+  word-break: keep-all;        /* Korean wraps between words, not mid-word */
+}
+
+/* --- cover ---------------------------------------------------------------
+ * The only page that carries the logo. Nothing repeats on later pages.
+ */
+.cover {
+  break-after: page;
+  min-height: calc(var(--page-h) - 2 * var(--margin));
+  display: flex;
+  flex-direction: column;
+}
+
+/* The logo, and the two separate ways it gets stretched.
+ *
+ * First: set ONE dimension and let the file's own proportions supply the
+ * other. The artwork is 2400x708 (3.39:1); giving both is what flattened it
+ * the first time round.
+ *
+ * Second, and easier to miss: `width: auto` is not enough on its own. This
+ * cover is a column flexbox, so its children stretch across the cross axis —
+ * which here is the horizontal one. The image obeys `align-items: stretch`
+ * and goes full-width regardless of `width: auto`, which measured as a 232%
+ * distortion before `align-self` was added. Any flex or grid parent will do
+ * the same, so the logo states its own alignment rather than trusting the
+ * container's. */
+.cover__logo {
+  height: 11mm;
+  width: auto;
+  align-self: flex-start;      /* without this, the flex parent stretches it */
+  justify-self: start;         /* the same guard for a grid parent */
+  flex: 0 0 auto;
+  display: block;
+  object-fit: contain;         /* last-resort net: letterbox, never distort */
+}
+
+.cover__spacer { flex: 1 1 auto; }
+
+.cover__title {
+  margin: 0;
+  font-size: 26pt;
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  text-wrap: pretty;
+}
+
+.cover__subtitle {
+  margin: 4mm 0 0;
+  font-size: 12pt;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.cover__meta {
+  margin: 8mm 0 0;
+  font-size: 9.5pt;
+  color: var(--muted);
+}
+
+/* --- headings ------------------------------------------------------------ */
+h1, h2, h3 {
+  color: var(--navy);
+  text-wrap: pretty;
+  break-after: avoid;          /* never leave a heading alone at a page foot */
+}
+
+h1 {
+  margin: 0 0 4mm;
+  font-size: 18pt;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h2 {
+  margin: 9mm 0 3mm;
+  font-size: 13.5pt;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+h2:first-child, h1:first-child { margin-top: 0; }
+
+h3 {
+  margin: 6mm 0 2mm;
+  font-size: 11.5pt;
+  font-weight: 600;
+}
+
+p { margin: 0 0 3mm; }
+
+a { color: var(--navy); text-decoration: underline; }
+
+strong { font-weight: 600; color: var(--navy); }
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 7mm 0;
+}
+
+/* --- lists ---------------------------------------------------------------
+ * A teal square instead of a glyph, the one place the accent appears in body
+ * copy. Centred on the first line, as in the A4 templates.
+ */
+ul { margin: 0 0 3mm; padding: 0; list-style: none; }
+ul > li {
+  position: relative;
+  padding-left: 5mm;
+  margin-bottom: 1.5mm;
+}
+ul > li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(11.5pt * 1.65 / 2 - 1.5pt);
+  width: 3pt;
+  height: 3pt;
+  border-radius: 1px;
+  background: var(--teal);
+}
+
+ol { margin: 0 0 3mm; padding-left: 6mm; }
+ol > li { margin-bottom: 1.5mm; }
+
+li > ul, li > ol { margin-top: 1.5mm; }
+
+blockquote {
+  margin: 4mm 0;
+  padding: 0 0 0 4mm;
+  border-left: 2px solid var(--teal);
+  color: var(--muted);
+}
+
+code {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.92em;
+  background: var(--surface);
+  padding: 0.5mm 1mm;
+}
+
+img { max-width: 100%; height: auto; }
+
+/* --- tables, four columns or fewer --------------------------------------
+ * Kept as tables. The whole table avoids a page break; if it is simply taller
+ * than a page and has to split, the header repeats on the next one.
+ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 4mm;
+  font-size: 10pt;
+  break-inside: avoid;
+}
+
+thead { display: table-header-group; }
+tr { break-inside: avoid; }
+
+th {
+  text-align: left;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 8.5pt;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2mm 2.5mm;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 2mm 2.5mm;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+/* --- tables, more than four columns -------------------------------------
+ * Rebuilt as one card per row by md2pdf.py. Five columns on a 124mm measure
+ * leaves roughly 24mm per column, which is two or three Korean syllables
+ * before it wraps — unreadable. A card gives each field the full width and
+ * labels it with the column heading it came from.
+ */
+.cards { margin: 0 0 4mm; }
+
+.card {
+  break-inside: avoid;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--teal);
+  padding: 3mm 3.5mm;
+  margin-bottom: 2.5mm;
+}
+
+.card__title {
+  margin: 0 0 2mm;
+  font-size: 12pt;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--navy);
+}
+
+.card__row {
+  display: flex;
+  gap: 3mm;
+  font-size: 10pt;
+  line-height: 1.5;
+  padding: 1mm 0;
+}
+.card__row + .card__row { border-top: 1px solid var(--border); }
+
+.card__key {
+  flex: 0 0 22mm;
+  font-size: 8.5pt;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 0.6mm;
+}
+
+.card__val { flex: 1 1 auto; min-width: 0; }
+
+/* Screen preview only: show the page shape against a grey ground so the
+ * template can be checked in a browser before printing. */
+@media screen {
+  body {
+    background: #8A8F98;
+    padding: 6mm 0;
+  }
+  .page {
+    width: var(--page-w);
+    min-height: var(--page-h);
+    box-sizing: border-box;
+    padding: var(--margin);
+    margin: 0 auto 6mm;
+    background: #FFFFFF;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+  }
+}
+
+@media print {
+  .page { padding: 0; margin: 0; background: none; }
+}

@@ -8,6 +8,7 @@ HBRL Research Group (UNIST) 의 문서 · 슬라이드 · 웹 공통 디자인 �
 
 **Get the templates · 최신 템플릿 받기** → [Releases](../../releases/latest)
 · everything `hbrlrg-templates.zip` · PowerPoint `hbrlrg-slides.pptx` · Word `hbrlrg-*.docx`
+**Phone-readable documents · 휴대폰에서 읽는 문서** → [`mobile/`](mobile/)
 **Read the spec · 디자인 규격 보기** → https://hbrleelab.github.io/design/
 (the page has a KO / EN switch · 페이지에 한글 · 영문 전환 버튼이 있습니다)
 
@@ -24,6 +25,13 @@ documents/          A4 document templates · A4 문서 템플릿
 
 slides/             16:9 slide template, 1920×1080 · 16:9 슬라이드 템플릿
   slides-en.html        12 layouts · 12종 레이아웃
+
+mobile/             Phone-readable documents · 휴대폰용 문서 템플릿
+  hbrlrg-mobile.css     A5 portrait, pared back · A5 세로, 요소를 덜어낸 판
+  hbrlrg-mobile.html    Edit in a browser · 브라우저에서 고치는 견본
+  md2pdf.py             Markdown to PDF · 마크다운에서 PDF
+  README.md             Usage and the table rule · 사용법과 표 규칙
+  sample/               Worked example + PDF · 예제와 샘플 PDF
 
 design-system/      The specification · 디자인 규격서
   index.html            Read it in a browser (KO / EN) · 브라우저로 보는 규격서

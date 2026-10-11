@@ -12,6 +12,8 @@ desktop.ini
 # 빌드 산출물
 dist/
 *.zip
+.fonts/
+*.render.html
 
 # 에디터
 .vscode/

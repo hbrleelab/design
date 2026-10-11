@@ -77,7 +77,7 @@ jobs:
             office/hbrlrg-slides.pptx office/hbrlrg-*.docx
 
       - name: Package templates
-        run: zip -r hbrlrg-templates.zip documents slides design-system web assets office *.js README.md
+        run: zip -r hbrlrg-templates.zip documents slides mobile design-system web assets office *.js README.md
 
       # A release that fixes something needs a human explanation, not just a
       # commit list. docs/release-notes/<version>.md is used when present.
