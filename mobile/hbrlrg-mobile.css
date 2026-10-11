@@ -193,6 +193,29 @@ code {
 
 img { max-width: 100%; height: auto; }
 
+/* --- manual page break ---------------------------------------------------
+ * <div class="pb"></div> in the source starts a new page there. An author
+ * reading the proof knows where a section should begin better than any
+ * automatic rule does, so the template has to honour it.
+ *
+ * The legacy `page-break-before` is kept alongside the modern property: the
+ * element generates a zero-height box, and the older keyword is the one some
+ * print paths still act on.
+ */
+.pb {
+  break-before: page;
+  page-break-before: always;
+  display: block;
+  height: 0;
+  margin: 0;
+}
+
+/* Inline markup carried into a card keeps its meaning: a smaller, quieter
+ * second line under a name, and bold for what the eye should land on. */
+.card small { font-size: 0.85em; color: var(--muted); }
+.card__title small { display: inline-block; font-weight: 400; }
+.card__val b, .card__val strong { font-weight: 600; color: var(--navy); }
+
 /* --- tables, four columns or fewer --------------------------------------
  * Kept as tables. The whole table avoids a page break; if it is simply taller
  * than a page and has to split, the header repeats on the next one.

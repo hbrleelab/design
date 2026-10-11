@@ -20,11 +20,13 @@ lang: ko
 
 | 이름 | 종류 | 가격대 | 도보 | 예약 | 메모 |
 | --- | --- | --- | --- | --- | --- |
-| Marukame Udon | 우동 | $ | 8분 | 불가 | 줄이 길지만 빨리 빠집니다. 튀김은 집어서 계산대에서 같이 계산 |
-| Helena's Hawaiian Food | 하와이 가정식 | $$ | 차 필요 | 불가 | 점심만 합니다. 칼루아 피그와 피피카울라 숏립 |
-| Tonkatsu Tamafuji | 돈카츠 | $$$ | 15분 | 권장 | 저녁은 거의 예약이 찹니다. 로스카츠 추천 |
-| Side Street Inn | 안주 · 가정식 | $$ | 18분 | 권장 | 양이 많습니다. 두세 명이 나눠 드세요 |
-| Leonard's Bakery | 말라사다 | $ | 차 필요 | 불가 | 갓 튀긴 것이 나오는 시간이 따로 있습니다 |
+| <b>Marukame Udon</b><br><small>쿠히오 애비뉴</small> | 우동 | $ | 8분 | 불가 | 줄이 길지만 빨리 빠집니다<br><small>튀김은 집어서 계산대에서 같이 계산</small> |
+| <b>Helena's Hawaiian Food</b><br><small>칼리히</small> | 하와이 가정식 | $$ | 차 필요 | 불가 | <b>점심만 합니다</b><br><small>칼루아 피그와 피피카울라 숏립</small> |
+| <b>Tonkatsu Tamafuji</b><br><small>카파훌루</small> | 돈카츠 | $$$ | 15분 | 권장 | 저녁은 거의 예약이 찹니다<br><small>로스카츠 추천</small> |
+| <b>Side Street Inn</b><br><small>카피올라니</small> | 안주 · 가정식 | $$ | 18분 | 권장 | 양이 많습니다<br><small>두세 명이 나눠 드세요</small> |
+| <b>Leonard's Bakery</b><br><small>카파훌루</small> | 말라사다 | $ | 차 필요 | 불가 | 갓 튀긴 것이 나오는 시간이 따로 있습니다 |
+
+<div class="pb"></div>
 
 ## 차를 빌려야 하는 곳
 

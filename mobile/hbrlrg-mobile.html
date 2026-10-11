@@ -58,10 +58,11 @@
 
   <div class="cards">
     <div class="card">
-      <div class="card__title">첫 번째 항목 이름</div>
+      <!-- 칸 안의 <br> <b> <small> 은 카드로 바뀐 뒤에도 그대로 남습니다 -->
+      <div class="card__title"><b>첫 번째 항목 이름</b><br><small>보조 설명 줄</small></div>
       <div class="card__row"><span class="card__key">종류</span><span class="card__val">분류</span></div>
       <div class="card__row"><span class="card__key">가격대</span><span class="card__val">$$</span></div>
-      <div class="card__row"><span class="card__key">메모</span><span class="card__val">긴 설명이 들어가도 한 줄을 다 쓰므로 읽힙니다</span></div>
+      <div class="card__row"><span class="card__key">메모</span><span class="card__val"><b>굵게</b> 와 <small>작게</small> 가 섞여도 됩니다<br>줄바꿈도 그대로입니다</span></div>
     </div>
     <div class="card">
       <div class="card__title">두 번째 항목 이름</div>
@@ -72,6 +73,16 @@
 
   <blockquote>인용은 왼쪽에 청록 선을 둡니다.</blockquote>
 
+</section>
+
+<!-- 여기서 쪽을 끊고 싶을 때. 원고(마크다운)에서도 같은 한 줄을 씁니다.
+     Starts a new page here; the same one line works in the markdown source. -->
+<div class="pb"></div>
+
+<section class="page">
+  <h1>수동 쪽나눔 뒤</h1>
+  <p>앞의 <code>&lt;div class="pb"&gt;&lt;/div&gt;</code> 때문에 이 장은 새 쪽에서
+    시작합니다. 자동 분할이 어색하게 끊는 자리를 바로잡을 때 쓰세요.</p>
 </section>
 
 </body>

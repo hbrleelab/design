@@ -22,6 +22,7 @@ import re
 import shutil
 import sys
 import urllib.request
+from copy import deepcopy
 from pathlib import Path
 
 import markdown
@@ -80,6 +81,54 @@ def split_front_matter(text):
 
 
 # --- tables ----------------------------------------------------------------
+# Inline markup a cell may carry into a card. A line break and a change of
+# weight or size are the author's meaning, not decoration: dropping them runs
+# the shop name straight into its address.
+INLINE_KEEP = {"br", "b", "strong", "i", "em", "small", "sub", "sup",
+               "code", "a", "span", "u", "s", "mark", "abbr"}
+DROP_WHOLE = ("script", "style")
+BLANK = {"", "-", "—", "–", "n/a", "N/A"}
+
+
+def inline_fragment(cell):
+    """Copy a cell's contents, keeping the inline markup and nothing else.
+
+    Anything that is not inline is unwrapped rather than deleted, so a stray
+    block element loses its tag but never its text. Whitespace is collapsed,
+    which <br> survives because it is an element, not a space.
+    """
+    frag = deepcopy(cell)
+    frag.tag = "span"
+    frag.attrib.clear()
+    ET.strip_elements(frag, *DROP_WHOLE, with_tail=False)
+    loose = {el.tag for el in frag.iter()
+             if isinstance(el.tag, str) and el.tag not in INLINE_KEEP} - {"span"}
+    if loose:
+        ET.strip_tags(frag, *loose)
+    for node in frag.iter():
+        if node.text:
+            node.text = re.sub(r"\s+", " ", node.text)
+        if node.tail:
+            node.tail = re.sub(r"\s+", " ", node.tail)
+    if frag.text:
+        frag.text = frag.text.lstrip()
+    for node in reversed(list(frag.iter())):
+        if node is not frag and node.tail and node.tail.strip():
+            node.tail = node.tail.rstrip()
+            break
+        if node.text and node.text.strip():
+            node.text = node.text.rstrip()
+            break
+    return frag
+
+
+def pour(dest, frag):
+    """Move a fragment's text and children into dest, keeping order."""
+    dest.text = frag.text
+    for child in list(frag):
+        dest.append(child)
+
+
 def table_to_cards(table, doc):
     """Rebuild one wide table as a stack of cards, one per row.
 
@@ -111,11 +160,11 @@ def table_to_cards(table, doc):
 
         title = ET.SubElement(card, "div")
         title.set("class", "card__title")
-        title.text = " ".join(cells[0].text_content().split())
+        pour(title, inline_fragment(cells[0]))
 
         for head, cell in zip(heads[1:], cells[1:]):
-            value = " ".join(cell.text_content().split())
-            if not value or value in {"-", "—", "–"}:
+            frag = inline_fragment(cell)
+            if "".join(frag.itertext()).strip().lower() in BLANK:
                 continue          # an empty cell is noise as a labelled row
             row = ET.SubElement(card, "div")
             row.set("class", "card__row")
@@ -124,7 +173,7 @@ def table_to_cards(table, doc):
             k.text = head
             v = ET.SubElement(row, "span")
             v.set("class", "card__val")
-            v.text = value
+            pour(v, frag)
     return wrap
 
 
