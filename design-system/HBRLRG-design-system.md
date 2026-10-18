@@ -27,6 +27,12 @@ HBRL Research Group (이한보람 교수 연구실, UNIST) 의 문서 · 슬라�
 - Only three grounds: white, `#F6F7F9`, Navy.<br>배경은 흰색 · `#F6F7F9` · Navy 세 가지만 씁니다.
 - Never set small body text in teal (2.99:1 on white).<br>청록은 작은 본문 글자색으로 쓰지 않습니다 (흰 배경에서 대비 2.99:1).
 - Corners stay square (`border-radius: 0`). The one exception is the 6 px teal bullet square (radius 2 px).<br>모서리는 각지게 (`border-radius: 0`). 예외는 6 px 청록 불릿 사각(radius 2 px)뿐.
+- **For print, give the hex and let the printer convert.** CMYK values are in
+  `assets/logo/README.txt`; the arithmetic conversion of these hexes is wrong
+  and prints the teal as a blue.<br>
+  **인쇄물은 hex 를 주고 인쇄소가 변환하게 하세요.** CMYK 값은
+  `assets/logo/README.txt` 에 있습니다. 이 hex 를 산술 변환한 값은 틀렸고,
+  청록이 파랑으로 인쇄됩니다.
 
 ---
 
