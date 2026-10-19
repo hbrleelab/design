@@ -68,16 +68,25 @@ jobs:
           done
           ls -la office/
 
+      # The poster measures its text against Archivo, so it is built after the
+      # fonts are fetched, and gets the same embedding as the slides.
+      - name: Build poster template
+        run: |
+          python3 tools/build_poster.py office --fonts .fonts
+          python3 .claude/skills/hbrlrg-design/scripts/embed_fonts.py \
+            office/hbrlrg-poster-a0-portrait.pptx office/embedded.pptx .fonts
+          mv office/embedded.pptx office/hbrlrg-poster-a0-portrait.pptx
+
       # A schema-invalid part is what makes Office offer "repair" instead of
       # opening the file. v1.9 shipped one and an external recipient could not
       # open the deck, so this now blocks the release rather than warning.
       - name: Validate against ISO/IEC 29500 schemas
         run: |
           python3 .claude/skills/hbrlrg-design/scripts/qa_schema.py \
-            office/hbrlrg-slides.pptx office/hbrlrg-*.docx
+            office/hbrlrg-slides.pptx office/hbrlrg-poster-*.pptx office/hbrlrg-*.docx
 
       - name: Package templates
-        run: zip -r hbrlrg-templates.zip documents slides mobile design-system web assets office *.js README.md
+        run: zip -r hbrlrg-templates.zip documents slides mobile posters design-system web assets office *.js README.md
 
       # A release that fixes something needs a human explanation, not just a
       # commit list. docs/release-notes/<version>.md is used when present.
@@ -96,6 +105,7 @@ jobs:
           files: |
             hbrlrg-templates.zip
             office/hbrlrg-slides.pptx
+            office/hbrlrg-poster-a0-portrait.pptx
             office/hbrlrg-letterhead-kr.docx
             office/hbrlrg-letterhead-en.docx
             office/hbrlrg-plain-kr.docx

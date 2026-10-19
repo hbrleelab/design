@@ -9,6 +9,7 @@ HBRL Research Group (UNIST) 의 문서 · 슬라이드 · 웹 공통 디자인 �
 **Get the templates · 최신 템플릿 받기** → [Releases](../../releases/latest)
 · everything `hbrlrg-templates.zip` · PowerPoint `hbrlrg-slides.pptx` · Word `hbrlrg-*.docx`
 **Phone-readable documents · 휴대폰에서 읽는 문서** → [`mobile/`](mobile/)
+**Conference posters · 학회 포스터** → [`posters/`](posters/) · PowerPoint `hbrlrg-poster-a0-portrait.pptx`
 **Read the spec · 디자인 규격 보기** → https://hbrleelab.github.io/design/
 (the page has a KO / EN switch · 페이지에 한글 · 영문 전환 버튼이 있습니다)
 
@@ -32,6 +33,12 @@ mobile/             Phone-readable documents · 휴대폰용 문서 템플릿
   md2pdf.py             Markdown to PDF · 마크다운에서 PDF
   README.md             Usage and the table rule · 사용법과 표 규칙
   sample/               Worked example + PDF · 예제와 샘플 PDF
+
+posters/            Conference poster, A0 portrait · 학회 포스터, A0 세로
+  README.md             Grid, type sizes, editing, printing · 격자 · 글자 크기 · 편집 · 인쇄
+  sample/               Sample PDF + preview · 샘플 PDF 와 미리보기
+
+references/posters/ Layout references for the poster template · 포스터 템플릿용 레이아웃 참고 자료
 
 design-system/      The specification · 디자인 규격서
   index.html            Read it in a browser (KO / EN) · 브라우저로 보는 규격서
@@ -57,12 +64,14 @@ assets/
   unist-emblem.png        UNIST emblem, light ground · UNIST 엠블럼 (밝은 배경)
   unist-emblem-onnavy.png UNIST emblem, navy ground · UNIST 엠블럼 (네이비 배경)
   cm-logo-onnavy.png      Chemistry of Materials logo · Chemistry of Materials 로고
+  qr/hbrl-research-group.png  QR to the homepage, navy · 홈페이지 QR (네이비)
 
 office/             PowerPoint and Word, built by each release
                     파워포인트 · 워드 판 (릴리스에서 자동 생성)
   hbrlrg-slides.pptx              12 layouts, fonts embedded · 슬라이드 12종
   hbrlrg-letterhead-kr / -en.docx Letterhead · 레터헤드
   hbrlrg-plain-kr / -en.docx      Plain document · 기본 문서
+  hbrlrg-poster-a0-portrait.pptx  Conference poster, A0 portrait · 학회 포스터
 
 deck-stage.js       Slide viewer: navigation, notes, print · 슬라이드 뷰어
 image-slot.js       Image placeholder, drag and drop · 이미지 자리표시자

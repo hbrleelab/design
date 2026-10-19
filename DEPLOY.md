@@ -185,10 +185,10 @@ Pages 는 push 하는 순간 자동으로 갱신되므로 규격서는 따로 �
 
 1. Checks the version looks like `v` + a number, so a typo can't create a strange tag<br>버전이 `v` + 숫자 형식인지 검사 — 오타로 엉뚱한 태그가 생기는 것을 막습니다
 2. Fetches Archivo (SIL OFL) from its own repository at build time<br>Archivo(SIL OFL)를 빌드 시점에 원 저장소에서 받아 옵니다
-3. Runs `tools/build_office.py` to generate one `.pptx` and four `.docx` from the design tokens<br>`tools/build_office.py` 로 디자인 토큰에서 `.pptx` 1개와 `.docx` 4개를 생성합니다
+3. Runs `tools/build_office.py` to generate one `.pptx` and four `.docx` from the design tokens, and `tools/build_poster.py` for the A0 poster `.pptx`<br>`tools/build_office.py` 로 디자인 토큰에서 `.pptx` 1개와 `.docx` 4개를, `tools/build_poster.py` 로 A0 포스터 `.pptx` 를 생성합니다
 4. Embeds the four Archivo styles into the `.pptx`<br>`.pptx` 에 Archivo 4종을 임베드합니다
 5. **Validates every generated file against the ISO/IEC 29500-4 schemas and stops the release if a part is invalid**<br>**생성된 파일 전체를 ISO/IEC 29500-4 스키마로 검증하고, 어긋나면 릴리스를 중단합니다**
-6. Zips everything and publishes the release, attaching the zip and the five Office files<br>전체를 zip 으로 묶고 릴리스를 발행하면서 zip 과 Office 파일 5개를 첨부합니다
+6. Zips everything and publishes the release, attaching the zip and the six Office files<br>전체를 zip 으로 묶고 릴리스를 발행하면서 zip 과 Office 파일 6개를 첨부합니다
 
 Step 5 exists because v1.9 shipped a deck PowerPoint refused to open. Neither
 python-pptx nor python-docx validates what it writes, so nothing else would have
@@ -236,6 +236,7 @@ HTML 슬라이드는 그대로 발표할 수 있고 PDF로도 나옵니다. 그�
 | | Font embedding · 폰트 임베드 | Sending it outside · 외부 발송 |
 | --- | --- | --- |
 | `hbrlrg-slides.pptx` | Archivo ×4, Pretendard ×2 | Holds in PowerPoint, Korean included · 파워포인트에서 국문까지 유지 |
+| `hbrlrg-poster-a0-portrait.pptx` | Archivo ×4, Pretendard ×2 | Same as the slides; send the printer a **PDF** · 슬라이드와 같음, 인쇄소에는 **PDF** |
 | `hbrlrg-*.docx` | Archivo ×4, Pretendard ×2 | Holds in Word; **PDF** for anything else · 워드에서 유지, 그 외에는 **PDF** |
 
 Embedded fonts are read by Microsoft Office only. LibreOffice, Google Docs and
