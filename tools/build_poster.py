@@ -1,26 +1,37 @@
-"""Generate the HBRLRG conference poster template (PPTX).
+"""Generate the HBRLRG conference poster templates (PPTX).
 
-    python3 tools/build_poster.py [outdir] [--format a0-portrait] [--fonts DIR]
+    python3 tools/build_poster.py [outdir] [--size a0|kcs|all] [--style standard|panel|band|all]
+                                  [--fonts DIR]
 
-A poster is read at two distances, and the type scale follows from them: the
-title has to carry across an aisle (about 5 m), the body has to be read by
-someone standing in front of it (about 1.5 m). At A0 that puts the title near
-100 pt and body text at 30 pt — the floor, not a target. Nothing on the poster
-goes below 20 pt.
+Writes outdir/hbrlrg-poster-<size>-<style>.pptx — by default all six.
 
-Layout is a fixed column grid rather than free placement. Each column is a
-stack of blocks (heading, text, figure, ...); one figure per column is "flex"
-and absorbs whatever height is left, so every column ends flush on the same
-line however much text a format holds. Students edit the boxes; the grid is
-what keeps four authors' posters looking like they came from one group.
+The layout comes from the four student posters in references/posters/ (see the
+analysis in its README) put through the design system:
 
-Text heights are measured, not guessed: every block is word-wrapped against
-Archivo's real advance widths, so a box is exactly as tall as its text and the
-next block starts where the text ends. That needs the font files — the same
-ones the release workflow fetches into .fonts/.
+- Portrait, two equal columns. Three of the four references use exactly that.
+- The header is 12–16 % of the page height and holds the title, the authors and
+  affiliation, and a logo on each side: the UNIST emblem on the left, next to
+  the affiliation it stands for, and a slot for the conference or project logo
+  on the right.
+- Type follows the most orderly reference, 03 (KCS): 80 / 52 / 40 / 28 / 24 pt
+  for title / section / subsection / body / caption. Body never goes below
+  24 pt and captions never below 20 pt; the A0 workshop poster (02) set its
+  body at 14–18 pt, which cannot be read from a step back.
+- Columns are 24 mm apart. Reference 03 had 5 mm and the columns ran together.
 
-Formats are entries in FORMATS. Only A0 portrait exists until the layout
-references in references/posters/ say which others the group actually uses.
+Three styles share that grid:
+
+  standard  white page, the teal-capped rule under the header (03 type)
+  panel     navy page with white section panels (01 · 02 type)
+  band      navy header and footer bands framing a white body (04 type)
+
+Two sizes: A0 (841 × 1189 mm) and 900 × 1200 mm, the size KCS asks for.
+
+Each column is a stack of sections and each section a stack of blocks. One
+figure per column is "flex" and takes the height the text leaves, so both
+columns end on the same line. Text heights are measured, not guessed: every
+block is word-wrapped against Archivo's real advance widths, which needs the
+font files — the same ones the release workflow fetches into .fonts/.
 """
 import argparse
 from pathlib import Path
@@ -41,28 +52,35 @@ NAVY = RGBColor(0x14, 0x24, 0x3F)
 TEAL = RGBColor(0x0E, 0xA7, 0x9A)
 INK = RGBColor(0x2B, 0x2F, 0x36)
 MUTED = RGBColor(0x6B, 0x72, 0x80)
+FAINT = RGBColor(0x9A, 0xA1, 0xAB)
 SURFACE = RGBColor(0xF6, 0xF7, 0xF9)
 BORDER = RGBColor(0xE4, 0xE7, 0xEC)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
 ON_NAVY = RGBColor(0x93, 0xA2, 0xBC)
+NAVY_RULE = RGBColor(0x2C, 0x40, 0x66)
 LATIN, HANGUL = "Archivo", "Pretendard"
 
 PT_MM = 25.4 / 72
 # Office sets single spacing at 1.2 em for Archivo, and puts the extra of a
 # proportional spacing above each line — the first one included. Measured on
-# the LibreOffice export, which is what the sample PDF is.
+# the LibreOffice export, which is what the sample PDFs are.
 SINGLE = 1.2
 X_HEIGHT = 0.526
+LOGO_INK = 307 / 708     # the HBRLRG logo PNG is padded; this is its ink height
 
-# --- formats ---------------------------------------------------------------
-FORMATS = {
-    "a0-portrait": dict(
-        name="A0 세로", w=841, h=1189, margin=32, gutter=24, cols=3,
-        footer_h=78,
-        type=dict(title=100, authors=40, affil=24, eyebrow=24, heading=56,
-                  body=30, caption=24, small=20),
-    ),
+# --- sizes and styles ------------------------------------------------------
+SIZES = {
+    "a0": dict(name="A0", w=841, h=1189, margin=30, gutter=24, emblem=72),
+    "kcs": dict(name="900 × 1200 mm (KCS)", w=900, h=1200, margin=30, gutter=24, emblem=72),
 }
+STYLES = {
+    "standard": "white page, teal-capped rule under the header",
+    "panel": "navy page, white section panels",
+    "band": "navy header and footer bands",
+}
+TYPE = dict(title=80, section=52, sub=40, authors=40, affil=24, body=28,
+            caption=24, small=20, eyebrow=24)
+HEADER_SHARE = (0.12, 0.16)
 
 
 # --- text measurement ------------------------------------------------------
@@ -121,7 +139,7 @@ def first_baseline(size, spacing):
     return (SINGLE * spacing - 0.2) * size * PT_MM
 
 
-def rect(slide, x, y, w, h, fill, line=None):
+def rect(slide, x, y, w, h, fill, line=None, name=None):
     s = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Mm(x), Mm(y), Mm(w), Mm(h))
     s.fill.solid()
     s.fill.fore_color.rgb = fill
@@ -138,6 +156,8 @@ def rect(slide, x, y, w, h, fill, line=None):
     style = s._element.find(qn("p:style"))
     if style is not None:
         s._element.remove(style)
+    if name:
+        s.name = name
     return s
 
 
@@ -180,7 +200,7 @@ def text(slide, x, y, w, h, runs, size, colour, *, bold=False, align=PP_ALIGN.LE
     return box
 
 
-def picture(slide, path, x, y, h=None, w=None):
+def picture(slide, path, x, y, h=None, w=None, name=None):
     """Set one dimension; the other follows the file."""
     from PIL import Image
     with Image.open(path) as im:
@@ -189,295 +209,397 @@ def picture(slide, path, x, y, h=None, w=None):
         w = h * ratio
     else:
         h = w / ratio
-    slide.shapes.add_picture(str(path), Mm(x), Mm(y), Mm(w), Mm(h))
+    pic = slide.shapes.add_picture(str(path), Mm(x), Mm(y), Mm(w), Mm(h))
+    if name:
+        pic.name = name
     return w, h
+
+
+# --- placeholder content ---------------------------------------------------
+# Written as instructions, so a student who fills the boxes in order has
+# followed the advice without reading the README.
+EYEBROW = "CONFERENCE NAME 2026  ·  POSTER P-00"
+TITLE = "State the finding in the title, not the topic, in two lines at most"
+AUTHORS = [("First Author", {}), ("1", {"sup": True}), (",  Second Author", {}),
+           ("1", {"sup": True}), (",  Han-Bo-Ram Lee", {}), ("1,*", {"sup": True})]
+AFFIL = [[("1 ", {"sup": True}),
+          ("Graduate School of Semiconductor Materials & Devices Engineering, "
+           "Ulsan National Institute of Science and Technology (UNIST)", {})],
+         [("* hbrlee@unist.ac.kr", {})]]
+
+COLUMNS = [
+    [("01", "Introduction", [
+        ("text", "Two or three sentences: the problem, why it matters, and the gap "
+                 "this work fills. Body text is 28 pt and never goes below 24 pt — it "
+                 "is read by someone standing a step back from the poster."),
+        ("bullets", ["State the question you answered",
+                     "Give the one number that frames it",
+                     "Say what was missing before"]),
+     ]),
+     ("02", "Experimental", [
+        ("text", "Only what a visitor needs to trust the result: process, precursors, "
+                 "conditions. The full recipe belongs in the paper."),
+        ("figure", 1, 3.0, "3:1", "Figure 1. Process sequence, one step per panel."),
+        ("flex", 2, "Figure 2. Reactor or device schematic."),
+     ])],
+    [("03", "Results and Discussion", [
+        ("sub", "A.  Lead with the main finding"),
+        ("text", "One claim per figure, and the claim in the caption, so the poster "
+                 "still reads with the text skipped."),
+        ("pair", 3, 4 / 3, "4:3",
+         "Figure 3. (a) The measurement. (b) The control, on the same axes."),
+        ("sub", "B.  Then what supports it"),
+        ("text", "Point out what to look at — the axis, the trend, the crossover. "
+                 "Visitors will not find it on their own."),
+        ("flex", 4, "Figure 4. Supporting data or comparison with prior work."),
+     ]),
+     ("04", "Conclusion", [
+        ("summary", ["The finding, in one sentence",
+                     "What it changes for the field",
+                     "What comes next"]),
+        ("references", ["[1] A. Author et al., Chem. Mater. 36, 1234 (2024).",
+                        "[2] B. Author et al., Adv. Mater. 35, 2301234 (2023)."]),
+     ])],
+]
 
 
 # --- the poster ------------------------------------------------------------
 class Poster:
     BODY_SPACING = 1.35
-    GAP = 22                 # between sections
+    SECTION_GAP = 24         # between sections (and between panels)
     AFTER_TEXT = 10          # text -> next block in the same section
-    AFTER_FIGURE = 12        # caption -> next block
+    AFTER_FIGURE = 14        # caption -> next block
     BULLET_GAP = 3
+    PANEL_PAD = 18
+    PAIR_GAP = 12
 
-    def __init__(self, fmt, measure):
-        self.F = F = FORMATS[fmt]
-        self.T = F["type"]
+    def __init__(self, size, style, measure):
+        self.S = S = SIZES[size]
+        self.size, self.style = size, style
+        self.T = TYPE
         self.m = measure
-        W, M, G, C = F["w"], F["margin"], F["gutter"], F["cols"]
-        self.col_w = (W - 2 * M - (C - 1) * G) / C
-        self.col_x = [M + i * (self.col_w + G) for i in range(C)]
+        self.W, self.H, self.M, self.G = S["w"], S["h"], S["margin"], S["gutter"]
+        self.col_w = (self.W - 2 * self.M - self.G) / 2
+        self.col_x = [self.M, self.M + self.col_w + self.G]
+        self.dark = style in ("panel",)          # page ground is navy
+        self.pad = self.PANEL_PAD if style == "panel" else 0
+        self.inner = self.col_w - 2 * self.pad   # width blocks are set in
 
-    # Every block is a pair: height(block) for the layout pass, draw(...) for
-    # the drawing pass. Both read the same numbers, so they cannot disagree.
-    def text_h(self, s, w, size, spacing):
-        return self.m.lines(s, w, size) * line_pitch(size, spacing)
+    # -- measuring ----------------------------------------------------------
+    def text_h(self, s, w, size, spacing, bold=False):
+        return self.m.lines(s, w, size, bold) * line_pitch(size, spacing)
 
     def heading_h(self):
-        return self.T["heading"] * PT_MM * 1.15 + 5 + 2.4 + 10
+        return self.T["section"] * PT_MM * 1.2 + 6 + 0.8 + 12
 
-    def heading(self, s, x, y, num, title):
-        """Number in teal, title in navy, then the teal-capped rule underneath —
-        the same device as the documents and slides, one per section."""
-        size = self.T["heading"]
-        h = size * PT_MM * 1.15
-        pieces = [(f"{num}  ", {"colour": TEAL})] if num else []
-        text(s, x, y, self.col_w, h, [pieces + [(title, {})]], size, NAVY, bold=True,
-             spacing=1.0, name=f"섹션 {num} 제목")
-        ry = y + h + 5
-        rect(s, x, ry + 0.8, self.col_w, 0.8, NAVY)
-        rect(s, x, ry, 30, 2.4, TEAL)
-        return self.heading_h()
-
-    def body(self, s, x, y, w, str_, colour=INK, name="본문"):
-        size = self.T["body"]
-        h = self.text_h(str_, w, size, self.BODY_SPACING)
-        text(s, x, y, w, h, str_, size, colour, spacing=self.BODY_SPACING, name=name)
-        return h
+    def sub_h(self, t):
+        return self.text_h(t, self.inner, self.T["sub"], 1.1, bold=True)
 
     def bullets_h(self, items, w):
         size = self.T["body"]
-        indent = self._indent(size)
-        return sum(self.text_h(i, w - indent, size, self.BODY_SPACING) for i in items) \
+        ind = self._indent(size)
+        return sum(self.text_h(i, w - ind, size, self.BODY_SPACING) for i in items) \
             + self.BULLET_GAP * (len(items) - 1)
 
     def _indent(self, size):
         return size * PT_MM * 1.05
 
-    def bullets(self, s, x, y, w, items, colour=INK, name="요점"):
-        """Teal squares centred on the first line's x-height, as in the documents."""
-        size = self.T["body"]
-        sq = size * 0.3 * PT_MM
-        indent = self._indent(size)
-        mid = first_baseline(size, self.BODY_SPACING) - X_HEIGHT / 2 * size * PT_MM
-        for i, item in enumerate(items):
-            h = self.text_h(item, w - indent, size, self.BODY_SPACING)
-            rect(s, x, y + mid - sq / 2, sq, sq, TEAL)
-            text(s, x + indent, y, w - indent, h, item, size, colour,
-                 spacing=self.BODY_SPACING, name=f"{name} {i + 1}")
-            y += h + self.BULLET_GAP
-
     def caption_h(self, caption):
-        size = self.T["caption"]
-        return 6 + self.text_h(caption, self.col_w, size, 1.3)
+        return 6 + self.text_h(caption, self.inner, self.T["caption"], 1.3)
 
-    def figure(self, s, x, y, h, n, caption, aspect_label):
-        """A figure well — where a plot or micrograph gets pasted in — with its
-        caption. The label inside names the slot's shape and size so the
-        author can prepare the image at the right proportions."""
-        T = self.T
-        box = rect(s, x, y, self.col_w, h, SURFACE, line=BORDER)
-        box.name = f"그림 {n} 자리"
-        tf = box.text_frame
-        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
-        p = tf.paragraphs[0]
-        p.alignment = PP_ALIGN.CENTER
-        r = p.add_run()
-        r.text = f"Figure {n}  ·  {aspect_label}  ·  {self.col_w:.0f} × {h:.0f} mm"
-        _run_font(r, T["caption"], MUTED)
-        ch = self.caption_h(caption) - 6
-        text(s, x, y + h + 6, self.col_w, ch, caption, T["caption"], MUTED, spacing=1.3,
-             name=f"그림 {n} 설명")
+    def label_h(self):
+        return self.T["small"] * PT_MM * 1.3 + 4
 
-    # -- layout pass --------------------------------------------------------
     def height(self, b):
-        kind, w = b[0], self.col_w
-        if kind == "heading":
-            return self.heading_h()
+        kind, w = b[0], self.inner
+        if kind == "sub":
+            return self.sub_h(b[1])
         if kind == "text":
             return self.text_h(b[1], w, self.T["body"], self.BODY_SPACING)
         if kind == "bullets":
             return self.bullets_h(b[1], w)
         if kind == "figure":
             return w / b[2] + self.caption_h(b[4])
+        if kind == "pair":
+            return (w - self.PAIR_GAP) / 2 / b[2] + self.caption_h(b[4])
         if kind == "flex":
-            return self.caption_h(b[3])
-        if kind == "conclusion":
-            return self.heading_h() + 2 * 16 + self.bullets_h(b[3], w - 32)
+            return self.caption_h(b[2])
+        if kind == "summary":
+            return 2 * 16 + self.bullets_h(b[1], w - 32)
         if kind == "references":
-            size = self.T["small"]
-            return self.label_h() + sum(self.text_h(r, w, size, 1.3) for r in b[1])
+            return self.label_h() + sum(self.text_h(r, w, self.T["small"], 1.3)
+                                        for r in b[1])
         raise ValueError(kind)
 
-    def spaced(self, blocks):
-        """(block, space after) pairs. A ("gap",) marker starts a new section
-        and sets the space before it; the last block ends flush."""
-        out = []
+    def after(self, b, nxt):
+        if nxt is None:
+            return 0
+        if nxt[0] == "sub":
+            return 22                          # a subsection is a small section break
+        if b[0] == "sub":
+            return 8
+        if b[0] in ("figure", "pair", "flex"):
+            return self.AFTER_FIGURE
+        if b[0] == "summary":
+            return 18
+        return self.AFTER_TEXT
+
+    def section_h(self, blocks, flex_h):
+        h = self.heading_h()
         for i, b in enumerate(blocks):
-            if b[0] == "gap":
-                continue
             nxt = blocks[i + 1] if i + 1 < len(blocks) else None
-            if nxt is None:
-                after = 0
-            elif nxt[0] == "gap":
-                after = self.GAP
-            elif b[0] == "heading":
-                after = 0                      # heading_h carries its own space
-            elif b[0] in ("figure", "flex"):
-                after = self.AFTER_FIGURE
-            else:
-                after = self.AFTER_TEXT
-            out.append((b, after))
-        return out
+            h += self.height(b) + self.after(b, nxt)
+            if b[0] == "flex":
+                h += flex_h
+        return h + 2 * self.pad
 
-    def label_h(self):
-        return self.T["small"] * PT_MM * 1.3 + 4
+    # -- drawing ------------------------------------------------------------
+    @property
+    def fg(self):
+        return NAVY
 
-    def label(self, s, x, y, w, t):
-        text(s, x, y, w, self.label_h(), t, self.T["small"], MUTED, bold=True,
-             tracking=0.14, spacing=1.0, name=t)
+    def heading(self, s, x, y, num, title):
+        """Teal number, navy title, and a hairline under it. The teal-capped
+        rule is the poster's signature and appears once, under the header —
+        not under every section (design system §4)."""
+        size = self.T["section"]
+        h = size * PT_MM * 1.2
+        text(s, x, y, self.inner, h, [[(f"{num}  ", {"colour": TEAL}), (title, {})]],
+             size, NAVY, bold=True, spacing=1.0, name=f"Section {num} title")
+        rect(s, x, y + h + 6, self.inner, 0.8, BORDER, name=f"Section {num} rule")
+        return self.heading_h()
 
-    # -- drawing pass -------------------------------------------------------
-    def column(self, s, x, top, bottom, blocks):
-        blocks = self.spaced(blocks)
-        n_flex = sum(1 for b, _ in blocks if b[0] == "flex")
-        fixed = sum(self.height(b) + after for b, after in blocks)
+    def bullets(self, s, x, y, w, items, colour=INK, name="Bullet"):
+        """Teal squares centred on the first line's x-height (design system §4)."""
+        size = self.T["body"]
+        sq = size * 0.3 * PT_MM
+        ind = self._indent(size)
+        mid = first_baseline(size, self.BODY_SPACING) - X_HEIGHT / 2 * size * PT_MM
+        for i, item in enumerate(items):
+            h = self.text_h(item, w - ind, size, self.BODY_SPACING)
+            rect(s, x, y + mid - sq / 2, sq, sq, TEAL)
+            text(s, x + ind, y, w - ind, h, item, size, colour,
+                 spacing=self.BODY_SPACING, name=f"{name} {i + 1}")
+            y += h + self.BULLET_GAP
+
+    def well(self, s, x, y, w, h, label, name):
+        """A figure well — where a plot or micrograph gets pasted in. The label
+        gives the slot's shape and size, so the image can be made to fit."""
+        box = rect(s, x, y, w, h, SURFACE, line=BORDER, name=name)
+        tf = box.text_frame
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        tf.margin_left = tf.margin_right = Mm(4)
+        p = tf.paragraphs[0]
+        p.alignment = PP_ALIGN.CENTER
+        r = p.add_run()
+        r.text = f"{label}  ·  {w:.0f} × {h:.0f} mm"
+        _run_font(r, self.T["caption"], MUTED)
+
+    def caption(self, s, x, y, caption, n):
+        h = self.caption_h(caption) - 6
+        text(s, x, y + 6, self.inner, h, caption, self.T["caption"], MUTED, spacing=1.3,
+             name=f"Figure {n} caption")
+
+    def label(self, s, x, y, w, t, colour=MUTED):
+        text(s, x, y, w, self.label_h(), t, self.T["small"], colour, bold=True,
+             tracking=0.14, spacing=1.0, name=t.title())
+
+    def section(self, s, x, y, num, title, blocks, flex_h):
+        h = self.section_h(blocks, flex_h)
+        if self.style == "panel":
+            rect(s, x, y, self.col_w, h, WHITE, name=f"Section {num} panel")
+        x0, y = x + self.pad, y + self.pad
+        y += self.heading(s, x0, y, num, title)
+        w = self.inner
+        for i, b in enumerate(blocks):
+            kind, bh = b[0], self.height(b)
+            nxt = blocks[i + 1] if i + 1 < len(blocks) else None
+            if kind == "sub":
+                text(s, x0, y, w, bh, b[1], self.T["sub"], NAVY, bold=True, spacing=1.1,
+                     name="Subsection title")
+            elif kind == "text":
+                text(s, x0, y, w, bh, b[1], self.T["body"], INK,
+                     spacing=self.BODY_SPACING, name="Body")
+            elif kind == "bullets":
+                self.bullets(s, x0, y, w, b[1])
+            elif kind == "figure":
+                fh = w / b[2]
+                self.well(s, x0, y, w, fh, f"Figure {b[1]}  ·  {b[3]}", f"Figure {b[1]} slot")
+                self.caption(s, x0, y + fh, b[4], b[1])
+            elif kind == "pair":
+                fw = (w - self.PAIR_GAP) / 2
+                fh = fw / b[2]
+                for j, tag in enumerate("ab"):
+                    self.well(s, x0 + j * (fw + self.PAIR_GAP), y, fw, fh,
+                              f"Figure {b[1]}{tag}  ·  {b[3]}", f"Figure {b[1]}{tag} slot")
+                self.caption(s, x0, y + fh, b[4], b[1])
+            elif kind == "flex":
+                self.well(s, x0, y, w, flex_h, f"Figure {b[1]}", f"Figure {b[1]} slot")
+                self.caption(s, x0, y + flex_h, b[2], b[1])
+                bh += flex_h
+            elif kind == "summary":
+                rect(s, x0, y, w, bh, SURFACE, name="Conclusion box")
+                self.bullets(s, x0 + 16, y + 16, w - 32, b[1], NAVY, "Conclusion")
+            elif kind == "references":
+                self.label(s, x0, y, w, "REFERENCES")
+                text(s, x0, y + self.label_h(), w, bh - self.label_h(), b[1],
+                     self.T["small"], MUTED, spacing=1.3, name="References")
+            y += bh + self.after(b, nxt)
+        return h
+
+    def column(self, s, x, top, bottom, sections):
+        fixed = sum(self.section_h(blocks, 0) for _, _, blocks in sections) \
+            + self.SECTION_GAP * (len(sections) - 1)
+        n_flex = sum(1 for _, _, blocks in sections for b in blocks if b[0] == "flex")
         flex_h = (bottom - top - fixed) / max(n_flex, 1)
         if n_flex and flex_h < 100:
-            raise SystemExit(f"그림 자리 높이 {flex_h:.0f} mm — 이 단에 글이 너무 많습니다")
+            raise SystemExit(f"{self.size}-{self.style}: 그림 자리 높이 {flex_h:.0f} mm — "
+                             "이 단에 글이 너무 많습니다")
         y = top
-        for b, after in blocks:
-            kind, h = b[0], self.height(b)
-            if kind == "heading":
-                self.heading(s, x, y, b[1], b[2])
-            elif kind == "text":
-                self.body(s, x, y, self.col_w, b[1])
-            elif kind == "bullets":
-                self.bullets(s, x, y, self.col_w, b[1])
-            elif kind == "figure":
-                self.figure(s, x, y, self.col_w / b[2], b[1], b[4], b[3])
-            elif kind == "flex":
-                self.figure(s, x, y, flex_h, b[1], b[3], b[2])
-                h += flex_h
-            elif kind == "conclusion":
-                self.heading(s, x, y, b[1], b[2])
-                hd = self.heading_h()
-                rect(s, x, y + hd, self.col_w, h - hd, SURFACE).name = "결론 상자"
-                self.bullets(s, x + 16, y + hd + 16, self.col_w - 32, b[3], NAVY, "결론")
-            elif kind == "references":
-                self.label(s, x, y, self.col_w, "REFERENCES")
-                size = self.T["small"]
-                text(s, x, y + self.label_h(), self.col_w, h - self.label_h(), b[1],
-                     size, MUTED, spacing=1.3, name="참고문헌")
-            y += h + after
-        return y, flex_h
+        for num, title, blocks in sections:
+            y += self.section(s, x, y, num, title, blocks, flex_h) + self.SECTION_GAP
+        return y - self.SECTION_GAP, flex_h
+
+    # -- header -------------------------------------------------------------
+    def header(self, s):
+        """Emblem left, the text block beside it, a logo slot right. The
+        emblem sits next to the affiliation it stands for (§8); the text is
+        left-aligned like every other title in the system, rather than centred
+        between the logos as the references were."""
+        T, W, H, M = self.T, self.W, self.H, self.M
+        on_navy = self.style in ("panel", "band")
+        E = self.S["emblem"]
+        tx = M + E + 26
+        tw = W - M - E - 26 - tx
+        title_h = self.m.lines(TITLE, tw, T["title"], bold=True) * line_pitch(T["title"], 0.95)
+        eyebrow_h = T["eyebrow"] * PT_MM * 1.2
+        authors_h = line_pitch(T["authors"], 1.15)
+        affil_h = sum(self.m.lines("".join(t for t, _ in p), tw, T["affil"])
+                      for p in AFFIL) * line_pitch(T["affil"], 1.25)
+        block = eyebrow_h + 8 + title_h + 8 + authors_h + 6 + affil_h
+        lo, hi = HEADER_SHARE
+        need = block + 2 * 18 + (8 if self.style == "standard" else 0)
+        HH = max(need, lo * H)
+        if HH > hi * H:
+            raise SystemExit(f"{self.size}-{self.style}: 머리 {HH:.0f} mm = {HH / H:.0%} — "
+                             "16 % 를 넘습니다. 제목을 줄이세요")
+        if self.style == "band":
+            rect(s, 0, 0, W, HH, NAVY, name="Header band")
+        y = (HH - (8 if self.style == "standard" else 0) - block) / 2
+        ey = y + block / 2 - E / 2
+        if on_navy:
+            picture(s, ASSETS / "unist-emblem-onnavy.png", M, ey, h=E, name="UNIST emblem")
+        else:
+            picture(s, ASSETS / "unist-emblem.png", M, ey, h=E, name="UNIST emblem")
+        # The right slot is for the conference's or the project's own logo,
+        # which comes in every colour: on navy it sits in a white box (§7-1).
+        slot = rect(s, W - M - E, ey, E, E, WHITE if on_navy else SURFACE,
+                    line=None if on_navy else BORDER, name="Conference logo slot")
+        tf = slot.text_frame
+        tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+        tf.word_wrap = True
+        tf.margin_left = tf.margin_right = Mm(4)
+        p = tf.paragraphs[0]
+        p.alignment = PP_ALIGN.CENTER
+        r = p.add_run()
+        r.text = "Conference or project logo"
+        _run_font(r, T["small"], MUTED)
+
+        fg, sub = (WHITE, ON_NAVY) if on_navy else (NAVY, MUTED)
+        text(s, tx, y, tw, eyebrow_h, EYEBROW, T["eyebrow"], TEAL, bold=True,
+             tracking=0.14, spacing=1.0, name="Conference · poster number")
+        y += eyebrow_h + 8
+        text(s, tx, y, tw, title_h, TITLE, T["title"], fg, bold=True, spacing=0.95,
+             name="Title")
+        y += title_h + 8
+        text(s, tx, y, tw, authors_h, [AUTHORS], T["authors"], fg, spacing=1.15,
+             name="Authors")
+        y += authors_h + 6
+        text(s, tx, y, tw, affil_h, AFFIL, T["affil"], sub, spacing=1.25,
+             name="Affiliation")
+        if self.style == "standard":
+            # The signature rule: navy across the measure, teal cap on the left.
+            ry = HH - 8
+            rect(s, M, ry + 1, W - 2 * M, 1.2, NAVY, name="Rule")
+            rect(s, M, ry, 60, 3.2, TEAL, name="Rule cap")
+        return HH
+
+    # -- footer -------------------------------------------------------------
+    def footer(self, s):
+        """HBRLRG logo and contact on the left, acknowledgements, QR right —
+        the slide footer's order, with the funding line posters need."""
+        T, W, H, M = self.T, self.W, self.H, self.M
+        on_navy = self.style in ("panel", "band")
+        FH = 74
+        fy = H - FH
+        if self.style == "band":
+            rect(s, 0, fy, W, FH, NAVY, name="Footer band")
+        elif self.style == "standard":
+            rect(s, 0, fy, W, FH, SURFACE, name="Footer ground")
+        fg, sub = (WHITE, ON_NAVY) if on_navy else (INK, MUTED)
+        logo = "logo/hbrlrg-horizontal-reverse.png" if on_navy else "logo/hbrlrg-horizontal.png"
+        ink = 12                                   # mm of visible logo height
+        lh = ink / LOGO_INK
+        lw, _ = picture(s, ASSETS / logo, M - lh * 200 / 708, fy + FH / 2 - lh / 2, h=lh,
+                        name="HBRLRG logo")
+        x = M + lw * (2173 - 200) / 2400 + 14
+        rect(s, x, fy + FH / 2 - 10, 0.6, 20, NAVY_RULE if on_navy else BORDER,
+             name="Divider")
+        x += 14
+        cw = 250
+        text(s, x, fy + FH / 2 - 14, cw, 28,
+             [[("First Author  ·  first.author@unist.ac.kr", {})],
+              [("https://hbrl-research.group", {"size": T["small"], "colour": sub})]],
+             24, fg, spacing=1.2, anchor=MSO_ANCHOR.MIDDLE, name="Contact")
+        qr = 46
+        ax = x + cw + 20
+        aw = W - M - qr - 20 - ax
+        self.label(s, ax, fy + FH / 2 - 16, aw, "ACKNOWLEDGEMENTS",
+                   TEAL if on_navy else MUTED)
+        text(s, ax, fy + FH / 2 - 16 + self.label_h(), aw, 26,
+             "This work was supported by the funding agency (grant no. 0000-0000). "
+             "Replace with your own funding statement.",
+             T["small"], sub, spacing=1.25, name="Acknowledgements")
+        picture(s, ASSETS / "qr/hbrl-research-group.png", W - M - qr, fy + (FH - qr) / 2,
+                h=qr, name="QR code")
+        return fy
+
+    # -- whole page ---------------------------------------------------------
+    def build(self, out):
+        prs = Presentation()
+        prs.slide_width, prs.slide_height = Mm(self.W), Mm(self.H)
+        s = prs.slides.add_slide(prs.slide_layouts[6])
+        if self.dark:
+            rect(s, 0, 0, self.W, self.H, NAVY, name="Page ground")
+        HH = self.header(s)
+        fy = self.footer(s)
+        gap = 26 if self.style == "standard" else 30
+        top = HH + (12 if self.style == "panel" else gap)
+        bottom = fy - (self.G if self.style == "panel" else gap)
+        ends = [self.column(s, x, top, bottom, secs) for x, secs in zip(self.col_x, COLUMNS)]
+        out = Path(out)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        prs.save(out)
+        flex = " · ".join(f"{fh:.0f}" for _, fh in ends)
+        print(f"  {out.name:<34} {self.W} × {self.H} mm · 머리 {HH:.0f} mm "
+              f"({HH / self.H:.1%}) · 단 끝 {ends[0][0]:.1f} / {ends[1][0]:.1f} "
+              f"(본문 하단 {bottom:.1f}) · 가변 그림 {flex} mm")
+        return out
 
 
-def build(fmt, out, font_dir):
-    P = Poster(fmt, Measure(font_dir))
-    F, T = P.F, P.T
-    W, H, M = F["w"], F["h"], F["margin"]
-
-    prs = Presentation()
-    prs.slide_width, prs.slide_height = Mm(W), Mm(H)
-    s = prs.slides.add_slide(prs.slide_layouts[6])
-
-    # header ---------------------------------------------------------------
-    # Built top-down and measured, so a three-line title pushes the authors
-    # and the affiliation down instead of running into them.
-    title = "Poster title in one or two lines, stated as the finding rather than the topic"
-    title_h = P.m.lines(title, W - 2 * M, T["title"], bold=True) * line_pitch(T["title"], 0.98)
-    authors = [("First Author", {}), ("1", {"sup": True}), (",  Second Author", {}),
-               ("1", {"sup": True}), (",  Han-Bo-Ram Lee", {}), ("1,*", {"sup": True})]
-    authors_h = line_pitch(T["authors"], 1.2)
-    emblem = 30          # 3.5 × the affiliation size, as on the slide cover
-    y_title = 82
-    y_auth = y_title + title_h + 6
-    y_affil = y_auth + authors_h + 10
-    HH = y_affil + emblem + 24
-    rect(s, 0, 0, W, HH, NAVY).name = "머리 배경"
-    picture(s, ASSETS / "logo/hbrlrg-horizontal-reverse.png", M, 30, h=22)
-    text(s, W - M - 420, 30, 420, 22, "CONFERENCE NAME 2026  ·  POSTER P-00",
-         T["eyebrow"], TEAL, bold=True, align=PP_ALIGN.RIGHT, tracking=0.14,
-         anchor=MSO_ANCHOR.MIDDLE, name="학회명 · 포스터 번호")
-    rect(s, M, 70, 40, 3, TEAL).name = "청록 막대"
-    text(s, M, y_title, W - 2 * M, title_h, title, T["title"], WHITE, bold=True,
-         spacing=0.98, name="제목")
-    text(s, M, y_auth, W - 2 * M, authors_h, [authors], T["authors"], WHITE, spacing=1.2,
-         name="저자")
-    # The emblem always travels with the affiliation it stands for, and the
-    # text is centred on it (design system §7).
-    ew, _ = picture(s, ASSETS / "unist-emblem-onnavy.png", M, y_affil, h=emblem)
-    ax = M + ew + T["affil"] * PT_MM
-    text(s, ax, y_affil, W - M - ax, emblem,
-         [[("1 ", {"sup": True}),
-           ("Graduate School of Semiconductor Materials & Devices Engineering, "
-            "Ulsan National Institute of Science and Technology (UNIST)", {})],
-          [("* Corresponding author  ·  hbrlee@unist.ac.kr", {})]],
-         T["affil"], ON_NAVY, spacing=1.3, anchor=MSO_ANCHOR.MIDDLE, name="소속")
-
-    # footer ---------------------------------------------------------------
-    FH = F["footer_h"]
-    fy = H - FH
-    rect(s, 0, fy, W, FH, SURFACE).name = "꼬리 배경"
-    qr = 52
-    ty = fy + 14
-    P.label(s, M, ty, 380, "CONTACT")
-    text(s, M, ty + P.label_h(), 380, 40,
-         ["First Author  ·  first.author@unist.ac.kr",
-          [("HBRL Research Group  ·  https://hbrl-research.group",
-            {"size": T["small"], "colour": MUTED})]],
-         26, INK, spacing=1.35, name="연락처")
-    ack_x = M + 400
-    P.label(s, ack_x, ty, 300, "ACKNOWLEDGEMENTS")
-    text(s, ack_x, ty + P.label_h(), W - M - qr - 20 - ack_x, 40,
-         "This work was supported by the funding agency (grant no. 0000-0000). "
-         "Replace with your own funding statement.",
-         T["small"], MUTED, spacing=1.35, name="사사")
-    picture(s, ASSETS / "qr/hbrl-research-group.png", W - M - qr, fy + (FH - qr) / 2, h=qr)
-
-    # body -----------------------------------------------------------------
-    top, bottom = HH + 32, fy - 32
-    columns = [
-        [("heading", "01", "Introduction"),
-         ("text", "Two or three sentences: the problem, why it matters to the field, "
-                  "and the gap this work fills. Body text stays at 30 pt — it is read "
-                  "by someone standing in front of the poster, not leaning in."),
-         ("bullets", ["State the question you answered",
-                      "Give the one number that frames it",
-                      "Say what was missing before"]),
-         ("gap",),
-         ("heading", "02", "Methods"),
-         ("text", "Only what a visitor needs to trust the result: process, "
-                  "precursors, conditions. The full recipe belongs in the paper."),
-         ("flex", 1, "free", "Figure 1. Process schematic or reactor layout.")],
-        [("heading", "03", "Results"),
-         ("text", "Lead with the finding. One claim per figure, and the claim in "
-                  "the caption, so the poster still reads with the text skipped."),
-         ("figure", 2, 16 / 9, "16:9", "Figure 2. The main result, as large as it can be."),
-         ("text", "Point out what to look at in Figure 2 — the axis, the trend, "
-                  "the crossover. Visitors will not find it on their own."),
-         ("flex", 3, "free", "Figure 3. Supporting data.")],
-        [("heading", "04", "Discussion"),
-         ("text", "What the result means, and how it compares with what was "
-                  "known. Keep it to the comparison the figure below shows."),
-         ("flex", 4, "free", "Figure 4. Comparison with prior work or a control."),
-         ("gap",),
-         ("conclusion", "05", "Conclusion",
-          ["The finding, in one sentence",
-           "What it changes for the field",
-           "What comes next"]),
-         ("gap",),
-         ("references", ["[1] A. Author et al., Chem. Mater. 36, 1234 (2024).",
-                         "[2] B. Author et al., Adv. Mater. 35, 2301234 (2023).",
-                         "[3] C. Author et al., ACS Nano 17, 5678 (2023)."])],
-    ]
-    report = [P.column(s, x, top, bottom, blocks) for x, blocks in zip(P.col_x, columns)]
-
-    out = Path(out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    prs.save(out)
-    for i, (end, fh) in enumerate(report, 1):
-        print(f"  {i}단 끝 {end:6.1f} mm (본문 하단 {bottom:.1f}) · 가변 그림 높이 {fh:.0f} mm")
-    print(f"  {out.name}  {F['name']} {W} × {H} mm · 머리 {HH:.0f} mm")
-    return out
+def build(size, style, outdir, font_dir, measure=None):
+    P = Poster(size, style, measure or Measure(font_dir))
+    return P.build(Path(outdir) / f"hbrlrg-poster-{size}-{style}.pptx")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("outdir", nargs="?", default="office")
-    ap.add_argument("--format", default="a0-portrait", choices=sorted(FORMATS))
+    ap.add_argument("--size", default="all", choices=sorted(SIZES) + ["all"])
+    ap.add_argument("--style", default="all", choices=list(STYLES) + ["all"])
     ap.add_argument("--fonts", help="Archivo-Regular.ttf · Archivo-Bold.ttf 가 있는 폴더")
     a = ap.parse_args()
-    build(a.format, Path(a.outdir) / f"hbrlrg-poster-{a.format}.pptx", find_fonts(a.fonts))
+    m = Measure(find_fonts(a.fonts))
+    for size in SIZES if a.size == "all" else [a.size]:
+        for style in STYLES if a.style == "all" else [a.style]:
+            build(size, style, a.outdir, None, m)

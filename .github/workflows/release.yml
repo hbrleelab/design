@@ -73,9 +73,11 @@ jobs:
       - name: Build poster template
         run: |
           python3 tools/build_poster.py office --fonts .fonts
-          python3 .claude/skills/hbrlrg-design/scripts/embed_fonts.py \
-            office/hbrlrg-poster-a0-portrait.pptx office/embedded.pptx .fonts
-          mv office/embedded.pptx office/hbrlrg-poster-a0-portrait.pptx
+          for f in office/hbrlrg-poster-*.pptx; do
+            python3 .claude/skills/hbrlrg-design/scripts/embed_fonts.py \
+              "$f" office/embedded.pptx .fonts
+            mv office/embedded.pptx "$f"
+          done
 
       # A schema-invalid part is what makes Office offer "repair" instead of
       # opening the file. v1.9 shipped one and an external recipient could not
@@ -105,7 +107,7 @@ jobs:
           files: |
             hbrlrg-templates.zip
             office/hbrlrg-slides.pptx
-            office/hbrlrg-poster-a0-portrait.pptx
+            office/hbrlrg-poster-*.pptx
             office/hbrlrg-letterhead-kr.docx
             office/hbrlrg-letterhead-en.docx
             office/hbrlrg-plain-kr.docx

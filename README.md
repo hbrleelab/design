@@ -9,7 +9,7 @@ HBRL Research Group (UNIST) 의 문서 · 슬라이드 · 웹 공통 디자인 �
 **Get the templates · 최신 템플릿 받기** → [Releases](../../releases/latest)
 · everything `hbrlrg-templates.zip` · PowerPoint `hbrlrg-slides.pptx` · Word `hbrlrg-*.docx`
 **Phone-readable documents · 휴대폰에서 읽는 문서** → [`mobile/`](mobile/)
-**Conference posters · 학회 포스터** → [`posters/`](posters/) · PowerPoint `hbrlrg-poster-a0-portrait.pptx`
+**Conference posters · 학회 포스터** → [`posters/`](posters/) · PowerPoint `hbrlrg-poster-<a0|kcs>-<standard|panel|band>.pptx`
 **Read the spec · 디자인 규격 보기** → https://hbrleelab.github.io/design/
 (the page has a KO / EN switch · 페이지에 한글 · 영문 전환 버튼이 있습니다)
 
@@ -34,9 +34,9 @@ mobile/             Phone-readable documents · 휴대폰용 문서 템플릿
   README.md             Usage and the table rule · 사용법과 표 규칙
   sample/               Worked example + PDF · 예제와 샘플 PDF
 
-posters/            Conference poster, A0 portrait · 학회 포스터, A0 세로
-  README.md             Grid, type sizes, editing, printing · 격자 · 글자 크기 · 편집 · 인쇄
-  sample/               Sample PDF + preview · 샘플 PDF 와 미리보기
+posters/            Conference posters, 2 columns · 학회 포스터, 2단
+  README.md             Student guide (English) · 학생용 사용법 (영문)
+  sample/               Six sample PDFs + previews · 샘플 PDF 6종과 미리보기
 
 references/posters/ Layout references for the poster template · 포스터 템플릿용 레이아웃 참고 자료
 
@@ -71,7 +71,8 @@ office/             PowerPoint and Word, built by each release
   hbrlrg-slides.pptx              12 layouts, fonts embedded · 슬라이드 12종
   hbrlrg-letterhead-kr / -en.docx Letterhead · 레터헤드
   hbrlrg-plain-kr / -en.docx      Plain document · 기본 문서
-  hbrlrg-poster-a0-portrait.pptx  Conference poster, A0 portrait · 학회 포스터
+  hbrlrg-poster-a0-*.pptx         Poster, A0, three styles · 포스터 A0, 스타일 3종
+  hbrlrg-poster-kcs-*.pptx        Poster, 900 × 1200 (KCS) · 포스터 900 × 1200
 
 deck-stage.js       Slide viewer: navigation, notes, print · 슬라이드 뷰어
 image-slot.js       Image placeholder, drag and drop · 이미지 자리표시자
