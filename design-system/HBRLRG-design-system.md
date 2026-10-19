@@ -388,6 +388,31 @@ box (the CM logo comes with its own white box).
 **하지 않을 것** — 본문 슬라이드에 엠블럼 · CM 로고 삽입(푸터의 HBRLRG 로고만),
 가운데 정렬, 로고를 청록/네이비 배경 위에 흰 박스 없이 얹기(CM 로고는 자체 흰 박스를 포함한 형태를 씁니다).
 
+### 7-2. The light deck · 밝은 판
+
+The deck comes in two tones with the same 12 layouts at the same coordinates.
+The light deck changes only the five slides that are dark in the dark deck:
+
+슬라이드는 같은 12종 레이아웃 · 같은 좌표로 두 가지 톤이 있습니다. 밝은 판은
+어두운 판에서 어두운 다섯 장만 바꿉니다.
+
+| Slide · 슬라이드 | Dark · 어두운 판 | Light · 밝은 판 |
+| --- | --- | --- |
+| Cover, closing · 표지 · 맺음 | Navy; `hbrlrg-horizontal-reverse`, `unist-emblem-onnavy`; rule `#2C4066` | White; `hbrlrg-horizontal`, `unist-emblem`; rule `#E4E7EC`; secondary text Muted |
+| Section break · 섹션 구분 | Navy | Surface `#F6F7F9`, navy title |
+| Full-bleed image · 전면 이미지 | Navy fade, white caption | White caption plate (48 px padding), navy caption |
+| Statement · 선언 | Teal ground, white type | White ground, navy type, teal quote mark |
+
+- Swap the logo **file** for the ground, never its colour (§4). The CM artwork
+  carries its own white box and serves both.<br>
+  배경에 맞춰 로고 **파일**을 바꾸고 색은 바꾸지 않습니다(§4). CM 로고는 자체 흰
+  박스가 있어 두 판에 같은 파일을 씁니다.
+- The teal cap stays where it is on every slide. Teal is never small body text
+  on white (§1).<br>
+  청록 캡은 모든 슬라이드에서 같은 자리입니다. 흰 바탕에서 청록을 작은 본문 글자색으로 쓰지 않습니다(§1).
+- One tone per talk — don't mix a light cover with dark breaks.<br>
+  한 발표에는 한 톤만 — 밝은 표지에 어두운 구분 슬라이드를 섞지 않습니다.
+
 ---
 
 ## 8. Affiliation — exactly as written · 소속 표기 — 정확히 이대로
@@ -427,7 +452,7 @@ Never abbreviate it or reorder it. In English, never spell `&` out as `and`.
 | --- | --- |
 | `documents/letterhead-en.html` / `letterhead-kr.html` | Letterhead markup · 레터헤드 문서 마크업 |
 | `documents/plain-en.html` / `plain-kr.html` | Plain document markup · 기본 문서 마크업 |
-| `slides/slides-en.html` | Slide template, 12 layouts · 슬라이드 템플릿 12종 |
+| `slides/slides-en-dark.html` / `slides-en-light.html` | Slide template, 12 layouts, dark and light · 슬라이드 템플릿 12종 — 어두운 판 / 밝은 판 |
 | `web/hbrlrg.css` | Web stylesheet: tokens + components · 웹용 스타일시트 (토큰 + 컴포넌트) |
 | `assets/logo/hbrlrg-horizontal.svg` (+ `.png`) | HBRLRG horizontal logo, light grounds · 가로형 로고 — 밝은 배경용 |
 | `assets/logo/hbrlrg-horizontal-reverse.svg` (+ `.png`) | Horizontal logo, dark grounds · 가로형 로고 — 어두운 배경용 |

@@ -18,6 +18,7 @@ from pptx import Presentation
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
+from pptx.oxml.ns import qn as pqn
 from pptx.util import Emu, Inches, Pt
 
 import docx
@@ -132,31 +133,36 @@ def header(slide, eyebrow, heading, subtitle=None):
     return 268
 
 
-def lockup(slide, last_line):
+def lockup(slide, last_line, light=False):
     """The credential block the cover and the closing slide both carry.
 
     Two columns: UNIST emblem + affiliation, then the Chemistry of Materials
     logo + editorial title. Both slides use the same geometry as the HTML, so
     they cannot drift apart; every number here is the px value from
-    slides/slides-en.html.
+    slides/slides-en-dark.html (the light deck shares it).
+
+    On white the emblem file swaps for the light-ground tile; the CM artwork
+    carries its own white box, so the one file serves both grounds.
 
     Each logo's width comes from the file, never from a hard-coded box — the CM
     artwork is 2.0:1, and stating a width stretched it in an earlier version.
     """
-    rect(slide, MARGIN, 814, BODY_W, 1, NAVY_RULE)
-    text(slide, MARGIN, 840, 900, 40, NAME, 30, WHITE, bold=True, spacing=1.15)
+    fg, sub, dim = (NAVY, MUTED, MUTED) if light else (WHITE, ON_NAVY, ON_NAVY_DIM)
+    rect(slide, MARGIN, 814, BODY_W, 1, HAIRLINE if light else NAVY_RULE)
+    text(slide, MARGIN, 840, 900, 40, NAME, 30, fg, bold=True, spacing=1.15)
 
-    emblem = picture(slide, "unist-emblem-onnavy.png", MARGIN, 892, 84)
+    emblem = picture(slide, "unist-emblem.png" if light else "unist-emblem-onnavy.png",
+                     MARGIN, 892, 84)
     x = MARGIN + emblem.width / px(1) + 24
-    text(slide, x, 892, 543, 84, AFFIL, 24, ON_NAVY, spacing=1.35,
+    text(slide, x, 892, 543, 84, AFFIL, 24, sub, spacing=1.35,
          anchor=MSO_ANCHOR.MIDDLE)
 
     cm = picture(slide, "cm-logo-onnavy.png", 773, 881, 109)
     x = 773 + cm.width / px(1) + 28
-    text(slide, x, 881, 501, 109, EDITOR, 24, ON_NAVY, spacing=1.35,
+    text(slide, x, 881, 501, 109, EDITOR, 24, sub, spacing=1.35,
          anchor=MSO_ANCHOR.MIDDLE)
 
-    text(slide, MARGIN, 1013, 900, 40, last_line, 24, ON_NAVY_DIM, wrap=False)
+    text(slide, MARGIN, 1013, 900, 40, last_line, 24, dim, wrap=False)
 
 
 def footer(slide, section=None, on_navy=False):
@@ -194,7 +200,11 @@ def slot(slide, x, y, w, h, label):
     return box
 
 
-def build_pptx(out):
+def build_pptx(out, light=False):
+    """The 12-layout deck. light=True keeps every layout and its geometry and
+    moves the five dark grounds (cover, section, full-bleed, statement,
+    closing) onto white or Surface: the regular logo instead of the reverse,
+    navy type instead of white. The content slides are white in both."""
     prs = Presentation()
     prs.slide_width, prs.slide_height = px(W_PX), px(H_PX)
     blank = prs.slide_layouts[6]
@@ -204,14 +214,18 @@ def build_pptx(out):
         rect(s, 0, 0, W_PX, H_PX, bg)
         return s
 
+    dark_bg = WHITE if light else NAVY
+    logo = "logo/hbrlrg-horizontal.png" if light else "logo/hbrlrg-horizontal-reverse.png"
+    fg, sub = (NAVY, MUTED) if light else (WHITE, ON_NAVY)
+
     # 01 Title -------------------------------------------------------------
-    s = new(NAVY)
-    picture(s, "logo/hbrlrg-horizontal-reverse.png", MARGIN, 96, 68)
+    s = new(dark_bg)
+    picture(s, logo, MARGIN, 96, 68)
     rect(s, MARGIN, 248, 88, 5, TEAL)
-    text(s, MARGIN, 283, 1560, 240, "Presentation title goes here", 108, WHITE,
+    text(s, MARGIN, 283, 1560, 240, "Presentation title goes here", 108, fg,
          bold=True, spacing=1.02)
-    text(s, MARGIN, 560, 1500, 70, "One line that unpacks the title", 36, ON_NAVY)
-    lockup(s, "Venue  ·  Month 00, 2026")
+    text(s, MARGIN, 560, 1500, 70, "One line that unpacks the title", 36, sub)
+    lockup(s, "Venue  ·  Month 00, 2026", light)
     s.notes_slide.notes_text_frame.text = (
         "표지. 제목은 26자 안팎에서 줄이 바뀝니다. 발표 장소와 날짜는 맨 아래 줄에."
     )
@@ -228,10 +242,12 @@ def build_pptx(out):
     s.notes_slide.notes_text_frame.text = "목차. 번호는 본문 슬라이드 아이브로우와 짝을 맞춥니다."
 
     # 03 Section -----------------------------------------------------------
-    s = new(NAVY)
+    # Surface rather than white on the light deck, so a section break still
+    # reads as a pause between runs of white content slides.
+    s = new(SURFACE if light else NAVY)
     rect(s, MARGIN, 440, 88, 5, TEAL)
     text(s, MARGIN, 486, 1400, 60, "02", 32, TEAL, bold=True, tracking=0.14)
-    text(s, MARGIN, 540, 1560, 160, "Section title", 104, WHITE, bold=True,
+    text(s, MARGIN, 540, 1560, 160, "Section title", 104, fg, bold=True,
          spacing=1.05)
     s.notes_slide.notes_text_frame.text = "섹션 구분. 번호는 목차와 같게."
 
@@ -320,36 +336,60 @@ def build_pptx(out):
     footer(s, "Process Optimization")
 
     # 10 Full-bleed image --------------------------------------------------
-    s = new(NAVY)
+    s = new(dark_bg)
     slot(s, 0, 0, W_PX, H_PX, "Drop an equipment or laboratory photograph")
+    if light:
+        # A white caption plate instead of navy type straight on the photo:
+        # navy on an unknown photograph is unreadable half the time.
+        rect(s, 72, 764, 1100, 244, WHITE)
     rect(s, MARGIN, 812, 88, 5, TEAL)
-    text(s, MARGIN, 856, 1400, 100, "Caption over the image", 72, WHITE, bold=True)
-    s.notes_slide.notes_text_frame.text = "전면 이미지. 사진을 넣으면 회색 자리를 덮습니다."
+    text(s, MARGIN, 856, 1000 if light else 1400, 100, "Caption over the image", 72,
+         fg, bold=True)
+    s.notes_slide.notes_text_frame.text = "전면 이미지. 사진을 넣으면 회색 자리를 덮습니다." + (
+        " 사진을 넣은 뒤 흰 설명판과 제목을 맨 앞으로 가져오세요." if light else "")
 
     # 11 Statement ---------------------------------------------------------
-    s = new(TEAL)
-    text(s, MARGIN, 400, BODY_W, 300,
-         "One sentence the audience should leave with.", 84, WHITE, bold=True,
-         spacing=1.15)
-    s.notes_slide.notes_text_frame.text = "선언. 한 문장만. 강조색 위이므로 로고는 넣지 않습니다."
+    if light:
+        s = new(WHITE)
+        rect(s, MARGIN, 340, 88, 5, TEAL)
+        text(s, MARGIN, 400, BODY_W, 300,
+             "One sentence the audience should leave with.", 84, NAVY, bold=True,
+             spacing=1.15)
+        s.notes_slide.notes_text_frame.text = "선언. 한 문장만. 로고는 넣지 않습니다."
+    else:
+        s = new(TEAL)
+        text(s, MARGIN, 400, BODY_W, 300,
+             "One sentence the audience should leave with.", 84, WHITE, bold=True,
+             spacing=1.15)
+        s.notes_slide.notes_text_frame.text = "선언. 한 문장만. 강조색 위이므로 로고는 넣지 않습니다."
 
     # 12 Closing -----------------------------------------------------------
     # The closing carries the same credential lockup as the cover: an audience
     # photographs this slide, so both affiliations have to be on it. It takes no
     # standard footer — the lockup occupies that space.
-    s = new(NAVY)
-    picture(s, "logo/hbrlrg-horizontal-reverse.png", MARGIN, 96, 68)
+    s = new(dark_bg)
+    picture(s, logo, MARGIN, 96, 68)
     rect(s, MARGIN, 438, 88, 5, TEAL)
-    text(s, MARGIN, 471, 1560, 110, "Thank you", 92, WHITE, bold=True,
+    text(s, MARGIN, 471, 1560, 110, "Thank you", 92, fg, bold=True,
          spacing=1.04)
     text(s, MARGIN, 595, 1400, 60,
-         "Questions and collaboration proposals are welcome.", 32, ON_NAVY,
+         "Questions and collaboration proposals are welcome.", 32, sub,
          spacing=1.45)
-    lockup(s, CONTACT)
+    lockup(s, CONTACT, light)
     s.notes_slide.notes_text_frame.text = (
         "맺음. 표지와 같은 소속 로크업 — UNIST 와 Chemistry of Materials 둘 다."
     )
 
+    if light:
+        # Every rectangle sets its own fill and line, but still points at the
+        # theme's effect style. PowerPoint honours the empty effectLst and
+        # draws no shadow; LibreOffice, Keynote and the PDF sample draw one,
+        # and on white it shows as a grey smear under every bar and plate.
+        for slide in prs.slides:
+            for shape in slide.shapes:
+                style = shape._element.find(pqn("p:style"))
+                if style is not None:
+                    shape._element.remove(style)
     prs.save(out)
     return len(prs.slides.__iter__.__self__._sldIdLst)
 
@@ -527,8 +567,9 @@ def main():
     outdir = Path(sys.argv[1] if len(sys.argv) > 1 else "office")
     outdir.mkdir(parents=True, exist_ok=True)
 
-    n = build_pptx(outdir / "hbrlrg-slides.pptx")
-    print(f"  hbrlrg-slides.pptx        {n} slides")
+    for tone in ("dark", "light"):
+        n = build_pptx(outdir / f"hbrlrg-slides-{tone}.pptx", light=tone == "light")
+        print(f"  hbrlrg-slides-{tone}.pptx  {n} slides")
 
     for name, lh, ko in (("letterhead-kr", True, True), ("letterhead-en", True, False),
                          ("plain-kr", False, True), ("plain-en", False, False)):

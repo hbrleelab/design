@@ -7,7 +7,7 @@ HBRL Research Group (UNIST) 의 문서 · 슬라이드 · 웹 공통 디자인 �
 연구실 구성원이라면 누구나 여기서 최신 템플릿을 받아 쓸 수 있습니다.
 
 **Get the templates · 최신 템플릿 받기** → [Releases](../../releases/latest)
-· everything `hbrlrg-templates.zip` · PowerPoint `hbrlrg-slides.pptx` · Word `hbrlrg-*.docx`
+· everything `hbrlrg-templates.zip` · PowerPoint `hbrlrg-slides-dark.pptx` / `-light.pptx` · Word `hbrlrg-*.docx`
 **Phone-readable documents · 휴대폰에서 읽는 문서** → [`mobile/`](mobile/)
 **Conference posters · 학회 포스터** → [`posters/`](posters/) · PowerPoint `hbrlrg-poster-<a0|kcs>-<standard|panel|band>.pptx`
 **Read the spec · 디자인 규격 보기** → https://hbrleelab.github.io/design/
@@ -25,7 +25,8 @@ documents/          A4 document templates · A4 문서 템플릿
   plain-en.html         Plain document, English · 기본 문서 (영문)
 
 slides/             16:9 slide template, 1920×1080 · 16:9 슬라이드 템플릿
-  slides-en.html        12 layouts · 12종 레이아웃
+  slides-en-dark.html   12 layouts, navy cover and breaks · 12종, 남색 표지 · 구분
+  slides-en-light.html  The same 12 on light grounds · 같은 12종, 밝은 바탕
 
 mobile/             Phone-readable documents · 휴대폰용 문서 템플릿
   hbrlrg-mobile.css     A5 portrait, pared back · A5 세로, 요소를 덜어낸 판
@@ -68,7 +69,8 @@ assets/
 
 office/             PowerPoint and Word, built by each release
                     파워포인트 · 워드 판 (릴리스에서 자동 생성)
-  hbrlrg-slides.pptx              12 layouts, fonts embedded · 슬라이드 12종
+  hbrlrg-slides-dark.pptx         12 layouts, navy cover and breaks · 슬라이드 12종, 어두운 판
+  hbrlrg-slides-light.pptx        The same 12 on light grounds · 같은 12종, 밝은 판
   hbrlrg-letterhead-kr / -en.docx Letterhead · 레터헤드
   hbrlrg-plain-kr / -en.docx      Plain document · 기본 문서
   hbrlrg-poster-a0-*.pptx         Poster, A0, three styles · 포스터 A0, 스타일 3종
@@ -96,7 +98,7 @@ A4 여백(18 mm)과 페이지 나눔은 자동입니다. `@page` 설정을 따�
 
 ### Slides · 슬라이드
 
-1. Open `slides/slides-en.html` in a browser<br>`slides/slides-en.html` 을 브라우저로 엽니다
+1. Open `slides/slides-en-dark.html` or `slides/slides-en-light.html` in a browser (see below for which)<br>`slides/slides-en-dark.html` 또는 `slides/slides-en-light.html` 을 브라우저로 엽니다 (고르는 법은 아래)
 2. Move with ← →; pick or reorder slides in the thumbnail strip below<br>← → 키로 넘기고, 하단 썸네일에서 슬라이드를 고르거나 순서를 바꿉니다
 3. Right-click a thumbnail to delete a layout you don't need<br>필요 없는 레이아웃은 썸네일에서 우클릭 → 삭제
 4. **Drag and drop** a plot or a micrograph onto any grey image area<br>회색 이미지 영역에 플롯 · 현미경 사진을 **끌어다 놓으면** 채워집니다
@@ -107,6 +109,31 @@ figure (two up) · figure + text · table · metrics · full-bleed image · quot
 
 레이아웃 12종: 표지 · 목차 · 섹션 구분 · 본문 · 그림(전면) · 그림(2단) ·
 그림+설명 · 표 · 수치 · 전면 이미지 · 인용 · 맺음.
+
+#### Dark or light · 어두운 판과 밝은 판 고르기
+
+Both decks have the same 12 layouts in the same places. They differ only on the
+five slides that frame the talk — cover, section break, full-bleed image,
+statement, closing. The content slides are white in both.
+
+![Dark deck (top) and light deck (bottom): cover, section break, full-bleed image, statement, closing](slides/preview-dark-light.png)
+
+두 판은 같은 12종 레이아웃을 같은 자리에 둡니다. 다른 것은 발표의 틀을 잡는 다섯
+장 — 표지 · 섹션 구분 · 전면 이미지 · 선언 · 맺음 — 뿐이고, 본문 슬라이드는 둘 다
+흰 바탕입니다.
+
+| | Dark · 어두운 판 | Light · 밝은 판 |
+| --- | --- | --- |
+| Cover, closing · 표지 · 맺음 | Navy, reverse logo · 남색, 반전 로고 | White, regular logo · 흰색, 일반 로고 |
+| Section break · 섹션 구분 | Navy · 남색 | Light grey (`#F6F7F9`) · 옅은 회색 |
+| Full-bleed image · 전면 이미지 | Caption on a navy fade · 남색 그러데이션 위 설명 | Caption on a white plate · 흰 설명판 |
+| Statement · 선언 | Teal ground · 청록 바탕 | White, navy type · 흰 바탕, 남색 글자 |
+| Pick it for · 이럴 때 | Dim halls, keynote-style talks; strong section breaks · 어두운 강당, 기조 강연 · 구분이 또렷해야 할 때 | Bright seminar rooms and weak projectors; decks that get printed or read as PDF · 밝은 세미나실 · 약한 프로젝터, 인쇄하거나 PDF 로 읽힐 때 |
+
+Don't mix the two in one talk — pick one and use its cover, breaks and closing
+together.
+
+한 발표에서 섞지 마세요. 하나를 골라 그 판의 표지 · 구분 · 맺음을 함께 씁니다.
 
 Your data is the point of the talk, so every content layout deliberately leaves
 everything below the top 268 px **empty**. That space is for your plots.

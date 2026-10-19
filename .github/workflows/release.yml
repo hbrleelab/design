@@ -58,9 +58,11 @@ jobs:
         run: |
           python3 tools/build_office.py office
           scripts=.claude/skills/hbrlrg-design/scripts
-          python3 $scripts/embed_fonts.py \
-            office/hbrlrg-slides.pptx office/embedded.pptx .fonts
-          mv office/embedded.pptx office/hbrlrg-slides.pptx
+          for tone in dark light; do
+            python3 $scripts/embed_fonts.py \
+              "office/hbrlrg-slides-$tone.pptx" office/embedded.pptx .fonts
+            mv office/embedded.pptx "office/hbrlrg-slides-$tone.pptx"
+          done
           for d in letterhead-kr letterhead-en plain-kr plain-en; do
             python3 $scripts/embed_docx_fonts.py \
               "office/hbrlrg-$d.docx" "office/embedded.docx" .fonts
@@ -85,7 +87,7 @@ jobs:
       - name: Validate against ISO/IEC 29500 schemas
         run: |
           python3 .claude/skills/hbrlrg-design/scripts/qa_schema.py \
-            office/hbrlrg-slides.pptx office/hbrlrg-poster-*.pptx office/hbrlrg-*.docx
+            office/hbrlrg-slides-*.pptx office/hbrlrg-poster-*.pptx office/hbrlrg-*.docx
 
       - name: Package templates
         run: zip -r hbrlrg-templates.zip documents slides mobile posters design-system web assets office *.js README.md
@@ -106,7 +108,8 @@ jobs:
           append_body: true
           files: |
             hbrlrg-templates.zip
-            office/hbrlrg-slides.pptx
+            office/hbrlrg-slides-dark.pptx
+            office/hbrlrg-slides-light.pptx
             office/hbrlrg-poster-*.pptx
             office/hbrlrg-letterhead-kr.docx
             office/hbrlrg-letterhead-en.docx

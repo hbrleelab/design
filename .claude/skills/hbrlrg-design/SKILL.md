@@ -119,7 +119,7 @@ logos, viewer, and print engine all load:
 
 ```
 assets/kit/
-├── slides/slides-en.html            12 layouts, 1920x1080
+├── slides/slides-en-{dark,light}.html  12 layouts, 1920x1080, two tones
 ├── documents/letterhead-{kr,en}.html, plain-{kr,en}.html
 ├── web/hbrlrg.css, index.html       homepage stylesheet + reference markup
 ├── assets/logo/                     the mark, every variant

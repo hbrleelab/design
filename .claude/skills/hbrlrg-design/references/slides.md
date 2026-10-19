@@ -13,9 +13,13 @@ So the 60 px heading below is 30 pt in PowerPoint, and the 120 px side margin is
 > Keynote documents set to 1920 × 1080 use those numbers as their own unit, so
 > type sizes go in **1:1** there — halving them renders everything at half size.
 
-`../assets/kit/slides/slides-en.html` is the working reference — 12 layouts:
+`../assets/kit/slides/slides-en-dark.html` is the working reference — 12 layouts:
 Title · Agenda · Section · Content · Figure (full) · Figure (two up) ·
 Figure + text · Data · Metrics · Full-bleed image · Statement · Closing.
+`slides-en-light.html` is the same deck on light grounds: cover, section,
+full-bleed caption, statement and closing move off navy/teal (white or
+`#F6F7F9`, regular logo, light-ground emblem). Coordinates are identical; see
+spec §7-2.
 
 **These coordinates were measured from a delivered deck** (2026-08-21, Applied
 Materials invited talk) rather than authored in the abstract. Where the deck and
@@ -129,7 +133,7 @@ Letterboxing is the correct behaviour for data; the Surface fill `#F6F7F9`
 absorbs the margins cleanly. Reserve `cover` for photographs and full-bleed
 imagery.
 
-Slot rectangles in `slides-en.html` (1680 × 680 content band):
+Slot rectangles in `slides-en-dark.html` / `-light.html` (1680 × 680 content band):
 
 | Layout | Slot | Aspect |
 |---|---|---|
