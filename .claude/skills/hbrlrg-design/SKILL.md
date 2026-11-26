@@ -153,3 +153,11 @@ When density fights the template — an industry talk carrying far more per slid
 than the template's four bullets — keep the tokens and the page furniture, and
 let the type scale down. Do not add a second accent to create hierarchy that
 size should be carrying.
+
+## Slide components (v1.17)
+
+For what goes *inside* a slide — key numbers, charts, tables, process conditions,
+images, comparisons, mechanisms, cause-and-effect and relationship maps — use the
+components in `components/slide-components.md` (repository root). Numbers go in the
+title and on the data, not in big-number tiles; relationship nodes (C13/C14) are the
+only place rounded corners are allowed.

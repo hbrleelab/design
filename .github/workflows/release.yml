@@ -87,10 +87,11 @@ jobs:
       - name: Validate against ISO/IEC 29500 schemas
         run: |
           python3 .claude/skills/hbrlrg-design/scripts/qa_schema.py \
-            office/hbrlrg-slides-*.pptx office/hbrlrg-poster-*.pptx office/hbrlrg-*.docx
+            office/hbrlrg-slides-*.pptx office/hbrlrg-poster-*.pptx office/hbrlrg-*.docx \
+            components/hbrlrg-slide-components.pptx
 
       - name: Package templates
-        run: zip -r hbrlrg-templates.zip documents slides mobile posters design-system web assets office *.js README.md
+        run: zip -r hbrlrg-templates.zip documents slides mobile posters components design-system web assets office *.js README.md
 
       # A release that fixes something needs a human explanation, not just a
       # commit list. docs/release-notes/<version>.md is used when present.
@@ -110,6 +111,7 @@ jobs:
             hbrlrg-templates.zip
             office/hbrlrg-slides-dark.pptx
             office/hbrlrg-slides-light.pptx
+            components/hbrlrg-slide-components.pptx
             office/hbrlrg-poster-*.pptx
             office/hbrlrg-letterhead-kr.docx
             office/hbrlrg-letterhead-en.docx

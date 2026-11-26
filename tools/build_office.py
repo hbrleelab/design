@@ -133,6 +133,14 @@ def header(slide, eyebrow, heading, subtitle=None):
     return 268
 
 
+def _pad_right(name):
+    """Fraction of the file's width that is transparent on the right of the artwork."""
+    from PIL import Image
+    with Image.open(ASSETS / name) as im:
+        box = im.convert("RGBA").split()[-1].getbbox() or (0, 0, im.width, im.height)
+        return (im.width - box[2]) / im.width
+
+
 def lockup(slide, last_line, light=False):
     """The credential block the cover and the closing slide both carry.
 
@@ -151,14 +159,20 @@ def lockup(slide, last_line, light=False):
     rect(slide, MARGIN, 814, BODY_W, 1, HAIRLINE if light else NAVY_RULE)
     text(slide, MARGIN, 840, 900, 40, NAME, 30, fg, bold=True, spacing=1.15)
 
-    emblem = picture(slide, "unist-emblem.png" if light else "unist-emblem-onnavy.png",
-                     MARGIN, 892, 84)
-    x = MARGIN + emblem.width / px(1) + 24
+    emblem_file = "unist-emblem.png" if light else "unist-emblem-onnavy.png"
+    emblem = picture(slide, emblem_file, MARGIN, 892, 84)
+    # Gaps are measured from the logo's visible edge, not the file's edge: both
+    # PNGs carry transparent padding (the CM artwork ~8 % each side), which made
+    # the CM text sit 46 px from the visible logo while UNIST sat 24 px (v1.17).
+    x = MARGIN + emblem.width / px(1) * (1 - _pad_right(emblem_file)) + 24
     text(slide, x, 892, 543, 84, AFFIL, 24, sub, spacing=1.35,
          anchor=MSO_ANCHOR.MIDDLE)
 
-    cm = picture(slide, "cm-logo-onnavy.png", 773, 881, 109)
-    x = 773 + cm.width / px(1) + 28
+    # The CM block moves left by the emblem's own right padding, so the gap
+    # between the two blocks is the same on both grounds.
+    cm_x = 773 - round(84 * _pad_right(emblem_file))
+    cm = picture(slide, "cm-logo-onnavy.png", cm_x, 881, 109)
+    x = cm_x + cm.width / px(1) * (1 - _pad_right("cm-logo-onnavy.png")) + 24
     text(slide, x, 881, 501, 109, EDITOR, 24, sub, spacing=1.35,
          anchor=MSO_ANCHOR.MIDDLE)
 

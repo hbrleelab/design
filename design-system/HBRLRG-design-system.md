@@ -415,6 +415,23 @@ The light deck changes only the five slides that are dark in the dark deck:
 
 ---
 
+## 7-A. Slide components · 슬라이드 컴포넌트 (v1.17)
+
+Content-type components that sit inside the slide layouts above — key numbers, bullets,
+data charts, tables, process conditions, images, comparisons, mechanisms, take-home,
+sources, timelines, section dividers, cause-and-effect (C13) and relationship maps (C14).
+Full rules, tokens and a copy-and-paste deck: [`../components/`](../components/slide-components.md).
+
+슬라이드 레이아웃 안에 들어가는 내용 유형별 컴포넌트입니다. 규칙·토큰·복사용 덱은
+[`../components/`](../components/slide-components.md) 에 있습니다.
+
+Principles that apply to every component · 모든 컴포넌트 공통 원칙:
+
+- The title states the finding as a sentence; numbers go in the title and on the data, not in big-number tiles · 제목은 결론 문장, 수치는 큰 숫자 타일이 아니라 제목과 데이터 위에
+- Grey for context, one teal highlight per slide · 맥락은 회색, 강조 청록은 한 장에 하나
+- Direct labels instead of legends; a one-line source under published data · 범례 대신 직접 라벨, 출판 데이터엔 출처 한 줄
+- Square corners everywhere, **except** relationship nodes in C13/C14 (rounded, capsule, circle — Prof. Lee, 2026-11-26) · 모서리는 직각, 단 C13·C14 관계 노드만 예외
+
 ## 8. Affiliation — exactly as written · 소속 표기 — 정확히 이대로
 
 Never abbreviate it or reorder it. In English, never spell `&` out as `and`.
@@ -433,6 +450,11 @@ Never abbreviate it or reorder it. In English, never spell `&` out as `and`.
   Never use a logo on its own.<br>
   UNIST 엠블럼과 Chemistry of Materials 로고는 위 소속 문구와 **항상 함께** 놓습니다.
   로고만 단독으로 쓰지 않습니다.
+- **Logo-to-text gap · 로고-글자 간격** 24 px (12 pt) from the logo's *visible* edge, the
+  same for both blocks — the CM artwork has transparent padding, so measure from the ink,
+  not the file (v1.17).<br>
+  로고의 *보이는* 가장자리에서 24 px(12 pt), 두 블록 같게. CM 로고 파일에 투명 여백이
+  있으므로 파일 경계가 아니라 그림 경계에서 잽니다(v1.17).
 
 ---
 

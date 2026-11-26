@@ -141,6 +141,36 @@ everything below the top 268 px **empty**. That space is for your plots.
 발표 데이터가 중심이므로 모든 본문 슬라이드는 상단 268 px 아래를
 **비워 두도록** 설계했습니다. 플롯을 붙일 자리입니다.
 
+### Slide components · 슬라이드 컴포넌트 (v1.17)
+
+The 12 layouts give you the frame; **components** decide how each kind of content
+looks inside it. Pick by *what you are putting on the slide*, then copy that slide
+from [`components/hbrlrg-slide-components.pptx`](components/hbrlrg-slide-components.pptx).
+The rules, variants and "don't" lists are on [`components/slide-components.md`](components/slide-components.md).
+
+레이아웃 12종이 틀이라면, **컴포넌트**는 그 안에 넣는 내용별 디자인입니다.
+*슬라이드에 넣을 내용*으로 고르고, [`components/hbrlrg-slide-components.pptx`](components/hbrlrg-slide-components.pptx)
+에서 해당 장을 복사해 씁니다. 규칙·변형·금지 목록은 [`components/slide-components.md`](components/slide-components.md).
+
+| Content · 내용 | Component |
+| --- | --- |
+| A value to remember · 기억할 수치 | C1 Key number — in the title + on the data, dumbbell, slope, highlighted cell (no big-number tiles) |
+| Claims with reasons · 주장과 이유 | C2 Bullet statements |
+| Measured trends · 측정 추세 | C3 Experimental data chart |
+| Exact values · 정확한 값 | C4 Data table |
+| Recipe, sequence · 공정 조건 | C5 Process conditions |
+| SEM, TEM, AFM, photos · 이미지 | C6 Micrograph / image |
+| Before/after, A vs B · 비교 | C7 Comparison |
+| How it works (pictures) · 메커니즘 그림 | C8 Mechanism schematic |
+| The "so what" · 결론 | C9 Take-home |
+| Where it came from · 출처 | C10 Reference / source |
+| Plans, history · 일정 | C11 Timeline / roadmap |
+| New part of the talk · 구분 | C12 Section divider |
+| Cause → effect · 인과관계 | C13 — chain, cycle ring, triangle, convergent, divergent, feedback loop |
+| How things relate · 관계도 | C14 — matrix, mapping lines, radial hub, branching tree |
+
+![All component slides](components/preview/00_overview.png)
+
 ### If you'd rather work in PowerPoint or Word · 파워포인트 · 워드로 쓰고 싶다면
 
 For the times HTML won't do — co-editing with someone, a conference submission
